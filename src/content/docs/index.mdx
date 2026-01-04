@@ -1,35 +1,57 @@
 ---
-title: Survival Guide Anak TKJ
-description: Gudang materi, konfigurasi server, dan arsip laporan untuk siswa SMK TKJ Indonesia.
+title: TKJ Survival Guide 2026
+description: Modern documentation for the next generation of Network Engineers.
 template: splash
 hero:
-  tagline: Stop menghapal, mulai memahami. Kumpulan dokumentasi dan contekan konfigurasi jaringan.
+  tagline: "Master Network Engineering. Dari kabel LAN hingga Cloud Infrastructure. Dokumentasi open-source untuk siswa SMK TKJ Indonesia."
   image:
     file: ../../assets/tkj-hero.svg
-    alt: Enterprise server infrastructure and network cabling
+    alt: Next-Gen Network Topology
   actions:
-    - text: Buka Contekan
+    - text: Mulai Belajar
+      link: /mulai-di-sini/pengenalan/
+      icon: rocket
+      variant: primary
+    - text: Cheat Sheets 2026
       link: /cheat-sheets/perintah-linux/
       icon: right-arrow
-      variant: primary
-    - text: Lihat Arsip Laporan
-      link: /bank-laporan/arsip-laporan/
-      icon: external
+      variant: secondary
 ---
 
 import { Card, CardGrid } from '@astrojs/starlight/components';
 
+<div class="flex justify-center mb-8">
+  <span class="px-3 py-1 rounded-full text-sm font-semibold border border-[var(--sl-color-accent)] bg-[var(--sl-color-accent-low)] text-[var(--sl-color-accent-high)]">
+    Edisi Terupdate 2026
+  </span>
+</div>
+
 <CardGrid stagger>
-	<Card title="Mikrotik Ready" icon="setting">
-		Script copy-paste buat ujian praktek.
+	<Card title="Mikrotik RouterOS v7" icon="setting">
+		Konfigurasi modern untuk ISP & Enterprise. Scripting, API, dan manajemen bandwidth presisi.
 	</Card>
-	<Card title="Debian Server" icon="linux">
-		Tutorial instalasi dari nol sampai mumet.
+	<Card title="Linux System Administration" icon="linux">
+		Bukan sekedar instalasi. Pelajari Docker, Nginx, Systemd, dan keamanan server berbasis Debian.
 	</Card>
-	<Card title="Cisco Labs" icon="rocket">
-		Topologi Packet Tracer siap pakai.
+	<Card title="Enterprise Network Labs" icon="laptop">
+		Topologi standar industri dengan Cisco Packet Tracer & GNS3. VLAN, OSPF, hingga implementasi IPv6.
 	</Card>
-	<Card title="Laporan Tugas" icon="document">
-		Referensi biar gak dikembalikan guru.
+	<Card title="Documentation Standards" icon="open-book">
+		Panduan penyusunan laporan teknis dan topologi network yang memenuhi standar DUDI (Dunia Usaha/Industri).
 	</Card>
 </CardGrid>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
+  <div>
+    <h3 class="mb-4 text-[var(--sl-color-white)]">🚀 Kenapa Web Ini Ada?</h3>
+    <p>Dunia jaringan berubah cepat di 2026. Kami merangkum materi kurikulum SMK dan memadukannya dengan <em>best practice</em> industri agar kamu siap kerja, bukan cuma siap ujian.</p>
+  </div>
+  <div>
+    <h3 class="mb-4 text-[var(--sl-color-white)]">⚡ Fokus Materi</h3>
+    <ul>
+      <li><strong>Automation:</strong> Pengenalan dasar Python untuk Network Engineers.</li>
+      <li><strong>Cloud:</strong> Konsep dasar Virtualization & Container.</li>
+      <li><strong>Security:</strong> Hardening perangkat dan server.</li>
+    </ul>
+  </div>
+</div>
