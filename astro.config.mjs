@@ -2,6 +2,7 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import tailwind from '@astrojs/tailwind';
+import mermaid from 'astro-mermaid';
 
 import vercel from '@astrojs/vercel';
 
@@ -63,9 +64,9 @@ export default defineConfig({
       }),
       tailwind({
           // Disable base styles to prevent conflict with Starlight's styles
-          applyBaseStyles: false,
-      }),
-	],
-
+          			applyBaseStyles: false,
+          		}),
+          		mermaid(),
+          	],
   adapter: vercel(),
 });
