@@ -12,7 +12,7 @@ Idealnya gunakan laptop dengan RAM 8GB + SSD. Tapi kalau RAM cuma 4GB (**Kaum Ke
 3. *Sabar adalah kunci.*
 :::
 
-## 🛠️ Virtualization & Lab
+## Virtualization & Lab
 
 Tempat kita melakukan eksperimen tanpa takut merusak komputer asli.
 
@@ -23,7 +23,7 @@ Tempat kita melakukan eksperimen tanpa takut merusak komputer asli.
 | **Cisco Packet Tracer** | Simulasi jaringan Cisco dasar. | Wajib untuk materi Kelas X & XI. Ringan dan visual. |
 | **GNS3 / EVE-NG** | Emulasi jaringan *real-device*. | Untuk simulasi tingkat lanjut (Mikrotik CHR, Cisco IOS asli). Butuh resource besar. |
 
-## 📡 Network Configuration
+## Network Configuration
 
 Tools untuk "berbicara" dengan perangkat jaringan.
 
@@ -34,7 +34,7 @@ Tools untuk "berbicara" dengan perangkat jaringan.
 | **Termius** | SSH Client Modern (Cross-platform). | Sinkronisasi config antar device. UI cantik, fitur lengkap. |
 | **Wireshark** | Packet analyzer / Sniffing. | Untuk analisis protokol jaringan dan troubleshooting mendalam. |
 
-## 💻 Development & Text Editor
+## Development & Text Editor
 
 Karena network engineer modern juga harus bisa coding (sedikit).
 
@@ -44,7 +44,7 @@ Karena network engineer modern juga harus bisa coding (sedikit).
 | **Notepad++** | Editor teks ringan. | Cepat untuk buka log file besar atau config sederhana. |
 | **Git** | Version control system. | Untuk backup config dan kolaborasi tim. |
 
-## 🔧 Utilities Tambahan
+## Utilities Tambahan
 
 Kecil tapi sangat membantu.
 
@@ -55,7 +55,7 @@ Kecil tapi sangat membantu.
 
 ---
 
-### 📥 Download Checklist
+### Download Checklist
 
 1.  [ ] **VirtualBox** + Extension Pack
 2.  [ ] **Cisco Packet Tracer** (Login NetAcad)
