@@ -64,3 +64,37 @@ graph TD
     Switch --- PC4
     style Switch fill:#f96,stroke:#333,stroke-width:2px
 ```
+
+### 2. Topologi Bus 🚌
+
+Menggunakan satu kabel *backbone* utama.
+
+* **Kekurangan:** Jadul, rawan tabrakan data (*collision*), kabel putus = satu jaringan mati.
+
+```mermaid
+graph LR
+    Terminator1[|] --- PC1 --- PC2 --- PC3 --- Terminator2[|]
+```
+
+### 3. Topologi Mesh 🕸️
+
+Setiap komputer terhubung ke semua komputer lain.
+
+* **Kelebihan:** Paling handal (*Redundancy* tinggi).
+* **Kekurangan:** Paling mahal dan kabel ruwet. Biasa dipakai antar ISP/Router inti.
+
+---
+
+### 🧠 Cek Pemahaman
+
+1. Di layer berapa **Router** bekerja?
+2. Di layer berapa **Switch** bekerja?
+3. Kabel UTP ada di layer berapa?
+
+<details>
+<summary>Klik untuk lihat jawaban</summary>
+
+1. Layer 3 (Network)
+2. Layer 2 (Data Link)
+3. Layer 1 (Physical)
+</details>
