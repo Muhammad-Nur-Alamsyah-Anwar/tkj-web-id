@@ -6,7 +6,10 @@ description: Senjata tempur software yang harus ada di laptop anak TKJ.
 Seorang teknisi jaringan tanpa tools yang tepat bagaikan tentara tanpa senjata. Berikut adalah daftar software "Wajib Install" untuk bertahan hidup di jurusan TKJ, disesuaikan dengan standar industri tahun 2026.
 
 :::tip[Pro Tip]
-Pastikan spesifikasi laptopmu mumpuni (Min. RAM 8GB, SSD) karena kita akan banyak bermain dengan virtualisasi.
+Idealnya gunakan laptop dengan RAM 8GB + SSD. Tapi kalau RAM cuma 4GB (**Kaum Kentang**), jangan panik!
+1. Gunakan Windows versi ringan (Ghost Spectre / LTSC).
+2. Jalankan Debian Server mode CLI (tanpa GUI) biar hemat memori.
+3. *Sabar adalah kunci.*
 :::
 
 ## 🛠️ Virtualization & Lab
@@ -45,7 +48,7 @@ Karena network engineer modern juga harus bisa coding (sedikit).
 
 Kecil tapi sangat membantu.
 
-*   **Rufus / BalenaEtcher**: Untuk membuat bootable flashdisk (install ulang Windows/Linux).
+*   **Ventoy**: Solusi modern untuk bootable USB. Cukup copy-paste banyak file ISO (Windows, Debian, Ubuntu) tanpa perlu format ulang.
 *   **IP Scanner (Angry IP Scanner)**: Scan IP aktif dalam satu jaringan LAN dengan cepat.
 *   **TeamViewer / AnyDesk**: Remote desktop jarak jauh.
 *   **FileZilla**: Transfer file via FTP/SFTP ke server.
