@@ -73,7 +73,7 @@ Menggunakan satu kabel *backbone* utama.
 
 ```mermaid
 graph LR
-    Terminator1[|] --- PC1 --- PC2 --- PC3 --- Terminator2[|]
+    Terminator1["|"] --- PC1 --- PC2 --- PC3 --- Terminator2["|"]
 ```
 
 ### 3. Topologi Mesh 🕸️
