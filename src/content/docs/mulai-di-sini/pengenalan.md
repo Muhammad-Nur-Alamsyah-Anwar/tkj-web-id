@@ -15,7 +15,7 @@ Kami hadir sebagai **Survival Guide**—buku saku digital yang bisa kamu andalka
 
 Dunia jaringan komputer bergerak sangat cepat. Di tahun 2026 ini, menjadi teknisi jaringan tidak cukup hanya bisa crimping kabel LAN. Kami memperbarui materi agar relevan dengan kebutuhan industri saat ini:
 
-*   **Network Automation:** Selamat tinggal konfigurasi manual satu-persatu.
+*   **Network Automation:** Mulai meninggalkan konfigurasi manual satu-persatu. Kita belajar scripting tipis-tipis.
 *   **Cloud Native:** Pengenalan kontainerisasi dan virtualisasi modern.
 *   **Security First:** Pola pikir keamanan di setiap layer OSI.
 
@@ -43,4 +43,4 @@ Silakan buat **Pull Request** di [Repository GitHub Kami](https://github.com/Muh
 
 > *"Jaringan komputer itu seperti sistem saraf digital dunia. Kitalah dokter bedahnya."*
 
-Selamat belajar dan happy config! 💻🔌
+Selamat belajar dan happy config! 💻🔌 — **Alam (MNA)**, Maintainer.
