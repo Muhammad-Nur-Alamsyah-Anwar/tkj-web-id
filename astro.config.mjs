@@ -16,8 +16,7 @@ export default defineConfig({
               {
                   label: 'GitHub',
                   icon: 'github',
-                  href: 'https://github.com/withastro/starlight',
-              },
+                  					href: 'https://github.com/Muhammad-Nur-Alamsyah-Anwar/tkj-web-id',              },
           ],
           customCss: [],
           sidebar: [
