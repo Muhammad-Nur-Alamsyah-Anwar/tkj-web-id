@@ -1,7 +1,7 @@
 ---
 interface Props {
-  class?: string; // Fallback
-  color?: string; // e.g. "orange-500"
+  class?: string;
+  color?: string;
   gradient?: boolean;
   type?: 'rect' | 'circle';
 }
@@ -26,18 +26,25 @@ const colorMap: Record<string, string> = {
 
 const hex = color ? colorMap[color] || color : '#ccc';
 
-// Base styles
-let style = {};
+// Determine background style
+let bgStyle = {};
 if (gradient) {
-  style = { background: `linear-gradient(to right, white, ${hex}, white)` };
+  bgStyle = { background: `linear-gradient(to right, white, ${hex}, white)` };
 } else {
-  style = { backgroundColor: hex };
+  bgStyle = { backgroundColor: hex };
 }
 
-// Dimensions
-const sizeClass = type === 'circle' ? 'w-8 h-8 rounded-full' : 'w-8 h-4';
-const borderClass = 'border border-solid border-gray-400 inline-block align-middle';
+// Explicit inline styles for reliability
+const style = {
+  display: 'inline-block',
+  verticalAlign: 'middle',
+  border: '1px solid #9ca3af', // gray-400
+  width: '2rem', // w-8
+  height: type === 'circle' ? '2rem' : '1rem', // h-8 or h-4
+  borderRadius: type === 'circle' ? '50%' : '0',
+  ...bgStyle
+};
 
 ---
 
-<div class={`${borderClass} ${sizeClass} ${className || ''}`} style={style}></div>
+<div style={style} class={className}></div>

@@ -13,14 +13,16 @@ Selamat datang di **Layer 1 (Physical)**. Di sini tempatnya kuli kabel beraksi. 
 Kabel LAN standar sejuta umat. Di dalamnya ada 8 kabel kecil (4 pasang) yang dipilin.
 
 ### Straight vs Cross
-*   **Straight:** Urutan warna ujung A dan B **SAMA**. Standar hari ini.
-*   **Cross:** Urutan warna beda. Dulu buat hubungin device sejenis (Laptop ke Laptop), sekarang **JARANG DIPAKAI** karena alat jaman now sudah pintar (fitur *Auto-MDIX*).
+*   **Straight:** Ujung A dan B sama-sama pakai standar **T568B**.
+*   **Cross:** Ujung A pakai **T568A**, Ujung B pakai **T568B**. (Digunakan untuk menghubungkan device sejenis, meski sekarang jarang karena ada Auto-MDIX).
 
 ### 🎨 Kode Warna (Hukum Wajib Hafal)
 
-Jangan sampai tertukar antara standar A dan B. Indonesia mayoritas pakai **T568B**.
+Di Indonesia, kita hampir selalu pakai standar **T568B** (Straight). Tapi kalau mau bikin kabel Cross, kamu wajib tau **T568A** juga.
 
-| Pin | T568B (Standar Kita) | Visual |
+#### 1. Standar T568B (Paling Umum / Straight)
+
+| Pin | Warna | Visual |
 | :--- | :--- | :--- |
 | 1 | **Putih Orange** | <ColorSwatch color="orange-500" gradient /> |
 | 2 | **Orange** | <ColorSwatch color="orange-500" /> |
@@ -28,6 +30,21 @@ Jangan sampai tertukar antara standar A dan B. Indonesia mayoritas pakai **T568B
 | 4 | **Biru** | <ColorSwatch color="blue-600" /> |
 | 5 | **Putih Biru** | <ColorSwatch color="blue-600" gradient /> |
 | 6 | **Hijau** | <ColorSwatch color="green-600" /> |
+| 7 | **Putih Coklat** | <ColorSwatch color="amber-700" gradient /> |
+| 8 | **Coklat** | <ColorSwatch color="amber-700" /> |
+
+#### 2. Standar T568A (Untuk Ujung Kabel Cross)
+
+*Perhatikan: Hijau dan Orange bertukar posisi.*
+
+| Pin | Warna | Visual |
+| :--- | :--- | :--- |
+| 1 | **Putih Hijau** | <ColorSwatch color="green-600" gradient /> |
+| 2 | **Hijau** | <ColorSwatch color="green-600" /> |
+| 3 | **Putih Orange** | <ColorSwatch color="orange-500" gradient /> |
+| 4 | **Biru** | <ColorSwatch color="blue-600" /> |
+| 5 | **Putih Biru** | <ColorSwatch color="blue-600" gradient /> |
+| 6 | **Orange** | <ColorSwatch color="orange-500" /> |
 | 7 | **Putih Coklat** | <ColorSwatch color="amber-700" gradient /> |
 | 8 | **Coklat** | <ColorSwatch color="amber-700" /> |
 
