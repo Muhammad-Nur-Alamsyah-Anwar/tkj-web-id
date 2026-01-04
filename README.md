@@ -1,49 +1,92 @@
-# Starlight Starter Kit: Basics
+# 🚀 TKJ Knowledge Hub
 
-[![Built with Starlight](https://astro.badg.es/v2/built-with-starlight/tiny.svg)](https://starlight.astro.build)
+[![Built with Astro](https://astro.badg.es/v2/built-with-astro/tiny.svg)](https://astro.build)
+[![Starlight](https://img.shields.io/badge/Powered%20by-Starlight-8B5CF6)](https://starlight.astro.build)
+[![Tailwind CSS](https://img.shields.io/badge/Styled%20with-Tailwind%20CSS-38BDF8)](https://tailwindcss.com)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-```
-npm create astro@latest -- --template starlight
-```
+> **"Survival Guide 2026" untuk Teknisi Jaringan Masa Depan.**
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Selamat datang di **TKJ Knowledge Hub**, pusat dokumentasi "no-ribet" yang dirancang khusus untuk siswa SMK jurusan Teknik Komputer dan Jaringan (TKJ).
 
-## 🚀 Project Structure
+---
 
-Inside of your Astro + Starlight project, you'll see the following folders and files:
+## 📖 Tentang Project Ini
 
-```
-.
-├── public/
-├── src/
-│   ├── assets/
-│   ├── content/
-│   │   └── docs/
-│   └── content.config.ts
-├── astro.config.mjs
-├── package.json
-└── tsconfig.json
-```
+Website ini bukan sekadar buku paket digital yang membosankan. Ini adalah **buku saku** yang kami harap bisa menyelamatkanmu saat:
+*   Bingung urutan warna kabel UTP (lagi).
+*   Lupa perintah dasar Linux saat ujian praktek.
+*   Panik mikrotik di-reset dan nggak tau IP default-nya.
 
-Starlight looks for `.md` or `.mdx` files in the `src/content/docs/` directory. Each file is exposed as a route based on its file name.
+Kami menggunakan bahasa yang **santai**, **to-the-point**, dan **relevan** dengan dunia industri, biar kamu nggak cuma hafal teori tapi siap terjun ke lapangan.
 
-Images can be added to `src/assets/` and embedded in Markdown with a relative link.
+## ⚡ Tech Stack
 
-Static assets, like favicons, can be placed in the `public/` directory.
+Dibangun dengan teknologi web modern yang super cepat:
 
-## 🧞 Commands
+*   [**Astro Starlight**](https://starlight.astro.build/): Framework dokumentasi yang ringan dan powerful.
+*   [**MDX**](https://mdxjs.com/): Menulis konten dengan Markdown + Komponen interaktif.
+*   [**Tailwind CSS**](https://tailwindcss.com/): Styling yang fleksibel dan modern.
+*   [**Mermaid.js**](https://mermaid.js.org/): Diagram topologi jaringan otomatis (Diagram as Code).
 
-All commands are run from the root of the project, from a terminal:
+## ✨ Fitur Unggulan
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+*   🚀 **Performa Kilat**: Loading halaman instan, hemat kuota.
+*   📱 **Mobile Friendly**: Baca materi sambil rebahan atau di angkot tetap nyaman.
+*   🔍 **Pencarian Cepat**: Cari "OSI Layer" atau "VLAN" langsung ketemu.
+*   🌑 **Dark Mode**: Wajib buat anak IT biar mata nggak pedih.
+*   🎨 **Visualisasi Jelas**: Diagram topologi dan kode warna kabel yang interaktif.
 
-## 👀 Want to learn more?
+## 🛠️ Instalasi & Kontribusi
 
-Check out [Starlight’s docs](https://starlight.astro.build/), read [the Astro documentation](https://docs.astro.build), or jump into the [Astro Discord server](https://astro.build/chat).
+Ingin menjalankan website ini di komputer lokalmu? Gampang!
+
+### Prasyarat
+Pastikan kamu sudah menginstall [Node.js](https://nodejs.org/) (Versi 18+).
+
+### Langkah-langkah
+
+1.  **Clone Repository**
+    ```bash
+    git clone https://github.com/Muhammad-Nur-Alamsyah-Anwar/tkj-web-id.git
+    cd tkj-web-id
+    ```
+
+2.  **Install Dependencies**
+    ```bash
+    npm install
+    ```
+
+3.  **Jalankan Server Development**
+    ```bash
+    npm run dev
+    ```
+    Buka browser dan akses `http://localhost:4321`.
+
+## 🗺️ Roadmap Materi
+
+### ✅ Sudah Tersedia (Ready to Deploy)
+*   **Mulai Di Sini:** Pengenalan Jurusan & Tools Wajib (Winbox, Cisco Packet Tracer).
+*   **Kelas X (Dasar):**
+    *   Dasar Jaringan (OSI Layer, TCP/IP, IP Address).
+    *   Media Transmisi (Kabel UTP, Fiber Optic & K3LH).
+    *   Elektronika Dasar (Multimeter & Komponen).
+    *   Komputer Dasar (Rakit PC & Troubleshooting).
+*   **Cheat Sheets:** Perintah Dasar Linux & Kode Warna Kabel.
+
+### 🚧 Coming Soon (Dalam Pengerjaan)
+*   **Kelas XI (Server & Admin):**
+    *   Debian Server (DNS, DHCP, Web Server).
+    *   Mikrotik Routing (Mangle, Queue, VPN).
+    *   VLAN & Trunking (Cisco Switch).
+*   **Bank Laporan:** Template laporan PKL/Prakerin.
+
+## ✍️ Author & Credits
+
+Dibuat dengan ❤️ dan ☕ oleh **Muhammad Nur Alamsyah Anwar**.
+
+*   Special thanks to the open-source community.
+*   Inspired by the struggle of every vocational student.
+
+---
+*Stay Curious, Keep Learning, and Don't Forget to Save Config!* 💾
