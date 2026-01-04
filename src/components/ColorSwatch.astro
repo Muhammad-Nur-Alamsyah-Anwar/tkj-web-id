@@ -1,4 +1,43 @@
 ---
-const { class: className } = Astro.props;
+interface Props {
+  class?: string; // Fallback
+  color?: string; // e.g. "orange-500"
+  gradient?: boolean;
+  type?: 'rect' | 'circle';
+}
+
+const { class: className, color, gradient, type = 'rect' } = Astro.props;
+
+const colorMap: Record<string, string> = {
+  'orange-500': '#f97316',
+  'blue-600': '#2563eb',
+  'green-600': '#16a34a',
+  'amber-700': '#b45309',
+  'amber-800': '#92400e',
+  'gray-500': '#6b7280',
+  'white': '#ffffff',
+  'red-600': '#dc2626',
+  'black': '#000000',
+  'yellow-400': '#facc15',
+  'purple-600': '#9333ea',
+  'pink-400': '#f472b6',
+  'teal-400': '#2dd4bf',
+};
+
+const hex = color ? colorMap[color] || color : '#ccc';
+
+// Base styles
+let style = {};
+if (gradient) {
+  style = { background: `linear-gradient(to right, white, ${hex}, white)` };
+} else {
+  style = { backgroundColor: hex };
+}
+
+// Dimensions
+const sizeClass = type === 'circle' ? 'w-8 h-8 rounded-full' : 'w-8 h-4';
+const borderClass = 'border border-solid border-gray-400 inline-block align-middle';
+
 ---
-<div class={`border border-solid border-gray-400 inline-block align-middle ${className}`}></div>
+
+<div class={`${borderClass} ${sizeClass} ${className || ''}`} style={style}></div>
