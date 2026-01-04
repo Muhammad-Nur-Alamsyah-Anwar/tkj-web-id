@@ -16,10 +16,7 @@ export default defineConfig({
 					href: 'https://github.com/withastro/starlight',
 				},
 			],
-			customCss: [
-				// Path to your custom CSS file
-				// './src/styles/custom.css',
-			],
+			customCss: [],
 			sidebar: [
 				{
 					label: 'Mulai Di Sini',
