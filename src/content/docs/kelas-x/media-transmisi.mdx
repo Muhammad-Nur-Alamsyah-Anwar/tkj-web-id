@@ -4,11 +4,12 @@ description: Panduan kabel UTP, Fiber Optic, dan kode warna wajib hafal.
 ---
 
 import ColorSwatch from '../../../components/ColorSwatch.astro';
+import { Icon } from '@astrojs/starlight/components';
 
 Selamat datang di **Layer 1 (Physical)**. Di sini tempatnya kuli kabel beraksi. Camkan ini baik-baik:
 > *"Kalau kabel jelek atau crimpingan ampas, config router se-dewa apapun percuma. Latency tinggi, packet loss, dimarahin klien."*
 
-## Kabel UTP (Tembaga)
+## <Icon name="puzzle" class="inline-block align-text-bottom mr-2" /> Kabel UTP (Tembaga)
 
 Kabel LAN standar sejuta umat. Di dalamnya ada 8 kabel kecil (4 pasang) yang dipilin.
 
@@ -16,7 +17,7 @@ Kabel LAN standar sejuta umat. Di dalamnya ada 8 kabel kecil (4 pasang) yang dip
 *   **Straight:** Ujung A dan B sama-sama pakai standar **T568B**.
 *   **Cross:** Ujung A pakai **T568A**, Ujung B pakai **T568B**. (Digunakan untuk menghubungkan device sejenis, meski sekarang jarang karena ada Auto-MDIX).
 
-### Kode Warna (Hukum Wajib Hafal)
+### <Icon name="pencil" class="inline-block align-text-bottom mr-2" /> Kode Warna (Hukum Wajib Hafal)
 
 Di Indonesia, kita hampir selalu pakai standar **T568B** (Straight). Tapi kalau mau bikin kabel Cross, kamu wajib tau **T568A** juga.
 
@@ -56,7 +57,7 @@ Saat memasukkan kabel ke konektor RJ-45, pastikan **kulit kabel luar (jacket)** 
 
 ---
 
-## Fiber Optic (Kaca)
+## <Icon name="star" class="inline-block align-text-bottom mr-2" /> Fiber Optic (Kaca)
 
 Sultan-nya media transmisi. Menggunakan cahaya untuk kirim data.
 *   **Kecepatan:** Speed of light (cahaya).
@@ -81,7 +82,7 @@ Potongan core Fiber Optic itu **kaca tajam tak kasat mata**. Jangan anggap remeh
 | **Single Mode** | 🟡 **Kuning** | Kecil banget (9 mikron) | Jauh banget (Antar Kota/Gedung) | Laser |
 | **Multi Mode** | 🟠 **Orange** / 💠 **Tosca** | Agak besar (50-62.5 mikron) | Pendek (Dalam Gedung Server) | LED |
 
-### Tipe Konektor (Jangan Salah Colok!)
+### <Icon name="warning" class="inline-block align-text-bottom mr-2" /> Tipe Konektor (Jangan Salah Colok!)
 
 Kepala kabel FO ada warnanya. Jangan asal colok karena sudut potongannya beda!
 
@@ -109,7 +110,7 @@ graph LR
 2.  **Cladding:** Pemantul cahaya agar tetap di dalam core (prinsip *Total Internal Reflection*).
 3.  **Coating:** Plastik pelindung kaca biar gak gampang patah.
 
-### Kode Warna 12 Core (The Legend)
+### <Icon name="list-format" class="inline-block align-text-bottom mr-2" /> Kode Warna 12 Core (The Legend)
 
 Di lapangan, satu kabel FO besar (tube) isinya bisa banyak core. Biar gak bingung, ada urutan warnanya.
 
@@ -134,7 +135,7 @@ Di lapangan, satu kabel FO besar (tube) isinya bisa banyak core. Biar gak bingun
 Urutan 1-12 ini berulang. Kalau ada core ke-13, warnanya balik ke **Biru** tapi biasanya ada tanda garis hitam.
 :::
 
-### Alat Perang FO (Mahal!)
+### <Icon name="setting" class="inline-block align-text-bottom mr-2" /> Alat Perang FO (Mahal!)
 *   **Splicer:** Mesin las kaca untuk nyambung kabel putus. Harganya seharga motor.
 *   **Cleaver:** Alat potong kaca presisi. Kalau motongnya miring, di-las (*splicing*) bakal gagal terus. *Jangan coba-coba potong pake gunting kuku!*
 *   **Stripper:** Tang pengupas kulit kabel FO. Beda sama tang potong biasa, ini ada lubang ukurannya mikron.
