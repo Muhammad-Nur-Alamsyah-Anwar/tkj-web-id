@@ -48,3 +48,22 @@ Kumpulan perintah CLI Mikrotik RouterOS yang sering dipakai di lapangan dan ujia
 # Lihat lease aktif
 /ip dhcp-server lease print
 ```
+
+## Firewall Filter
+
+```bash
+# Accept established connections
+/ip firewall filter add chain=input connection-state=established,related action=accept
+
+# Drop invalid
+/ip firewall filter add chain=input connection-state=invalid action=drop
+
+# Accept dari LAN
+/ip firewall filter add chain=input in-interface=ether2 action=accept
+
+# Drop dari WAN
+/ip firewall filter add chain=input in-interface=ether1 action=drop comment="Drop dari WAN"
+
+# Lihat semua rule
+/ip firewall filter print
+```
