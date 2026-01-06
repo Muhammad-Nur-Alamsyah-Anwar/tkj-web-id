@@ -80,3 +80,20 @@ Kumpulan perintah CLI Mikrotik RouterOS yang sering dipakai di lapangan dan ujia
 # Lihat queue
 /queue simple print
 ```
+
+## VLAN
+
+```bash
+# Buat interface VLAN di ether2
+/interface vlan add name=vlan10 vlan-id=10 interface=ether2 comment="VLAN Guru"
+/interface vlan add name=vlan20 vlan-id=20 interface=ether2 comment="VLAN Siswa"
+
+# Tambah IP di tiap VLAN
+/ip address add address=192.168.10.1/24 interface=vlan10
+/ip address add address=192.168.20.1/24 interface=vlan20
+
+# DHCP per VLAN
+/ip pool add name=pool-vlan10 ranges=192.168.10.10-192.168.10.100
+/ip dhcp-server add name=dhcp-vlan10 interface=vlan10 address-pool=pool-vlan10 disabled=no
+/ip dhcp-server network add address=192.168.10.0/24 gateway=192.168.10.1 dns-server=8.8.8.8
+```
