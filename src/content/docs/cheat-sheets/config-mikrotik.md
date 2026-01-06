@@ -303,4 +303,4 @@ Referensi cepat perintah CLI MikroTik RouterOS yang sering digunakan dalam prakt
 | `/system resource print` | Lihat resource CPU/RAM |
 | `/log print` | Lihat log sistem |
 
-<!-- update: 2026-01-06 -->
+<!-- rev: jan6 -->
