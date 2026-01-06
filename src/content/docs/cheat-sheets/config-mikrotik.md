@@ -67,3 +67,16 @@ Kumpulan perintah CLI Mikrotik RouterOS yang sering dipakai di lapangan dan ujia
 # Lihat semua rule
 /ip firewall filter print
 ```
+
+## Queue Simple (Bandwidth Management)
+
+```bash
+# Limit satu PC (2Mbps upload / 5Mbps download)
+/queue simple add name=limit-pc01 target=192.168.100.11/32 max-limit=2M/5M
+
+# Limit seluruh subnet LAN
+/queue simple add name=limit-lan target=192.168.100.0/24 max-limit=10M/20M
+
+# Lihat queue
+/queue simple print
+```
