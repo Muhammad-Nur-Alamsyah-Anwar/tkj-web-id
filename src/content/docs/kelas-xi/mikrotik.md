@@ -1,294 +1,425 @@
 ---
-title: Mikrotik RouterOS
-description: Tutorial lengkap Mikrotik untuk materi MTCNA — routing, firewall, hotspot, dan manajemen bandwidth.
+title: Tutorial MikroTik MTCNA Kelas XI
+description: Panduan lengkap konfigurasi MikroTik RouterOS untuk siswa TKJ kelas XI - materi MTCNA
 ---
 
-# Mikrotik RouterOS — Kelas XI TKJ
+# Tutorial MikroTik RouterOS — Materi MTCNA Kelas XI
 
-Mikrotik RouterOS adalah sistem operasi berbasis Linux yang digunakan sebagai router. Sangat populer di Indonesia untuk ISP, warnet, dan sekolah.
+Panduan lengkap untuk memahami dan mengkonfigurasi MikroTik RouterOS sesuai kurikulum TKJ kelas XI dan silabus MTCNA.
 
-## Pengenalan
+---
 
-### Cara Akses Mikrotik
+## 1. Pengenalan RouterOS
 
-| Metode | Port | Keterangan |
-|--------|------|-----------|
-| **Winbox** | 8291 | GUI tool Windows |
-| **WebFig** | 80 | Web browser |
-| **SSH** | 22 | Terminal remote |
-| **Telnet** | 23 | Terminal (tidak aman) |
+### Apa itu MikroTik?
+MikroTik adalah perusahaan dari Latvia yang memproduksi perangkat jaringan dan software RouterOS. RouterOS adalah sistem operasi berbasis Linux yang dirancang khusus untuk router.
 
-### Default Login
+### Fitur utama RouterOS:
+- **Routing** — Static, OSPF, BGP, RIP
+- **Switching** — VLAN, STP, Bonding
+- **Wireless** — AP, Station, Bridge
+- **Firewall** — Filter, NAT, Mangle
+- **QoS** — Simple Queue, Queue Tree
+- **VPN** — PPTP, L2TP, SSTP, OpenVPN, IPSec
+- **Hotspot** — Portal login untuk WiFi publik
 
-```
-Username: admin
-Password: (kosong)
-IP default: 192.168.88.1
-```
+### Cara Akses RouterOS:
+1. **Winbox** — GUI aplikasi Windows (paling mudah)
+2. **WebFig** — GUI via browser (port 80/443)
+3. **SSH** — Terminal via SSH (port 22)
+4. **Telnet** — Terminal via Telnet (port 23, tidak aman)
+5. **Console** — Kabel serial langsung ke router
 
-## Konfigurasi IP dan Routing
+### Level Lisensi:
+| Level | Fitur | Harga |
+|-------|-------|-------|
+| 0 | Trial 24 jam | Gratis |
+| 1 | Unlimited (fitur terbatas) | Gratis |
+| 3 | ISP/WISP | Berbayar |
+| 4 | Standar | Berbayar |
+| 5 | Enterprise | Berbayar |
+| 6 | Controller | Berbayar |
 
-### Setup Internet Sharing
+---
+
+## 2. Interface dan IP Address
+
+### Jenis Interface di MikroTik:
+- **Ether** — Port Ethernet fisik (ether1, ether2, dst)
+- **Wlan** — Wireless interface (wlan1, wlan2)
+- **Bridge** — Interface virtual gabungan beberapa port
+- **VLAN** — Virtual LAN interface
+- **Loopback** — Interface loopback (lo)
+- **PPPoE** — Interface DSL/PPPoE
+
+### Konfigurasi IP Address:
 
 ```bash
-# Set IP WAN
-/ip address add address=192.168.1.2/24 interface=ether1
+# Lihat semua interface
+/interface print
 
-# Set IP LAN
-/ip address add address=192.168.100.1/24 interface=ether2
+# Tambah IP ke ether1 (WAN)
+/ip address add address=192.168.0.2/24 interface=ether1
 
-# Default route
-/ip route add dst-address=0.0.0.0/0 gateway=192.168.1.1
+# Tambah IP ke ether2 (LAN)
+/ip address add address=192.168.1.1/24 interface=ether2
 
-# DNS
-/ip dns set servers=8.8.8.8,1.1.1.1 allow-remote-requests=yes
+# Lihat IP yang sudah dikonfigurasi
+/ip address print
 
-# NAT masquerade
+# Ubah IP
+/ip address set [find interface=ether2] address=192.168.10.1/24
+
+# Hapus IP
+/ip address remove [find interface=ether1]
+```
+
+### Tip Penting:
+> Interface **ether1** biasanya digunakan sebagai **WAN** (ke internet/ISP)
+> Interface **ether2** dan seterusnya sebagai **LAN** (ke client/switch)
+
+---
+
+## 3. Routing
+
+### Jenis Routing:
+1. **Connected Routes** — Otomatis saat IP dikonfigurasi
+2. **Static Routes** — Dikonfigurasi manual oleh admin
+3. **Dynamic Routes** — Dipelajari lewat protokol routing (OSPF, BGP)
+
+### Static Route:
+
+```bash
+# Default route (0.0.0.0/0) ke gateway ISP
+/ip route add dst-address=0.0.0.0/0 gateway=192.168.0.1
+
+# Static route ke network lain lewat next-hop
+/ip route add dst-address=10.0.0.0/24 gateway=192.168.1.2
+
+# Lihat semua route
+/ip route print
+
+# Lihat hanya route aktif
+/ip route print where active=yes
+```
+
+### Contoh Topologi Static Routing:
+
+```
+Internet
+   |
+[Router A] ether1: 192.168.0.2/24 (ke ISP, gateway: 192.168.0.1)
+           ether2: 192.168.1.1/24 (ke LAN A)
+           ether3: 10.0.0.1/30 (ke Router B)
+               |
+           [Router B] ether1: 10.0.0.2/30
+                      ether2: 192.168.2.1/24 (ke LAN B)
+```
+
+Konfigurasi Router A:
+```bash
+/ip address add address=192.168.0.2/24 interface=ether1
+/ip address add address=192.168.1.1/24 interface=ether2
+/ip address add address=10.0.0.1/30 interface=ether3
+/ip route add dst-address=0.0.0.0/0 gateway=192.168.0.1
+/ip route add dst-address=192.168.2.0/24 gateway=10.0.0.2
+```
+
+Konfigurasi Router B:
+```bash
+/ip address add address=10.0.0.2/30 interface=ether1
+/ip address add address=192.168.2.1/24 interface=ether2
+/ip route add dst-address=0.0.0.0/0 gateway=10.0.0.1
+/ip route add dst-address=192.168.1.0/24 gateway=10.0.0.1
+```
+
+---
+
+## 4. NAT dan Firewall
+
+### NAT (Network Address Translation)
+
+NAT digunakan untuk menerjemahkan IP private ke IP public agar client di LAN bisa akses internet.
+
+**Jenis NAT:**
+- **Masquerade** — SNAT dinamis, IP source diganti IP interface WAN
+- **Src-NAT** — SNAT dengan IP tujuan tetap
+- **Dst-NAT** — Port forwarding dari WAN ke server internal
+
+```bash
+# Masquerade (paling umum digunakan)
 /ip firewall nat add chain=srcnat action=masquerade out-interface=ether1
+
+# Port forwarding (dst-nat) — forward port 80 ke web server internal
+/ip firewall nat add chain=dstnat dst-port=80 protocol=tcp action=dst-nat to-addresses=192.168.1.10 to-ports=80
+
+# Lihat NAT rules
+/ip firewall nat print
 ```
 
-## Firewall Filter
+### Firewall Filter
 
-Chain yang tersedia di Mikrotik:
-- **input** — traffic yang masuk ke router
-- **forward** — traffic yang melewati router
-- **output** — traffic yang keluar dari router
+Firewall filter mengontrol paket yang melewati atau masuk ke router.
+
+**Chain (rantai) firewall:**
+- **input** — Paket yang **masuk ke router** sendiri
+- **output** — Paket yang **keluar dari router** sendiri
+- **forward** — Paket yang **melewati router** (dari client ke internet)
 
 ```bash
-# Accept established/related
-/ip firewall filter add chain=input connection-state=established,related action=accept
+# Allow established & related connections
+/ip firewall filter add chain=forward connection-state=established,related action=accept
 
-# Drop invalid
-/ip firewall filter add chain=input connection-state=invalid action=drop
+# Allow new connections dari LAN ke WAN
+/ip firewall filter add chain=forward src-address=192.168.1.0/24 out-interface=ether1 action=accept
 
-# Accept dari LAN
-/ip firewall filter add chain=input in-interface=ether2 action=accept
+# Drop invalid packets
+/ip firewall filter add chain=forward connection-state=invalid action=drop
 
-# Accept ICMP
-/ip firewall filter add chain=input protocol=icmp action=accept
+# Drop semua yang tidak diizinkan
+/ip firewall filter add chain=forward action=drop
 
-# Drop dari WAN
-/ip firewall filter add chain=input in-interface=ether1 action=drop
+# Block akses ke situs tertentu
+/ip firewall filter add chain=forward dst-address=xxx.xxx.xxx.xxx action=drop comment="block site"
 ```
 
-## DHCP Server
+### Firewall Mangle (Advanced)
 
 ```bash
-# Buat pool IP
-/ip pool add name=pool-lan ranges=192.168.100.10-192.168.100.200
+# Mark connection untuk QoS
+/ip firewall mangle add chain=prerouting src-address=192.168.1.0/24 action=mark-connection new-connection-mark=lan-conn
 
-# Buat DHCP server
-/ip dhcp-server add name=dhcp-lan interface=ether2 address-pool=pool-lan disabled=no
+# Mark packet berdasarkan connection mark
+/ip firewall mangle add chain=prerouting connection-mark=lan-conn action=mark-packet new-packet-mark=lan-pkt
+```
 
-# Konfigurasi network DHCP
-/ip dhcp-server network add address=192.168.100.0/24 gateway=192.168.100.1 dns-server=8.8.8.8
+---
 
-# Lihat lease
+## 5. DHCP Server
+
+DHCP (Dynamic Host Configuration Protocol) memberikan IP address otomatis ke client.
+
+### Komponen DHCP Server:
+1. **IP Pool** — Range IP yang akan dibagikan
+2. **DHCP Network** — Konfigurasi network (gateway, DNS, netmask)
+3. **DHCP Server** — Service yang berjalan di interface
+
+```bash
+# Langkah 1: Buat IP Pool
+/ip pool add name=pool-lan ranges=192.168.1.100-192.168.1.200
+
+# Langkah 2: Konfigurasi DHCP Network
+/ip dhcp-server network add \
+  address=192.168.1.0/24 \
+  gateway=192.168.1.1 \
+  dns-server=8.8.8.8,8.8.4.4 \
+  ntp-server=103.16.102.80
+
+# Langkah 3: Aktifkan DHCP Server di interface
+/ip dhcp-server add \
+  name=dhcp-lan \
+  interface=ether2 \
+  address-pool=pool-lan \
+  lease-time=1d \
+  disabled=no
+
+# Lihat DHCP leases (client yang sudah dapat IP)
 /ip dhcp-server lease print
 
-# Bind IP ke MAC (lease statis)
-/ip dhcp-server lease add mac-address=AA:BB:CC:DD:EE:FF address=192.168.100.50
+# Static lease (IP tetap untuk MAC tertentu)
+/ip dhcp-server lease add \
+  mac-address=AA:BB:CC:DD:EE:FF \
+  address=192.168.1.50 \
+  server=dhcp-lan
 ```
 
-## Hotspot
+---
 
-Hotspot digunakan untuk autentikasi pengguna WiFi sebelum bisa akses internet.
+## 6. Hotspot Portal
+
+Hotspot digunakan untuk membuat portal login WiFi (seperti di cafe atau sekolah).
+
+### Cara Setup Hotspot:
 
 ```bash
-# Jalankan wizard
+# Cara mudah: gunakan wizard
 /ip hotspot setup
 
-# Buat profile user
-/ip hotspot user profile add name=siswa rate-limit=2M/2M session-timeout=8h
-/ip hotspot user profile add name=guru rate-limit=5M/10M
-
-# Tambah user
-/ip hotspot user add name=siswa01 password=12345 profile=siswa
-/ip hotspot user add name=guru01 password=abcde profile=guru
-
-# Monitor user aktif
-/ip hotspot active print
+# Ikuti prompt:
+# - Pilih interface (misal: wlan1)
+# - Local address of network: 192.168.2.1/24
+# - Masquerade network: yes
+# - Address pool: 192.168.2.2-192.168.2.100
+# - Select certificate: none
+# - SMTP server: 0.0.0.0
+# - DNS servers: 8.8.8.8
+# - DNS name: hotspot.tkj.local
+# - Name of local hotspot user: admin
+# - Password: admin123
 ```
 
-## Bandwidth Management
+### Manajemen User Hotspot:
+
+```bash
+# Tambah user
+/ip hotspot user add name=siswa1 password=pass123
+
+# Tambah user dengan limit
+/ip hotspot user add name=guru1 password=guru123 limit-uptime=8h limit-bytes-total=1G
+
+# Buat profile user
+/ip hotspot user profile add name=siswa rate-limit=1M/2M shared-users=1
+/ip hotspot user profile add name=guru rate-limit=5M/10M shared-users=1
+
+# Tambah user dengan profile
+/ip hotspot user add name=siswa2 password=tkj2026 profile=siswa
+
+# Lihat user aktif
+/ip hotspot active print
+
+# Disconnect user
+/ip hotspot active remove [find user=siswa1]
+```
+
+---
+
+## 7. Bandwidth Management
 
 ### Simple Queue
 
-```bash
-# Limit per IP
-/queue simple add name=pc01 target=192.168.100.11 max-limit=2M/5M
+Simple Queue adalah cara termudah membatasi bandwidth per IP atau subnet.
 
-# Limit subnet
-/queue simple add name=all-lan target=192.168.100.0/24 max-limit=20M/50M
+```bash
+# Limit 1 IP address (2 Mbps download, 1 Mbps upload)
+/queue simple add name=pc-01 target=192.168.1.10/32 max-limit=2M/1M
+
+# Limit seluruh subnet
+/queue simple add name=lan-limit target=192.168.1.0/24 max-limit=20M/10M
+
+# Burst (boleh melebihi limit untuk waktu singkat)
+/queue simple add \
+  name=burst-test \
+  target=192.168.1.10/32 \
+  max-limit=2M/1M \
+  burst-limit=4M/2M \
+  burst-threshold=1M/512k \
+  burst-time=10s/10s
+
+# Lihat queue dan statistik
+/queue simple print stats
 ```
 
-### PCQ (Per Connection Queue)
+### Queue Tree (Advanced)
 
-PCQ membagi bandwidth merata untuk semua user.
+Queue Tree lebih fleksibel, biasa digunakan untuk membagi bandwidth bersama (shared bandwidth).
 
 ```bash
-# Buat queue type PCQ
-/queue type add name=pcq-download kind=pcq pcq-classifier=dst-address
-/queue type add name=pcq-upload kind=pcq pcq-classifier=src-address
+# Buat parent queue (total bandwidth)
+/queue tree add name=total-download parent=global max-limit=100M packet-mark=download-pkt
+/queue tree add name=total-upload parent=global max-limit=50M packet-mark=upload-pkt
 
-# Terapkan
-/queue simple add name=pcq-lan target=192.168.100.0/24 queue=pcq-upload/pcq-download max-limit=50M/100M
+# Child queue untuk masing-masing client
+/queue tree add name=client-download parent=total-download packet-mark=client1-download max-limit=10M
 ```
 
-## Troubleshooting
+---
+
+## 8. VPN Dasar (PPTP)
+
+PPTP (Point-to-Point Tunneling Protocol) adalah protokol VPN yang mudah dikonfigurasi.
+
+### PPTP Server:
 
 ```bash
-# Ping & traceroute
-/ping 8.8.8.8
-/tool traceroute 8.8.8.8
+# Aktifkan PPTP server
+/interface pptp-server server set enabled=yes
 
-# Monitor traffic
-/interface monitor-traffic ether1
-/tool torch interface=ether2
+# Buat user VPN
+/ppp secret add name=vpnuser password=vpnpass service=pptp local-address=10.0.0.1 remote-address=10.0.0.2
 
-# Cek resource
-/system resource print
+# Tambah user kedua
+/ppp secret add name=vpnuser2 password=vpnpass2 service=pptp local-address=10.0.0.1 remote-address=10.0.0.3
 
-# Log
+# Lihat koneksi PPTP aktif
+/interface pptp-server print
+```
+
+### PPTP Client:
+
+```bash
+# Tambah PPTP client (untuk koneksi ke server VPN)
+/interface pptp-client add \
+  name=vpn-ke-kantor \
+  connect-to=1.2.3.4 \
+  user=vpnuser \
+  password=vpnpass \
+  disabled=no
+
+# Lihat status koneksi
+/interface pptp-client print
+```
+
+---
+
+## 9. Tips Troubleshooting
+
+### Cek Konektivitas:
+```bash
+# Ping dari router
+/tool ping 8.8.8.8 count=4
+
+# Traceroute
+/tool traceroute 8.8.8.8 count=3
+
+# Test DNS
+/ip dns cache print
+```
+
+### Lihat Log:
+```bash
+# Semua log
+/log print
+
+# Filter log berdasarkan topic
+/log print where topics~"dhcp"
+/log print where topics~"firewall"
+
+# Log real-time
 /log print follow
 ```
 
-## Sumber Belajar
-
-- [Dokumentasi resmi MikroTik](https://help.mikrotik.com)
-- [Forum MikroTik Indonesia](https://mikrotik.co.id/forum)
-
-## VLAN (Virtual LAN)
-
-VLAN memisahkan jaringan secara logis pada switch yang sama.
-
+### Monitor Traffic:
 ```bash
-# Buat interface VLAN
-/interface vlan add name=vlan10 vlan-id=10 interface=ether2 comment="VLAN Guru"
-/interface vlan add name=vlan20 vlan-id=20 interface=ether2 comment="VLAN Siswa"
+# Torch — monitor traffic real-time di interface
+/tool torch interface=ether1
 
-# IP per VLAN
-/ip address add address=192.168.10.1/24 interface=vlan10
-/ip address add address=192.168.20.1/24 interface=vlan20
-
-# DHCP per VLAN
-/ip pool add name=pool-v10 ranges=192.168.10.10-192.168.10.100
-/ip dhcp-server add name=dhcp-v10 interface=vlan10 address-pool=pool-v10 disabled=no
-/ip dhcp-server network add address=192.168.10.0/24 gateway=192.168.10.1
-
-# Isolasi antar VLAN
-/ip firewall filter add chain=forward in-interface=vlan10 out-interface=vlan20 action=drop
+# Monitor interface stats
+/interface monitor-traffic ether1 once
 ```
 
-## Wireless (WiFi)
+---
 
-```bash
-# Mode Access Point
-/interface wireless set wlan1 mode=ap-bridge ssid=TKJ-Network band=2ghz-b/g/n disabled=no
+## 10. Rangkuman & Tips Ujian MTCNA
 
-# Security WPA2
-/interface wireless security-profiles add name=sec-tkj mode=dynamic-keys authentication-types=wpa2-psk wpa2-pre-shared-key=password123
-/interface wireless set wlan1 security-profile=sec-tkj
+### Poin Penting MTCNA:
+1. **Routing** — Pahami cara kerja routing table dan connected routes
+2. **Firewall** — Bedakan chain input vs forward
+3. **NAT** — Masquerade untuk internet sharing, dst-nat untuk port forward
+4. **DHCP** — 3 komponen: pool, network, server
+5. **Wireless** — Mode AP Bridge vs Station
+6. **QoS** — Simple Queue lebih mudah, Queue Tree lebih fleksibel
 
-# Lihat client terhubung
-/interface wireless registration-table print
+### Urutan Konfigurasi yang Benar:
+1. Set IP address di semua interface
+2. Tambah default route ke ISP gateway
+3. Aktifkan NAT masquerade
+4. Setup DHCP server untuk LAN
+5. Konfigurasi firewall filter
+6. Test konektivitas
 
-# Mode Station (koneksi ke AP)
-/interface wireless set wlan1 mode=station ssid=ISP-Wifi
-```
-
-## Queue Tree Lanjutan
-
-Queue Tree lebih fleksibel dari Simple Queue untuk traffic shaping kompleks.
-
-```bash
-# Step 1: Mangle — tandai traffic per IP
-/ip firewall mangle add chain=prerouting src-address=192.168.100.0/24 action=mark-connection new-connection-mark=lan-up
-/ip firewall mangle add chain=prerouting connection-mark=lan-up action=mark-packet new-packet-mark=upload-lan
-
-/ip firewall mangle add chain=postrouting dst-address=192.168.100.0/24 action=mark-connection new-connection-mark=lan-down
-/ip firewall mangle add chain=postrouting connection-mark=lan-down action=mark-packet new-packet-mark=download-lan
-
-# Step 2: Queue Tree parent
-/queue tree add name=total-upload parent=ether1 max-limit=50M
-/queue tree add name=total-download parent=ether2 max-limit=100M
-
-# Step 3: Queue child
-/queue tree add name=lan-upload parent=total-upload packet-mark=upload-lan max-limit=50M
-/queue tree add name=lan-download parent=total-download packet-mark=download-lan max-limit=100M
-```
-
-## Failover (Dual WAN)
-
-Konfigurasi 2 ISP dengan failover otomatis.
-
-```bash
-# Asumsi: ether1=ISP1 (utama), ether5=ISP2 (backup)
-
-# Netwatch untuk monitor ISP1
-/tool netwatch add host=8.8.8.8 interval=30s up-script="/ip route set [find comment=ISP1] disabled=no; /ip route set [find comment=ISP2] disabled=yes" down-script="/ip route set [find comment=ISP1] disabled=yes; /ip route set [find comment=ISP2] disabled=no"
-
-# Route ISP1 (priority lebih tinggi = distance kecil)
-/ip route add dst-address=0.0.0.0/0 gateway=192.168.1.1 distance=1 comment=ISP1
-
-# Route ISP2 (backup)
-/ip route add dst-address=0.0.0.0/0 gateway=10.0.0.1 distance=2 comment=ISP2
-
-# NAT untuk ISP2
-/ip firewall nat add chain=srcnat action=masquerade out-interface=ether5 comment="NAT ISP2"
-```
-
-## CAPsMAN (Controller Access Point Manager)
-
-CAPsMAN memungkinkan satu router mengontrol banyak Access Point.
-
-```bash
-# Di Controller (router utama)
-/caps-man manager set enabled=yes
-
-# Buat datapath
-/caps-man datapath add name=dp-tkj bridge=bridge1 local-forwarding=yes
-
-# Buat channel
-/caps-man channel add name=ch-2g frequency=0 band=2ghz-b/g/n width=20/40mhz-Ce
-
-# Buat configuration profile
-/caps-man configuration add name=cfg-tkj ssid=TKJ-WiFi datapath=dp-tkj channel=ch-2g
-
-# Provisioning rule
-/caps-man provisioning add action=create-dynamic-enabled master-configuration=cfg-tkj
-
-# Lihat AP yang terhubung
-/caps-man remote-cap print
-/caps-man interface print
-```
-
-## Summary Materi MTCNA
-
-### Topik yang Diujikan
-
-| Topik | Bobot |
-|-------|-------|
-| Routing | 20% |
-| Firewall | 20% |
-| DHCP/DNS | 15% |
-| Wireless | 15% |
-| QoS/Queue | 10% |
-| VPN/Tunneling | 10% |
-| Tools/Monitoring | 10% |
-
-### Tips Lulus MTCNA
-
-1. Pelajari command RouterOS dengan praktek langsung (CHR/RouterBOARD)
-2. Pahami konsep networking dasar (IP, routing, firewall)
-3. Gunakan Winbox dan terminal secara bergantian
-4. Kerjakan lab di buku MikroTik Training
-5. Minimal score lulus: 50% (tapi target 75%+)
-6. Ujian: online, 25 soal, 1 jam
-
-### Sumber Belajar
-
-- [help.mikrotik.com](https://help.mikrotik.com) — Dokumentasi resmi
-- MikroTik Training materials (PDF gratis)
-- YouTube: NetworkChuck, MikroTik Official
-- Forum: forum.mikrotik.com
+### Shortcut Penting:
+- `Ctrl+Z` — Batalkan perubahan yang belum diapply
+- `Tab` — Autocomplete perintah
+- `?` — Bantuan perintah
+- `..` — Kembali ke level sebelumnya
+- `/` — Kembali ke root prompt

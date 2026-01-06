@@ -1,130 +1,355 @@
 ---
-title: Debian Server
-description: Konfigurasi layanan server di Debian — DHCP, DNS, Web Server, FTP, Samba, SSH.
+title: Konfigurasi Debian Server Kelas XI
+description: Panduan lengkap instalasi dan konfigurasi server Debian untuk praktik TKJ kelas XI
 ---
 
-# Debian Server — Kelas XI ASJ
+# Konfigurasi Server Debian — Kelas XI TKJ
 
-Debian adalah distro Linux stabil yang banyak digunakan sebagai server jaringan.
+Panduan lengkap untuk menginstall dan mengkonfigurasi berbagai layanan server menggunakan Debian Linux.
 
-> Panduan ini menggunakan **Debian 12 (Bookworm)**.
+---
 
-## Persiapan Awal
+## 1. Instalasi Debian Server
 
-### Konfigurasi IP Statis
+### Persiapan:
+- ISO Debian (download dari [debian.org](https://www.debian.org))
+- VM (VirtualBox/VMware) atau PC fisik
+- RAM minimal 512 MB, disk minimal 10 GB
+
+### Langkah Instalasi:
+1. Boot dari ISO Debian
+2. Pilih **Install** (bukan Graphical Install untuk server)
+3. Pilih bahasa: **English**
+4. Pilih lokasi: **Indonesia**
+5. Konfigurasi keyboard: **American English**
+6. Set hostname: `server-tkj`
+7. Set domain: `tkj.local`
+8. Set root password: `(isi password kuat)`
+9. Buat user biasa: `admin`
+10. Pilih partisi: **Guided - use entire disk**
+11. Software selection: **hanya centang SSH server dan Standard system utilities** (jangan install desktop)
+12. Install GRUB bootloader: **Yes**
+
+### Setelah Install:
+```bash
+# Login sebagai root, lalu update sistem
+apt update && apt upgrade -y
+
+# Install tools dasar
+apt install -y vim curl wget net-tools
+```
+
+---
+
+## 2. Konfigurasi IP Statik
+
+Debian menggunakan file `/etc/network/interfaces` untuk konfigurasi jaringan.
 
 ```bash
+# Lihat interface yang tersedia
+ip addr show
+# atau
+ifconfig -a
+
+# Edit file konfigurasi jaringan
 nano /etc/network/interfaces
 ```
 
+Isi file `/etc/network/interfaces`:
+
 ```
+# Interface loopback
 auto lo
 iface lo inet loopback
 
+# Interface eth0 (sesuaikan nama interface)
 auto eth0
 iface eth0 inet static
-    address 192.168.100.10
+    address 192.168.1.10
     netmask 255.255.255.0
-    gateway 192.168.100.1
-    dns-nameservers 8.8.8.8
+    gateway 192.168.1.1
+    dns-nameservers 8.8.8.8 8.8.4.4
 ```
 
 ```bash
+# Restart networking
 systemctl restart networking
-ip addr show
+
+# atau
+ifdown eth0 && ifup eth0
+
+# Verifikasi IP
+ip addr show eth0
+
+# Test konektivitas
+ping -c 4 8.8.8.8
+ping -c 4 google.com
 ```
 
-## DHCP Server (isc-dhcp-server)
+### Debian 10+ (menggunakan enp3s0 / ens33):
+```bash
+# Nama interface bisa berbeda, cek dulu
+ip link show
+
+# Edit sesuai nama interface yang muncul
+nano /etc/network/interfaces
+```
+
+---
+
+## 3. DHCP Server (isc-dhcp-server)
+
+### Instalasi:
+```bash
+apt install -y isc-dhcp-server
+```
+
+### Konfigurasi utama:
+
+Edit `/etc/dhcp/dhcpd.conf`:
 
 ```bash
-# Instalasi
-apt install isc-dhcp-server -y
-
-# Konfigurasi
 nano /etc/dhcp/dhcpd.conf
 ```
 
-```conf
-default-lease-time 86400;
-max-lease-time 172800;
+Isi konfigurasi:
 
-subnet 192.168.100.0 netmask 255.255.255.0 {
-    range 192.168.100.50 192.168.100.200;
-    option routers 192.168.100.1;
-    option domain-name-servers 192.168.100.10, 8.8.8.8;
-    option domain-name "tkj.local";
+```
+# Global options
+option domain-name "tkj.local";
+option domain-name-servers 192.168.1.10, 8.8.8.8;
+
+default-lease-time 600;
+max-lease-time 7200;
+
+# Authoritative untuk network ini
+authoritative;
+
+# Subnet LAN
+subnet 192.168.1.0 netmask 255.255.255.0 {
+    range 192.168.1.100 192.168.1.200;
+    option routers 192.168.1.1;
+    option subnet-mask 255.255.255.0;
+    option broadcast-address 192.168.1.255;
+    option domain-name-servers 192.168.1.10, 8.8.8.8;
+    default-lease-time 600;
+    max-lease-time 7200;
+}
+
+# Static IP untuk host tertentu
+host pc-guru {
+    hardware ethernet AA:BB:CC:DD:EE:FF;
+    fixed-address 192.168.1.50;
 }
 ```
 
-```bash
-# Set interface
-nano /etc/default/isc-dhcp-server
-# INTERFACESv4="eth0"
+### Konfigurasi interface DHCP:
 
+Edit `/etc/default/isc-dhcp-server`:
+
+```bash
+nano /etc/default/isc-dhcp-server
+```
+
+```
+# Tentukan interface yang akan melayani DHCP
+INTERFACESv4="eth0"
+```
+
+```bash
+# Start dan enable service
 systemctl start isc-dhcp-server
 systemctl enable isc-dhcp-server
+
+# Cek status
+systemctl status isc-dhcp-server
+
+# Lihat log error
+journalctl -u isc-dhcp-server -n 50
+
+# Lihat leases yang aktif
+cat /var/lib/dhcp/dhcpd.leases
 ```
 
-## DNS Server (BIND9)
+---
+
+## 4. DNS Server (BIND9)
+
+### Instalasi:
+```bash
+apt install -y bind9 bind9utils bind9-doc
+```
+
+### Konfigurasi BIND9:
+
+Edit `/etc/bind/named.conf.options`:
 
 ```bash
-apt install bind9 bind9utils -y
+nano /etc/bind/named.conf.options
 ```
 
-### named.conf.local
+```
+options {
+    directory "/var/cache/bind";
 
-```conf
+    // Forwarder ke DNS publik
+    forwarders {
+        8.8.8.8;
+        8.8.4.4;
+    };
+
+    // Izinkan query dari semua
+    allow-query { any; };
+
+    // Recursion untuk LAN
+    allow-recursion { 192.168.1.0/24; localhost; };
+
+    dnssec-validation auto;
+    listen-on-v6 { any; };
+};
+```
+
+Edit `/etc/bind/named.conf.local`:
+
+```bash
+nano /etc/bind/named.conf.local
+```
+
+```
+// Zone forward (nama ke IP)
 zone "tkj.local" {
     type master;
     file "/etc/bind/db.tkj.local";
 };
 
-zone "100.168.192.in-addr.arpa" {
+// Zone reverse (IP ke nama)
+zone "1.168.192.in-addr.arpa" {
     type master;
-    file "/etc/bind/db.192.168.100";
+    file "/etc/bind/db.192.168.1";
 };
 ```
 
-### Forward Zone (db.tkj.local)
+Buat file zone forward `/etc/bind/db.tkj.local`:
+
+```bash
+nano /etc/bind/db.tkj.local
+```
 
 ```
 $TTL    604800
-@   IN  SOA ns1.tkj.local. root.tkj.local. (
-            2024010101 604800 86400 2419200 604800 )
-@   IN  NS  ns1.tkj.local.
-ns1     IN  A   192.168.100.10
-server  IN  A   192.168.100.10
-web     IN  A   192.168.100.10
+@   IN  SOA server.tkj.local. root.tkj.local. (
+            2026010101  ; Serial (YYYYMMDDNN)
+            604800      ; Refresh
+            86400       ; Retry
+            2419200     ; Expire
+            604800 )    ; Negative Cache TTL
+
+; Name Servers
+@       IN  NS  server.tkj.local.
+
+; A Records
+server  IN  A   192.168.1.10
+router  IN  A   192.168.1.1
+www     IN  A   192.168.1.10
+ftp     IN  A   192.168.1.10
+```
+
+Buat file zone reverse `/etc/bind/db.192.168.1`:
+
+```bash
+nano /etc/bind/db.192.168.1
+```
+
+```
+$TTL    604800
+@   IN  SOA server.tkj.local. root.tkj.local. (
+            2026010101  ; Serial
+            604800      ; Refresh
+            86400       ; Retry
+            2419200     ; Expire
+            604800 )    ; Negative Cache TTL
+
+; Name Servers
+@   IN  NS  server.tkj.local.
+
+; PTR Records (IP terakhir saja)
+10  IN  PTR server.tkj.local.
+1   IN  PTR router.tkj.local.
 ```
 
 ```bash
-# Cek dan restart
+# Cek syntax konfigurasi
 named-checkconf
 named-checkzone tkj.local /etc/bind/db.tkj.local
-systemctl restart bind9
+named-checkzone 1.168.192.in-addr.arpa /etc/bind/db.192.168.1
+
+# Start BIND9
+systemctl start bind9
+systemctl enable bind9
+systemctl status bind9
+
+# Test DNS
+nslookup server.tkj.local 192.168.1.10
+dig @192.168.1.10 server.tkj.local
+dig @192.168.1.10 -x 192.168.1.10
 ```
 
-## Web Server — Apache2
+---
 
+## 5. Web Server (Apache2)
+
+### Instalasi:
 ```bash
-apt install apache2 -y
+apt install -y apache2
+
+# Start dan enable
 systemctl start apache2
 systemctl enable apache2
+systemctl status apache2
 ```
 
-### Virtual Host
+### Virtual Host:
 
 ```bash
-nano /etc/apache2/sites-available/tkj.local.conf
+# Buat direktori untuk website
+mkdir -p /var/www/tkj-web/public_html
+
+# Buat halaman web sederhana
+cat > /var/www/tkj-web/public_html/index.html << 'EOF'
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Website TKJ SMK</title>
+</head>
+<body>
+    <h1>Selamat Datang di Website TKJ!</h1>
+    <p>Server Debian berhasil dikonfigurasi.</p>
+</body>
+</html>
+EOF
+
+# Set permission
+chown -R www-data:www-data /var/www/tkj-web
+chmod -R 755 /var/www/tkj-web
 ```
 
-```apache
+Buat Virtual Host config:
+
+```bash
+nano /etc/apache2/sites-available/tkj-web.conf
+```
+
+```
 <VirtualHost *:80>
     ServerName www.tkj.local
-    DocumentRoot /var/www/tkj
-    
-    <Directory /var/www/tkj>
-        Options Indexes FollowSymLinks
+    ServerAlias tkj.local
+    DocumentRoot /var/www/tkj-web/public_html
+
+    ErrorLog ${APACHE_LOG_DIR}/tkj-web-error.log
+    CustomLog ${APACHE_LOG_DIR}/tkj-web-access.log combined
+
+    <Directory /var/www/tkj-web/public_html>
+        Options -Indexes +FollowSymLinks
         AllowOverride All
         Require all granted
     </Directory>
@@ -132,269 +357,243 @@ nano /etc/apache2/sites-available/tkj.local.conf
 ```
 
 ```bash
-mkdir -p /var/www/tkj
-echo "<h1>Server TKJ</h1>" > /var/www/tkj/index.html
-a2ensite tkj.local.conf
+# Aktifkan virtual host
+a2ensite tkj-web.conf
+
+# Disable default site
 a2dissite 000-default.conf
-apache2ctl configtest
+
+# Reload Apache
 systemctl reload apache2
+
+# Test konfigurasi
+apache2ctl configtest
 ```
 
-## Web Server — Nginx
+---
+
+## 6. FTP Server (vsftpd)
+
+### Instalasi:
+```bash
+apt install -y vsftpd
+
+systemctl start vsftpd
+systemctl enable vsftpd
+```
+
+### Konfigurasi `/etc/vsftpd.conf`:
 
 ```bash
-apt install nginx -y
-```
-
-```nginx
-# /etc/nginx/sites-available/tkj.local
-server {
-    listen 80;
-    server_name www.tkj.local;
-    root /var/www/tkj;
-    index index.html;
-
-    location / {
-        try_files $uri $uri/ =404;
-    }
-}
-```
-
-```bash
-ln -s /etc/nginx/sites-available/tkj.local /etc/nginx/sites-enabled/
-nginx -t
-systemctl reload nginx
-```
-
-## FTP Server (vsftpd)
-
-```bash
-apt install vsftpd -y
+# Backup config asli
+cp /etc/vsftpd.conf /etc/vsftpd.conf.bak
 
 nano /etc/vsftpd.conf
 ```
 
-```conf
+Konfigurasi penting:
+
+```
+# Izinkan akses anonymous (tidak disarankan untuk produksi)
 anonymous_enable=NO
+
+# Izinkan login user lokal
 local_enable=YES
+
+# Izinkan upload
 write_enable=YES
+
+# Chroot user ke home directory
 chroot_local_user=YES
 allow_writeable_chroot=YES
+
+# Passive mode (untuk FTP di NAT)
 pasv_enable=YES
-pasv_min_port=40000
-pasv_max_port=50000
+pasv_min_port=10000
+pasv_max_port=10100
+
+# Logging
+xferlog_enable=YES
+xferlog_file=/var/log/vsftpd.log
 ```
 
 ```bash
 # Buat user FTP
-useradd -m ftpuser
+useradd -m -s /bin/bash ftpuser
 passwd ftpuser
 
+# Restart vsftpd
 systemctl restart vsftpd
-systemctl enable vsftpd
+systemctl status vsftpd
+
+# Test dari client
+ftp 192.168.1.10
 ```
 
-## SSH Server
+---
+
+## 7. Samba File Sharing
+
+### Instalasi:
+```bash
+apt install -y samba samba-common-bin
+
+# Backup konfigurasi
+cp /etc/samba/smb.conf /etc/samba/smb.conf.bak
+```
+
+### Konfigurasi `/etc/samba/smb.conf`:
 
 ```bash
-apt install openssh-server -y
-
-nano /etc/ssh/sshd_config
-```
-
-```conf
-Port 22
-PermitRootLogin no
-PasswordAuthentication yes
-MaxAuthTries 3
-```
-
-```bash
-systemctl restart sshd
-```
-
-### SSH Key Auth
-
-```bash
-# Generate key di client
-ssh-keygen -t rsa -b 4096
-
-# Copy ke server
-ssh-copy-id user@192.168.100.10
-```
-
-## Samba (File Sharing)
-
-```bash
-apt install samba -y
-
 nano /etc/samba/smb.conf
 ```
 
-```ini
+```
 [global]
    workgroup = WORKGROUP
+   server string = %h server (Samba, Ubuntu)
+   dns proxy = no
+   log file = /var/log/samba/log.%m
+   max log size = 1000
+   syslog = 0
+   panic action = /usr/share/samba/panic-action %d
+   server role = standalone server
+   passdb backend = tdbsam
+   obey pam restrictions = yes
+   unix password sync = yes
+   passwd program = /usr/bin/passwd %u
+   pam password change = yes
+   map to guest = bad user
+   usershare allow guests = yes
 
-[public]
+# Share public (bisa diakses semua orang)
+[Public]
    path = /srv/samba/public
-   browsable = yes
-   writable = yes
+   comment = Folder Publik TKJ
+   browseable = yes
+   read only = no
    guest ok = yes
+   create mask = 0666
+   directory mask = 0777
 
-[data]
+# Share private (butuh password)
+[Data-TKJ]
    path = /srv/samba/data
-   valid users = @samba-users
-   writable = yes
+   comment = Data TKJ
+   browseable = yes
+   read only = no
+   valid users = admin, ftpuser
+   create mask = 0660
+   directory mask = 0770
 ```
 
 ```bash
+# Buat direktori share
 mkdir -p /srv/samba/public /srv/samba/data
-chmod 0777 /srv/samba/public
-smbpasswd -a sambauser
-systemctl restart smbd
-testparm
+chmod 777 /srv/samba/public
+chmod 770 /srv/samba/data
+chown -R root:sambashare /srv/samba/data
+
+# Tambah user Samba
+smbpasswd -a admin
+
+# Restart Samba
+systemctl restart smbd nmbd
+systemctl enable smbd nmbd
+
+# Test dari terminal
+smbclient //192.168.1.10/Public -N
+smbclient //192.168.1.10/Data-TKJ -U admin
+
+# Test dari Windows
+# Explorer: \\192.168.1.10\Public
 ```
 
-## Firewall dengan UFW
+---
+
+## 8. SSH Server
+
+SSH sudah terinstall di Debian saat kita pilih "SSH server" waktu install. Berikut konfigurasi keamanannya.
+
+### Konfigurasi `/etc/ssh/sshd_config`:
 
 ```bash
-apt install ufw -y
-ufw enable
-
-# Allow layanan
-ufw allow ssh
-ufw allow http
-ufw allow https
-ufw allow ftp
-ufw allow from 192.168.100.0/24 to any port 445  # Samba dari LAN
-
-# Blokir IP
-ufw deny from 10.0.0.100
-
-# Status
-ufw status verbose
-ufw status numbered
-
-# Hapus rule
-ufw delete deny from 10.0.0.100
+# Backup dan edit
+cp /etc/ssh/sshd_config /etc/ssh/sshd_config.bak
+nano /etc/ssh/sshd_config
 ```
 
-## Monitoring Server
+Konfigurasi penting:
+
+```
+# Port SSH (default 22, bisa diganti untuk keamanan)
+Port 22
+
+# Tidak izinkan login root langsung
+PermitRootLogin no
+
+# Izinkan password authentication (sementara)
+PasswordAuthentication yes
+
+# Izinkan public key auth
+PubkeyAuthentication yes
+
+# Batasi user yang boleh SSH
+AllowUsers admin ftpuser
+
+# Timeout idle session
+ClientAliveInterval 300
+ClientAliveCountMax 3
+```
 
 ```bash
-# Cek resource
-htop          # CPU, RAM real-time
-df -h         # disk usage
-free -h       # RAM usage
-uptime        # load average
+# Restart SSH
+systemctl restart sshd
 
-# Cek service
-systemctl status apache2
-systemctl status bind9
+# Test koneksi dari client
+ssh admin@192.168.1.10
 
-# Cek port
-ss -tulnp
-netstat -tulnp
+# Buat SSH key (lebih aman dari password)
+ssh-keygen -t rsa -b 4096
 
-# Log
-tail -f /var/log/apache2/access.log
-tail -f /var/log/syslog
+# Copy public key ke server
+ssh-copy-id admin@192.168.1.10
+```
+
+---
+
+## 9. Rangkuman & Checklist
+
+### Checklist Konfigurasi Server:
+
+- [ ] IP statik sudah dikonfigurasi
+- [ ] Hostname dan domain sudah di-set
+- [ ] DHCP server berjalan dan memberikan IP ke client
+- [ ] DNS server bisa resolve nama lokal dan forward ke internet
+- [ ] Web server menampilkan halaman website
+- [ ] FTP server bisa diakses dari client
+- [ ] Samba share bisa diakses dari Windows
+- [ ] SSH bisa digunakan untuk remote login
+
+### Troubleshooting Umum:
+
+```bash
+# Cek service yang berjalan
+systemctl list-units --type=service --state=running
+
+# Cek port yang terbuka
+ss -tlnp
+# atau
+netstat -tlnp
+
+# Cek firewall (jika aktif)
+iptables -L -n
+
+# Cek log sistem
 journalctl -xe
-```
 
-## Troubleshooting Umum
-
-| Masalah | Kemungkinan Penyebab | Solusi |
-|---------|---------------------|--------|
-| Web tidak bisa diakses | Apache/Nginx mati | `systemctl restart apache2` |
-| DNS tidak resolve | BIND9 error | `named-checkconf`, cek log |
-| DHCP tidak memberi IP | Interface salah | Cek `/etc/default/isc-dhcp-server` |
-| FTP gagal login | chroot permission | `allow_writeable_chroot=YES` |
-| SSH connection refused | sshd mati | `systemctl start sshd` |
-
-```bash
-# Cek semua service sekaligus
-systemctl status apache2 bind9 isc-dhcp-server vsftpd smbd sshd
-```
-
-## Reverse Proxy dengan Nginx
-
-```bash
-# Nginx sebagai reverse proxy ke Apache di port 8080
-nano /etc/nginx/sites-available/reverse-proxy
-```
-
-```nginx
-server {
-    listen 80;
-    server_name web.tkj.local;
-
-    location / {
-        proxy_pass http://127.0.0.1:8080;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    }
-}
-```
-
-```bash
-# Ubah Apache ke port 8080
-nano /etc/apache2/ports.conf
-# Listen 8080
-
-ln -s /etc/nginx/sites-available/reverse-proxy /etc/nginx/sites-enabled/
-nginx -t
-systemctl reload nginx
-```
-
-## NTP Server
-
-```bash
-apt install ntp -y
-
-nano /etc/ntp.conf
-```
-
-```conf
-# Server NTP Indonesia
-server 0.id.pool.ntp.org iburst
-server 1.id.pool.ntp.org iburst
-server time.google.com iburst
-
-# Izinkan client di LAN sinkronisasi
-restrict 192.168.100.0 mask 255.255.255.0 nomodify notrap
-```
-
-```bash
-systemctl restart ntp
-systemctl enable ntp
-
-# Cek status
-ntpq -p
-timedatectl status
-```
-
-## LDAP Server (OpenLDAP)
-
-```bash
-apt install slapd ldap-utils -y
-
-# Konfigurasi ulang slapd
-dpkg-reconfigure slapd
-```
-
-Isi saat konfigurasi:
-- Omit initial config: **No**
-- DNS domain: **tkj.local**
-- Organization: **TKJ School**
-- Admin password: (isi)
-- Remove database: **Yes** (jika reinstall)
-
-```bash
-# Test koneksi LDAP
-ldapsearch -x -H ldap://localhost -b "dc=tkj,dc=local"
-
-# Tambah user via LDIF
-ldapadd -x -D "cn=admin,dc=tkj,dc=local" -W -f user.ldif
+# Cek log aplikasi spesifik
+tail -f /var/log/syslog
+tail -f /var/log/apache2/error.log
+tail -f /var/log/vsftpd.log
 ```

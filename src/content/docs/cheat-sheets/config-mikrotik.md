@@ -1,268 +1,306 @@
 ---
-title: Config Mikrotik
-description: Snippet konfigurasi CLI Mikrotik untuk NAT, Firewall, DHCP, dan lebih banyak lagi.
+title: Cheat Sheet Konfigurasi MikroTik
+description: Referensi cepat perintah CLI MikroTik RouterOS untuk konfigurasi jaringan TKJ
 ---
 
-# Cheat Sheet Konfigurasi Mikrotik
+# Cheat Sheet Konfigurasi MikroTik RouterOS
 
-Kumpulan perintah CLI Mikrotik RouterOS yang sering dipakai di lapangan dan ujian.
+Referensi cepat perintah CLI MikroTik RouterOS yang sering digunakan dalam praktik jaringan TKJ.
 
-## Konfigurasi Dasar
+---
+
+## Reset Konfigurasi
 
 ```bash
-# Ganti nama router
+# Reset ke default (tanpa no-defaults akan load factory config)
+/system reset-configuration no-defaults=yes
+
+# Reset dan langsung keep-user
+/system reset-configuration no-defaults=yes keep-users=yes
+```
+
+---
+
+## Identity & Hostname
+
+```bash
+# Set nama router
 /system identity set name=Router-TKJ
 
-# Set IP address di interface LAN
-/ip address add address=192.168.100.1/24 interface=ether2
-
-# Default route ke ISP
-/ip route add dst-address=0.0.0.0/0 gateway=192.168.1.1
-
-# DNS
-/ip dns set servers=8.8.8.8,1.1.1.1 allow-remote-requests=yes
+# Cek identity
+/system identity print
 ```
 
-## NAT Masquerade
+---
+
+## IP Address
 
 ```bash
-# Internet sharing — semua traffic LAN keluar via ether1
-/ip firewall nat add chain=srcnat action=masquerade out-interface=ether1 comment="NAT Internet"
+# Tambah IP address
+/ip address add address=192.168.1.1/24 interface=ether1
 
-# Verifikasi
+# Tambah IP di interface lain
+/ip address add address=10.10.10.1/24 interface=ether2
+
+# Lihat semua IP
+/ip address print
+
+# Hapus IP
+/ip address remove [find address="192.168.1.1/24"]
+```
+
+---
+
+## Default Gateway & Static Route
+
+```bash
+# Tambah default gateway
+/ip route add gateway=192.168.0.1
+
+# Static route ke network tertentu
+/ip route add dst-address=172.16.0.0/24 gateway=192.168.1.2
+
+# Lihat routing table
+/ip route print
+```
+
+---
+
+## NAT Masquerade (Internet Sharing)
+
+```bash
+# Masquerade untuk semua traffic keluar lewat ether1
+/ip firewall nat add chain=srcnat action=masquerade out-interface=ether1
+
+# Masquerade dengan src-address tertentu
+/ip firewall nat add chain=srcnat src-address=192.168.1.0/24 action=masquerade out-interface=ether1
+
+# Lihat NAT rules
 /ip firewall nat print
 ```
+
+---
 
 ## DHCP Server
 
 ```bash
-# Buat pool IP
-/ip pool add name=dhcp-pool ranges=192.168.100.10-192.168.100.200
+# Step 1: Buat IP Pool
+/ip pool add name=dhcp-pool ranges=192.168.1.100-192.168.1.200
 
-# Buat DHCP server
-/ip dhcp-server add name=dhcp-lan interface=ether2 address-pool=dhcp-pool lease-time=1d disabled=no
+# Step 2: Tambah DHCP Network
+/ip dhcp-server network add address=192.168.1.0/24 gateway=192.168.1.1 dns-server=8.8.8.8,8.8.4.4
 
-# Konfigurasi network
-/ip dhcp-server network add address=192.168.100.0/24 gateway=192.168.100.1 dns-server=8.8.8.8
+# Step 3: Buat DHCP Server
+/ip dhcp-server add name=dhcp-ether2 interface=ether2 address-pool=dhcp-pool disabled=no
 
-# Lihat lease aktif
+# Lihat DHCP leases
 /ip dhcp-server lease print
+
+# Hapus semua lease
+/ip dhcp-server lease remove [find]
 ```
+
+---
+
+## DNS
+
+```bash
+# Set DNS server
+/ip dns set servers=8.8.8.8,8.8.4.4
+
+# Allow remote DNS requests
+/ip dns set allow-remote-requests=yes
+
+# Cek DNS settings
+/ip dns print
+
+# Static DNS entry
+/ip dns static add name=server.local address=192.168.1.10
+```
+
+---
 
 ## Firewall Filter
 
 ```bash
-# Accept established connections
-/ip firewall filter add chain=input connection-state=established,related action=accept
+# Drop invalid connections
+/ip firewall filter add chain=forward connection-state=invalid action=drop comment="drop invalid"
 
-# Drop invalid
+# Allow established & related
+/ip firewall filter add chain=forward connection-state=established,related action=accept comment="allow established"
+
+# Allow traffic dari LAN ke internet
+/ip firewall filter add chain=forward src-address=192.168.1.0/24 action=accept comment="allow LAN"
+
+# Drop semua yang tidak diizinkan
+/ip firewall filter add chain=forward action=drop comment="drop all"
+
+# Protect router (input chain)
 /ip firewall filter add chain=input connection-state=invalid action=drop
+/ip firewall filter add chain=input connection-state=established,related action=accept
+/ip firewall filter add chain=input in-interface=ether1 action=drop comment="block WAN input"
 
-# Accept dari LAN
-/ip firewall filter add chain=input in-interface=ether2 action=accept
-
-# Drop dari WAN
-/ip firewall filter add chain=input in-interface=ether1 action=drop comment="Drop dari WAN"
-
-# Lihat semua rule
+# Lihat firewall rules
 /ip firewall filter print
 ```
 
-## Queue Simple (Bandwidth Management)
-
-```bash
-# Limit satu PC (2Mbps upload / 5Mbps download)
-/queue simple add name=limit-pc01 target=192.168.100.11/32 max-limit=2M/5M
-
-# Limit seluruh subnet LAN
-/queue simple add name=limit-lan target=192.168.100.0/24 max-limit=10M/20M
-
-# Lihat queue
-/queue simple print
-```
-
-## VLAN
-
-```bash
-# Buat interface VLAN di ether2
-/interface vlan add name=vlan10 vlan-id=10 interface=ether2 comment="VLAN Guru"
-/interface vlan add name=vlan20 vlan-id=20 interface=ether2 comment="VLAN Siswa"
-
-# Tambah IP di tiap VLAN
-/ip address add address=192.168.10.1/24 interface=vlan10
-/ip address add address=192.168.20.1/24 interface=vlan20
-
-# DHCP per VLAN
-/ip pool add name=pool-vlan10 ranges=192.168.10.10-192.168.10.100
-/ip dhcp-server add name=dhcp-vlan10 interface=vlan10 address-pool=pool-vlan10 disabled=no
-/ip dhcp-server network add address=192.168.10.0/24 gateway=192.168.10.1 dns-server=8.8.8.8
-```
+---
 
 ## Hotspot
 
 ```bash
-# Wizard hotspot
+# Setup Hotspot wizard di interface
 /ip hotspot setup
 
-# Buat user profile dengan limit
-/ip hotspot user profile add name=siswa rate-limit=2M/2M session-timeout=8h
+# Atau manual:
+# Step 1: Set IP di interface hotspot
+/ip address add address=192.168.2.1/24 interface=ether3
 
-# Tambah user
-/ip hotspot user add name=siswa01 password=12345 profile=siswa
+# Step 2: Buat DHCP untuk hotspot
+/ip pool add name=hs-pool ranges=192.168.2.2-192.168.2.254
+/ip dhcp-server add name=hs-dhcp interface=ether3 address-pool=hs-pool disabled=no
+/ip dhcp-server network add address=192.168.2.0/24 gateway=192.168.2.1
+
+# Step 3: Buat Hotspot
+/ip hotspot add name=hotspot1 interface=ether3 address-pool=hs-pool disabled=no
+
+# Tambah user hotspot
+/ip hotspot user add name=siswa password=tkj2026 profile=default
 
 # Lihat user aktif
 /ip hotspot active print
 ```
 
-## VPN PPTP Server
+---
+
+## Bandwidth Management (Simple Queue)
 
 ```bash
-# Aktifkan PPTP server
-/interface pptp-server server set enabled=yes
+# Limit bandwidth per IP
+/queue simple add name=limit-pc1 target=192.168.1.10/32 max-limit=2M/2M
 
-# Buat secret (akun VPN)
-/ppp secret add name=user-vpn password=vpn123 service=pptp local-address=10.0.0.1 remote-address=10.0.0.2
+# Limit bandwidth per subnet
+/queue simple add name=limit-lan target=192.168.1.0/24 max-limit=10M/10M
 
-# Lihat koneksi aktif
-/interface pptp-server print
-/ppp active print
+# Prioritas berbeda
+/queue simple add name=guru target=192.168.1.20/32 max-limit=5M/5M priority=1/1
+/queue simple add name=siswa target=192.168.1.0/24 max-limit=2M/2M priority=8/8
+
+# Lihat queue
+/queue simple print
+
+# Lihat statistik
+/queue simple print stats
 ```
 
-## Monitoring & Troubleshooting
+---
+
+## VLAN
+
+```bash
+# Tambah VLAN interface di ether1
+/interface vlan add name=vlan10 vlan-id=10 interface=ether1
+/interface vlan add name=vlan20 vlan-id=20 interface=ether1
+
+# Tambah IP ke VLAN
+/ip address add address=192.168.10.1/24 interface=vlan10
+/ip address add address=192.168.20.1/24 interface=vlan20
+
+# Lihat VLAN
+/interface vlan print
+```
+
+---
+
+## NTP Client
+
+```bash
+# Aktifkan NTP client
+/system ntp client set enabled=yes primary-ntp=103.16.102.80 secondary-ntp=0.id.pool.ntp.org
+
+# Cek NTP status
+/system ntp client print
+
+# Set timezone
+/system clock set time-zone-name=Asia/Makassar
+```
+
+---
+
+## Backup & Restore Konfigurasi
+
+```bash
+# Backup binary (tidak bisa dibaca)
+/system backup save name=backup-tkj-2026
+
+# Export konfigurasi ke file teks (bisa dibaca/edit)
+/export file=config-tkj-2026
+
+# Export ke terminal (tampil di layar)
+/export
+
+# Restore dari backup binary
+/system backup load name=backup-tkj-2026.backup
+
+# Import dari file teks
+/import file=config-tkj-2026.rsc
+```
+
+---
+
+## Tools & Diagnostics
 
 ```bash
 # Ping
-/ping 8.8.8.8 count=4
+/tool ping 8.8.8.8 count=4
 
 # Traceroute
 /tool traceroute 8.8.8.8
 
-# Monitor traffic real-time
-/interface monitor-traffic ether1
+# Bandwidth test antar router
+/tool bandwidth-test address=192.168.1.2 direction=both
 
-# Torch (per koneksi)
-/tool torch interface=ether2
+# Torch (monitor traffic real-time)
+/tool torch interface=ether1
 
-# Lihat log
-/log print
-
-# Resource router
+# Lihat resource penggunaan
 /system resource print
+
+# Lihat uptime
+/system resource print | grep uptime
 ```
 
-## VPN L2TP/IPSec Server
+---
+
+## Wireless (jika ada)
 
 ```bash
-# Aktifkan L2TP dengan IPSec
-/interface l2tp-server server set enabled=yes use-ipsec=yes ipsec-secret=rahasia123
+# Set mode dan SSID
+/interface wireless set wlan1 mode=ap-bridge ssid=TKJ-WiFi band=2ghz-b/g/n
 
-# Buat secret
-/ppp secret add name=l2tp-user password=l2tp456 service=l2tp local-address=10.1.0.1 remote-address=10.1.0.2
+# Set security
+/interface wireless security-profiles add name=secure authentication-types=wpa2-psk wpa2-pre-shared-key=password123
 
-# Lihat status
-/interface l2tp-server print
-/ppp active print
+# Apply security ke interface
+/interface wireless set wlan1 security-profile=secure
+
+# Lihat wireless client
+/interface wireless registration-table print
 ```
 
-## Address List dan Firewall Dinamis
+---
 
-```bash
-# Buat address list
-/ip firewall address-list add list=blokir address=172.217.0.0/16 comment="Google IP"
+## Quick Reference
 
-# Block berdasarkan address list
-/ip firewall filter add chain=forward dst-address-list=blokir action=drop
+| Perintah | Fungsi |
+|----------|--------|
+| `/system identity print` | Lihat nama router |
+| `/ip address print` | Lihat semua IP |
+| `/ip route print` | Lihat routing table |
+| `/ip firewall nat print` | Lihat NAT rules |
+| `/ip dhcp-server lease print` | Lihat DHCP clients |
+| `/interface print` | Lihat semua interface |
+| `/system resource print` | Lihat resource CPU/RAM |
+| `/log print` | Lihat log sistem |
 
-# Address list dinamis dari firewall (tandai IP yang scan)
-/ip firewall filter add chain=input protocol=tcp psd=21,3s,3,1 action=add-src-to-address-list address-list=port-scanner address-list-timeout=1d
-
-# Block port scanner
-/ip firewall filter add chain=input src-address-list=port-scanner action=drop
-```
-
-## Mangle (Packet Marking)
-
-```bash
-# Tandai traffic download
-/ip firewall mangle add chain=forward src-address=0.0.0.0/0 dst-address=192.168.100.0/24 action=mark-packet new-packet-mark=download passthrough=no
-
-# Tandai traffic upload
-/ip firewall mangle add chain=forward src-address=192.168.100.0/24 dst-address=0.0.0.0/0 action=mark-packet new-packet-mark=upload passthrough=no
-
-# Tandai koneksi ke YouTube
-/ip firewall mangle add chain=prerouting dst-address-list=youtube action=mark-connection new-connection-mark=youtube-conn
-/ip firewall mangle add chain=prerouting connection-mark=youtube-conn action=mark-packet new-packet-mark=youtube-packet
-```
-
-## Backup dan Restore
-
-```bash
-# Backup konfigurasi
-/system backup save name=backup-tkj
-
-# Export ke text
-/export file=config-tkj
-
-# Restore
-/system backup load name=backup-tkj
-
-# Import dari text
-/import file-name=config-tkj.rsc
-
-# Update RouterOS
-/system package update check-for-updates
-/system package update install
-```
-
-## Layer7 Protocol (Blokir berdasarkan Konten)
-
-```bash
-# Buat L7 pattern
-/ip firewall layer7-protocol add name=youtube regexp="(youtube.com|googlevideo.com)"
-/ip firewall layer7-protocol add name=tiktok regexp="(tiktok.com|tiktokv.com)"
-/ip firewall layer7-protocol add name=facebook regexp="(facebook.com|fbcdn.net)"
-
-# Block berdasarkan L7
-/ip firewall filter add chain=forward layer7-protocol=youtube action=drop comment="Blokir YouTube"
-
-# Jadwal blokir (time-based)
-/ip firewall filter add chain=forward layer7-protocol=youtube action=drop time=8h-17h,mon,tue,wed,thu,fri comment="Blokir YT jam kerja"
-```
-
-## Scripts dan Scheduler
-
-```bash
-# Buat script di Mikrotik
-/system script add name=backup-config source="/system backup save name=auto-backup"
-
-# Jalankan script
-/system script run backup-config
-
-# Jadwalkan dengan scheduler
-/system scheduler add name=daily-backup interval=1d on-event=backup-config start-time=02:00:00
-
-# Script reboot tiap minggu
-/system scheduler add name=weekly-reboot interval=7d on-event="/system reboot" start-time=03:00:00
-
-# Lihat semua scheduler
-/system scheduler print
-```
-
-## Netwatch (Monitoring Otomatis)
-
-```bash
-# Monitor koneksi ke server
-/tool netwatch add host=8.8.8.8 interval=30s comment="Monitor Google DNS"
-
-# Dengan script saat down
-/tool netwatch add host=192.168.100.10 interval=1m \
-  down-script="/log error \"Server TKJ down!\"" \
-  up-script="/log info \"Server TKJ kembali online\""
-
-# Kirim email saat down (butuh email setting)
-/tool netwatch add host=192.168.1.1 interval=30s \
-  down-script="/tool e-mail send to=admin@tkj.local subject=\"ISP Down\" body=\"ISP tidak bisa dijangkau\""
-
-# Lihat status netwatch
-/tool netwatch print
-```
+<!-- update: 2026-01-06 -->
