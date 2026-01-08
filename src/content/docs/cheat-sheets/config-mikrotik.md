@@ -97,3 +97,19 @@ Kumpulan perintah CLI Mikrotik RouterOS yang sering dipakai di lapangan dan ujia
 /ip dhcp-server add name=dhcp-vlan10 interface=vlan10 address-pool=pool-vlan10 disabled=no
 /ip dhcp-server network add address=192.168.10.0/24 gateway=192.168.10.1 dns-server=8.8.8.8
 ```
+
+## Hotspot
+
+```bash
+# Wizard hotspot
+/ip hotspot setup
+
+# Buat user profile dengan limit
+/ip hotspot user profile add name=siswa rate-limit=2M/2M session-timeout=8h
+
+# Tambah user
+/ip hotspot user add name=siswa01 password=12345 profile=siswa
+
+# Lihat user aktif
+/ip hotspot active print
+```
