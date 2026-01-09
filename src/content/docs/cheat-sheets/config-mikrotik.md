@@ -113,3 +113,17 @@ Kumpulan perintah CLI Mikrotik RouterOS yang sering dipakai di lapangan dan ujia
 # Lihat user aktif
 /ip hotspot active print
 ```
+
+## VPN PPTP Server
+
+```bash
+# Aktifkan PPTP server
+/interface pptp-server server set enabled=yes
+
+# Buat secret (akun VPN)
+/ppp secret add name=user-vpn password=vpn123 service=pptp local-address=10.0.0.1 remote-address=10.0.0.2
+
+# Lihat koneksi aktif
+/interface pptp-server print
+/ppp active print
+```
