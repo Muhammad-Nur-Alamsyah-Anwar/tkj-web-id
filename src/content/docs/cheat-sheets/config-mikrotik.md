@@ -127,3 +127,25 @@ Kumpulan perintah CLI Mikrotik RouterOS yang sering dipakai di lapangan dan ujia
 /interface pptp-server print
 /ppp active print
 ```
+
+## Monitoring & Troubleshooting
+
+```bash
+# Ping
+/ping 8.8.8.8 count=4
+
+# Traceroute
+/tool traceroute 8.8.8.8
+
+# Monitor traffic real-time
+/interface monitor-traffic ether1
+
+# Torch (per koneksi)
+/tool torch interface=ether2
+
+# Lihat log
+/log print
+
+# Resource router
+/system resource print
+```
