@@ -597,3 +597,5 @@ tail -f /var/log/syslog
 tail -f /var/log/apache2/error.log
 tail -f /var/log/vsftpd.log
 ```
+
+<!-- update: 2026-01-10 -->
