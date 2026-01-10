@@ -598,4 +598,4 @@ tail -f /var/log/apache2/error.log
 tail -f /var/log/vsftpd.log
 ```
 
-<!-- update: 2026-01-10 -->
+<!-- rev: jan10 -->
