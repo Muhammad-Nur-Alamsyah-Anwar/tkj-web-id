@@ -32,3 +32,19 @@ Kumpulan perintah CLI Mikrotik RouterOS yang sering dipakai di lapangan dan ujia
 # Verifikasi
 /ip firewall nat print
 ```
+
+## DHCP Server
+
+```bash
+# Buat pool IP
+/ip pool add name=dhcp-pool ranges=192.168.100.10-192.168.100.200
+
+# Buat DHCP server
+/ip dhcp-server add name=dhcp-lan interface=ether2 address-pool=dhcp-pool lease-time=1d disabled=no
+
+# Konfigurasi network
+/ip dhcp-server network add address=192.168.100.0/24 gateway=192.168.100.1 dns-server=8.8.8.8
+
+# Lihat lease aktif
+/ip dhcp-server lease print
+```
