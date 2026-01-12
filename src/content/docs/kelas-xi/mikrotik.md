@@ -25,3 +25,24 @@ Username: admin
 Password: (kosong)
 IP default: 192.168.88.1
 ```
+
+## Konfigurasi IP dan Routing
+
+### Setup Internet Sharing
+
+```bash
+# Set IP WAN
+/ip address add address=192.168.1.2/24 interface=ether1
+
+# Set IP LAN
+/ip address add address=192.168.100.1/24 interface=ether2
+
+# Default route
+/ip route add dst-address=0.0.0.0/0 gateway=192.168.1.1
+
+# DNS
+/ip dns set servers=8.8.8.8,1.1.1.1 allow-remote-requests=yes
+
+# NAT masquerade
+/ip firewall nat add chain=srcnat action=masquerade out-interface=ether1
+```
