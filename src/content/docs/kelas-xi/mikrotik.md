@@ -46,3 +46,27 @@ IP default: 192.168.88.1
 # NAT masquerade
 /ip firewall nat add chain=srcnat action=masquerade out-interface=ether1
 ```
+
+## Firewall Filter
+
+Chain yang tersedia di Mikrotik:
+- **input** — traffic yang masuk ke router
+- **forward** — traffic yang melewati router
+- **output** — traffic yang keluar dari router
+
+```bash
+# Accept established/related
+/ip firewall filter add chain=input connection-state=established,related action=accept
+
+# Drop invalid
+/ip firewall filter add chain=input connection-state=invalid action=drop
+
+# Accept dari LAN
+/ip firewall filter add chain=input in-interface=ether2 action=accept
+
+# Accept ICMP
+/ip firewall filter add chain=input protocol=icmp action=accept
+
+# Drop dari WAN
+/ip firewall filter add chain=input in-interface=ether1 action=drop
+```
