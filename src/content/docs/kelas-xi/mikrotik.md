@@ -70,3 +70,22 @@ Chain yang tersedia di Mikrotik:
 # Drop dari WAN
 /ip firewall filter add chain=input in-interface=ether1 action=drop
 ```
+
+## DHCP Server
+
+```bash
+# Buat pool IP
+/ip pool add name=pool-lan ranges=192.168.100.10-192.168.100.200
+
+# Buat DHCP server
+/ip dhcp-server add name=dhcp-lan interface=ether2 address-pool=pool-lan disabled=no
+
+# Konfigurasi network DHCP
+/ip dhcp-server network add address=192.168.100.0/24 gateway=192.168.100.1 dns-server=8.8.8.8
+
+# Lihat lease
+/ip dhcp-server lease print
+
+# Bind IP ke MAC (lease statis)
+/ip dhcp-server lease add mac-address=AA:BB:CC:DD:EE:FF address=192.168.100.50
+```
