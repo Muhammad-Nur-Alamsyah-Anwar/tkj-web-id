@@ -89,3 +89,23 @@ Chain yang tersedia di Mikrotik:
 # Bind IP ke MAC (lease statis)
 /ip dhcp-server lease add mac-address=AA:BB:CC:DD:EE:FF address=192.168.100.50
 ```
+
+## Hotspot
+
+Hotspot digunakan untuk autentikasi pengguna WiFi sebelum bisa akses internet.
+
+```bash
+# Jalankan wizard
+/ip hotspot setup
+
+# Buat profile user
+/ip hotspot user profile add name=siswa rate-limit=2M/2M session-timeout=8h
+/ip hotspot user profile add name=guru rate-limit=5M/10M
+
+# Tambah user
+/ip hotspot user add name=siswa01 password=12345 profile=siswa
+/ip hotspot user add name=guru01 password=abcde profile=guru
+
+# Monitor user aktif
+/ip hotspot active print
+```
