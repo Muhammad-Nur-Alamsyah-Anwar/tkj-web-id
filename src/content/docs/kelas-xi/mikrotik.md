@@ -109,3 +109,28 @@ Hotspot digunakan untuk autentikasi pengguna WiFi sebelum bisa akses internet.
 # Monitor user aktif
 /ip hotspot active print
 ```
+
+## Bandwidth Management
+
+### Simple Queue
+
+```bash
+# Limit per IP
+/queue simple add name=pc01 target=192.168.100.11 max-limit=2M/5M
+
+# Limit subnet
+/queue simple add name=all-lan target=192.168.100.0/24 max-limit=20M/50M
+```
+
+### PCQ (Per Connection Queue)
+
+PCQ membagi bandwidth merata untuk semua user.
+
+```bash
+# Buat queue type PCQ
+/queue type add name=pcq-download kind=pcq pcq-classifier=dst-address
+/queue type add name=pcq-upload kind=pcq pcq-classifier=src-address
+
+# Terapkan
+/queue simple add name=pcq-lan target=192.168.100.0/24 queue=pcq-upload/pcq-download max-limit=50M/100M
+```
