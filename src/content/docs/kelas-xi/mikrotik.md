@@ -134,3 +134,26 @@ PCQ membagi bandwidth merata untuk semua user.
 # Terapkan
 /queue simple add name=pcq-lan target=192.168.100.0/24 queue=pcq-upload/pcq-download max-limit=50M/100M
 ```
+
+## Troubleshooting
+
+```bash
+# Ping & traceroute
+/ping 8.8.8.8
+/tool traceroute 8.8.8.8
+
+# Monitor traffic
+/interface monitor-traffic ether1
+/tool torch interface=ether2
+
+# Cek resource
+/system resource print
+
+# Log
+/log print follow
+```
+
+## Sumber Belajar
+
+- [Dokumentasi resmi MikroTik](https://help.mikrotik.com)
+- [Forum MikroTik Indonesia](https://mikrotik.co.id/forum)
