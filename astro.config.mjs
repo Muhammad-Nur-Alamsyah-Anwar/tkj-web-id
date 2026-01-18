@@ -32,7 +32,7 @@ export default defineConfig({
                   label: 'Kelas X (Dasar)',
                   items: [
                       { label: 'Dasar Jaringan', slug: 'kelas-x/dasar-jaringan', icon: 'puzzle' },
-                      { label: 'Komputer Dasar', slug: 'kelas-x/komputer-dasar', icon: 'bars' },
+                      { label: 'Komputer Dasar', slug: 'kelas-x/komputer-dasar', icon: 'document' },
                       { label: 'Media Transmisi', slug: 'kelas-x/media-transmisi', icon: 'random' },
                       { label: 'Elektronika Dasar', slug: 'kelas-x/elektronika-dasar', icon: 'setting' },
                   ],
@@ -41,14 +41,14 @@ export default defineConfig({
                   label: 'Kelas XI (Server)',
                   items: [
                       { label: 'Debian Server', slug: 'kelas-xi/debian-server', icon: 'linux' },
-                      { label: 'Cisco Packet Tracer', slug: 'kelas-xi/cisco-packet-tracer', icon: 'external' },
-                      { label: 'Mikrotik', slug: 'kelas-xi/mikrotik', icon: 'seti:lock' },
+                      { label: 'Cisco Packet Tracer', slug: 'kelas-xi/cisco-packet-tracer', icon: 'open-book' },
+                      { label: 'Mikrotik', slug: 'kelas-xi/mikrotik', icon: 'setting' },
                   ],
               },
               {
                   label: 'Cheat Sheets',
                   items: [
-                      { label: 'Perintah Linux', slug: 'cheat-sheets/perintah-linux', icon: 'terminal' },
+                      { label: 'Perintah Linux', slug: 'cheat-sheets/perintah-linux', icon: 'linux' },
                       { label: 'Config Mikrotik', slug: 'cheat-sheets/config-mikrotik', icon: 'setting' },
                       { label: 'Subnetting', slug: 'cheat-sheets/subnetting', icon: 'puzzle' },
                   ],
