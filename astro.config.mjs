@@ -31,18 +31,18 @@ export default defineConfig({
               {
                   label: 'Kelas X (Dasar)',
                   items: [
-                      { label: 'Dasar Jaringan', slug: 'kelas-x/dasar-jaringan', icon: 'signal' },
-                      { label: 'Komputer Dasar', slug: 'kelas-x/komputer-dasar', icon: 'cpu' },
-                      { label: 'Media Transmisi', slug: 'kelas-x/media-transmisi', icon: 'seti:code' }, 
-                      { label: 'Elektronika Dasar', slug: 'kelas-x/elektronika-dasar', icon: 'seti:config' },
+                      { label: 'Dasar Jaringan', slug: 'kelas-x/dasar-jaringan', icon: 'puzzle' },
+                      { label: 'Komputer Dasar', slug: 'kelas-x/komputer-dasar', icon: 'bars' },
+                      { label: 'Media Transmisi', slug: 'kelas-x/media-transmisi', icon: 'random' },
+                      { label: 'Elektronika Dasar', slug: 'kelas-x/elektronika-dasar', icon: 'setting' },
                   ],
               },
               {
                   label: 'Kelas XI (Server)',
                   items: [
                       { label: 'Debian Server', slug: 'kelas-xi/debian-server', icon: 'linux' },
-                      { label: 'Cisco Packet Tracer', slug: 'kelas-xi/cisco-packet-tracer', icon: 'seti:notebook' },
-                      { label: 'Mikrotik', slug: 'kelas-xi/mikrotik', icon: 'wifi' },
+                      { label: 'Cisco Packet Tracer', slug: 'kelas-xi/cisco-packet-tracer', icon: 'external' },
+                      { label: 'Mikrotik', slug: 'kelas-xi/mikrotik', icon: 'seti:lock' },
                   ],
               },
               {
