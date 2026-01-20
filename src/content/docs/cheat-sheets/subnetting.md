@@ -37,3 +37,29 @@ Subnetting adalah teknik membagi jaringan besar menjadi subnet-subnet kecil.
 | /32 | 255.255.255.255 | 1 (host route) |
 
 **Rumus:** Jumlah host = 2^(32-CIDR) - 2
+
+## Rumus Subnetting
+
+```
+Jumlah host     = 2^n - 2  (n = bit host = 32 - CIDR)
+Jumlah subnet   = 2^m  (m = bit yang dipinjam)
+Network Address = IP AND Subnet Mask
+Broadcast       = Network OR NOT(Mask)
+Host pertama    = Network + 1
+Host terakhir   = Broadcast - 1
+```
+
+## Contoh Perhitungan
+
+**Soal:** 192.168.10.0/26, berapa host?
+
+```
+CIDR /26 → bit host = 32 - 26 = 6
+Jumlah host = 2^6 - 2 = 62 host
+Subnet mask = 255.255.255.192
+
+Network  : 192.168.10.0
+Broadcast: 192.168.10.63
+Host 1   : 192.168.10.1
+Host last: 192.168.10.62
+```
