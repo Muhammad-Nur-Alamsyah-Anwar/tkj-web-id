@@ -413,4 +413,4 @@ ping <ip> → test konektivitas
 traceroute <ip> → traceroute
 ```
 
-<!-- update: 2026-01-20 -->
+<!-- rev: jan20 -->
