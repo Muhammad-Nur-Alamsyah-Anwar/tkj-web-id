@@ -412,3 +412,5 @@ show vlan brief → daftar VLAN
 ping <ip> → test konektivitas
 traceroute <ip> → traceroute
 ```
+
+<!-- update: 2026-01-20 -->
