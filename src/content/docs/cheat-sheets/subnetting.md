@@ -63,3 +63,17 @@ Broadcast: 192.168.10.63
 Host 1   : 192.168.10.1
 Host last: 192.168.10.62
 ```
+
+## Membagi Subnet
+
+**Contoh:** 192.168.1.0/24 dibagi 4 subnet
+
+```
+Butuh 4 subnet → 2^2 = 4 → pinjam 2 bit
+CIDR baru = /26, block size = 64
+
+Subnet 1: 192.168.1.0/26   → .1 – .62    broadcast .63
+Subnet 2: 192.168.1.64/26  → .65 – .126  broadcast .127
+Subnet 3: 192.168.1.128/26 → .129 – .190 broadcast .191
+Subnet 4: 192.168.1.192/26 → .193 – .254 broadcast .255
+```
