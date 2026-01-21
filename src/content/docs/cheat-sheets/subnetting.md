@@ -77,3 +77,19 @@ Subnet 2: 192.168.1.64/26  → .65 – .126  broadcast .127
 Subnet 3: 192.168.1.128/26 → .129 – .190 broadcast .191
 Subnet 4: 192.168.1.192/26 → .193 – .254 broadcast .255
 ```
+
+## VLSM (Variable Length Subnet Mask)
+
+VLSM memungkinkan subnet berbeda ukuran sesuai kebutuhan.
+
+**Contoh:** 192.168.10.0/24, kebutuhan: 50 host, 25 host, 10 host, 2 host
+
+```
+1. Urutkan dari terbesar ke terkecil
+2. Alokasikan satu per satu
+
+50 host → /26 (62 host) → 192.168.10.0/26
+25 host → /27 (30 host) → 192.168.10.64/27
+10 host → /28 (14 host) → 192.168.10.96/28
+2 host  → /30 (2 host)  → 192.168.10.112/30
+```
