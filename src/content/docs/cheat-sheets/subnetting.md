@@ -93,3 +93,22 @@ VLSM memungkinkan subnet berbeda ukuran sesuai kebutuhan.
 10 host → /28 (14 host) → 192.168.10.96/28
 2 host  → /30 (2 host)  → 192.168.10.112/30
 ```
+
+## Trik Cepat — Magic Number
+
+```
+Magic number = 256 - nilai subnet mask oktet terakhir
+
+Contoh mask 255.255.255.192:
+  Magic = 256 - 192 = 64
+  Subnet kelipatan 64: .0, .64, .128, .192
+```
+
+| Mask | Magic | Subnet |
+|------|-------|--------|
+| .128 (/25) | 128 | 0, 128 |
+| .192 (/26) | 64 | 0, 64, 128, 192 |
+| .224 (/27) | 32 | 0, 32, 64, 96, 128, 160, 192, 224 |
+| .240 (/28) | 16 | 0, 16, 32, 48, ... |
+| .248 (/29) | 8 | 0, 8, 16, 24, ... |
+| .252 (/30) | 4 | 0, 4, 8, 12, ... |
