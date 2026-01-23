@@ -608,4 +608,4 @@ tail -f /var/log/vsftpd.log
 
 <!-- update: 2026-01-22 -->
 
-<!-- update: 2026-01-23 -->
+<!-- rev: jan23 -->
