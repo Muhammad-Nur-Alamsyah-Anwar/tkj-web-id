@@ -112,3 +112,20 @@ Contoh mask 255.255.255.192:
 | .240 (/28) | 16 | 0, 16, 32, 48, ... |
 | .248 (/29) | 8 | 0, 8, 16, 24, ... |
 | .252 (/30) | 4 | 0, 4, 8, 12, ... |
+
+## Latihan Soal Subnetting
+
+1. Berapa jumlah host dari 10.0.0.0/20?
+2. Network address dari 172.16.45.130/20?
+3. Bagi 10.10.10.0/24 menjadi 8 subnet
+4. VLSM dari 192.168.50.0/24 untuk 100, 50, 20, 5 host
+
+<details>
+<summary>Kunci Jawaban</summary>
+
+1. /20 → bit host=12 → 2^12-2 = **4094 host**
+2. Mask /20=255.255.240.0, 45 AND 240=32 → **172.16.32.0/20**
+3. /27 → .0, .32, .64, .96, .128, .160, .192, .224
+4. /25(.0), /26(.128), /27(.192), /29(.224)
+
+</details>
