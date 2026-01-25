@@ -11,7 +11,7 @@ Hukum pertama yang gak boleh dilanggar: **Jangan Salah Colok!**
 
 | Tipe | Singkatan | Sumber | Sifat | Bahaya |
 | :--- | :--- | :--- | :--- | :--- |
-| **AC** | Alternating Current | Listrik PLN (Colokan Dinding) | Bolak-balik, tegangan tinggi (220V). | **MEMATIKAN**. Jangan disentuh langsung! |
+| **AC** | Alternating Current | Listrik PLN (Colokan Dinding) | Bolak-balik, tegangan tinggi (220V). | **MEMATIKAN ☠️**. Jangan disentuh langsung! |
 | **DC** | Direct Current | Baterai, Adaptor Laptop, PSU | Searah, tegangan rendah (3V - 19V). | Relatif aman dipegang (kecuali kapasitor besar). |
 
 :::caution[BAHAYA LEDAK!]
@@ -23,7 +23,7 @@ Jangan pernah colok komponen DC (seperti lampu LED atau Dinamo mainan) langsung 
 Sering disebut **Avometer** (Ampere, Volt, Ohm Meter). Ada yang analog (jarum) dan digital (angka).
 
 ### Skill #1: Cek Continuity (Nyambung/Putus)
-Ini skill paling sering dipakai anak jaringan buat ngecek kabel LAN atau kabel power.
+Ini skill paling sering dipakai anak jaringan buat ngecek kabel LAN atau kabel power putus dalam.
 
 1.  Putar selektor ke ikon **Diode/Buzzer** (biasanya gambar sinyal suara 📶).
 2.  Tempelkan probe merah ke ujung kabel A.
@@ -31,22 +31,38 @@ Ini skill paling sering dipakai anak jaringan buat ngecek kabel LAN atau kabel p
 4.  **Bunyi "BEEP!"** = Kabel Nyambung (Bagus) ✅.
 5.  **Hening** = Kabel Putus (Jelek) ❌.
 
+### Skill #2: Cek Tegangan DC (Cek Adaptor/Baterai)
+Laptop mati total? Jangan vonis motherboard dulu, cek adaptornya!
+
+1.  Pastikan kamu mau ukur arus DC (Baterai/Adaptor).
+2.  Putar selektor ke **DCV** atau simbol **V⎓** (Huruf V dengan garis lurus/putus-putus).
+3.  Pilih angka di atas tegangan benda yang mau diukur.
+    *   *Contoh:* Mau ukur Adaptor Laptop (19V), arahkan ke angka **20**. Jangan ke angka 10, nanti jarum mentok/error!
+4.  Tempel Probe **Merah ke Positif (+)** dan **Hitam ke Negatif (-)**.
+5.  Lihat angkanya. Kalau sesuai (misal 19V), berarti adaptor sehat.
+
 ## 🧱 Komponen Dasar
 
 Kenalan dikit sama penghuni motherboard.
 
-*   **Resistor (Hambatan):** Penahan arus. Kayak polisi tidur di jalan. Biar arus gak kegedean.
-*   **Kapasitor (Elco):** Baterai sementara. Nyimpen setrum sebentar. Hati-hati, walau cabut colokan, kapasitor kadang masih nyimpen setrum!
-*   **Dioda:** Pintu satu arah. Listrik cuma boleh lewat ke satu arah, gak boleh balik.
+| Komponen | Fungsi | Analogi |
+| :--- | :--- | :--- |
+| **Resistor** | Penahan arus biar gak kegedean. | **Polisi Tidur**. Makin tinggi nilainya (Ohm), makin pelan kendaraan (listrik) yang lewat. |
+| **Kapasitor** (Elco) | Nyimpen setrum sementara untuk stabilkan arus. | **Tandon Air**. Kalau air dari pusat mati sebentar, tandon masih punya cadangan. |
+| **Dioda** | Penyearah arus. Listrik cuma boleh lewat satu arah. | **Klepon (Katup) Pipa**. Air bisa masuk, tapi gak bisa balik lagi. |
+
+:::warning[Awas Kapasitor!]
+Hati-hati, walau cabut colokan, Kapasitor (terutama di Power Supply PC) **masih nyimpen setrum** lumayan lama. Kalau kepegang kakinya, kagetnya lumayan bikin jantungan!
+:::
 
 ## 🛡️ K3LH: Musuh Tak Terlihat (ESD)
 
 Pernah pegang RAM terus tiba-tiba RAM-nya mati padahal gak jatuh? Itu ulah **ESD (Electrostatic Discharge)**.
 
-Tubuh kita mengandung listrik statis (terutama kalau diruangan ber-AC dan karpet). Listrik ini kecil buat kita, tapi **PETIR** buat komponen chip sensitif.
+Tubuh kita mengandung listrik statis (terutama kalau di ruangan ber-AC dan karpet). Listrik ini kecil buat kita, tapi **PETIR** buat komponen chip sensitif.
 
 :::tip[Cara Menghindari ESD]
 1.  Gunakan **Gelang Antistatis** (ESD Wrist Strap) saat bongkar PC.
-2.  Kalau gak punya, **sentuh Casing PC (logam)** atau lantai sebelum menyentuh komponen (RAM/Processor). Ini untuk "membuang" listrik statis dari tubuhmu.
-3.  Jangan pegang pin emas (kuningan) pada RAM/VGA. Pegang pinggirannya (PCB hijau).
+2.  Kalau gak punya, **sentuh Casing PC (bagian logam yang tidak dicat)** atau lantai sebelum menyentuh komponen (RAM/Processor). Ini untuk "membuang" (grounding) listrik statis dari tubuhmu.
+3.  Jangan pegang **kuningan (pin emas)** pada RAM/VGA. Pegang pinggirannya (PCB hijau).
 :::
