@@ -5,7 +5,7 @@ description: Konsep fundamental jaringan komputer (OSI Layer, IP Address, Topolo
 
 Sebelum terjun ke konfigurasi router yang rumit, kita harus paham dulu "bahasa" yang digunakan oleh komputer untuk saling berkomunikasi.
 
-## 🧅 OSI Layer (The Holy Grail)
+## OSI Layer (The Holy Grail)
 
 Model OSI (*Open Systems Interconnection*) adalah standar komunikasi data yang terdiri dari 7 lapisan.
 
@@ -29,7 +29,7 @@ Seorang Network Engineer yang jago selalu melakukan *troubleshooting* dari **Lay
 (Application, Presentation, Session, Transport, Network, Data Link, Physical)
 :::
 
-## 📬 IP Address (IPv4)
+## IP Address (IPv4)
 
 IP Address adalah alamat identitas komputer di jaringan. Contoh: `192.168.1.1`
 
@@ -47,11 +47,11 @@ Meskipun dunia industri sudah beralih ke CIDR (*Classless*), konsep kelas ini ma
     * `172.16.0.0/12`
     * `192.168.0.0/16` (Wajib hafal! Paling sering dipakai di Lab)
 
-## 🕸️ Topologi Jaringan
+## Topologi Jaringan
 
 Cara menghubungkan komputer secara fisik.
 
-### 1. Topologi Star (Bintang) ⭐
+### 1. Topologi Star (Bintang)
 Semua komputer terhubung ke satu perangkat pusat (Switch).
 * **Kelebihan:** Jika satu kabel putus, komputer lain aman.
 * **Kekurangan:** Boros kabel, bergantung pada Switch.
@@ -65,7 +65,7 @@ graph TD
     style Switch fill:#f96,stroke:#333,stroke-width:2px
 ```
 
-### 2. Topologi Bus 🚌
+### 2. Topologi Bus
 
 Menggunakan satu kabel *backbone* utama.
 
@@ -76,7 +76,7 @@ graph LR
     Terminator1["|"] --- PC1 --- PC2 --- PC3 --- Terminator2["|"]
 ```
 
-### 3. Topologi Mesh 🕸️
+### 3. Topologi Mesh
 
 Setiap komputer terhubung ke semua komputer lain.
 
@@ -85,7 +85,7 @@ Setiap komputer terhubung ke semua komputer lain.
 
 ---
 
-### 🧠 Cek Pemahaman
+### Cek Pemahaman
 
 1. Di layer berapa **Router** bekerja?
 2. Di layer berapa **Switch** bekerja?

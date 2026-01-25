@@ -24,39 +24,39 @@ export default defineConfig({
               {
                   label: 'Mulai Di Sini',
                   items: [
-                      { label: 'Pengenalan', slug: 'mulai-di-sini/pengenalan' },
-                      { label: 'Tools Wajib', slug: 'mulai-di-sini/tools-wajib' },
+                      { label: 'Pengenalan', slug: 'mulai-di-sini/pengenalan', icon: 'rocket' },
+                      { label: 'Tools Wajib', slug: 'mulai-di-sini/tools-wajib', icon: 'laptop' },
                   ],
               },
               {
                   label: 'Kelas X (Dasar)',
                   items: [
-                      { label: 'Dasar Jaringan', slug: 'kelas-x/dasar-jaringan' },
-                      { label: 'Komputer Dasar', slug: 'kelas-x/komputer-dasar' },
-                      { label: 'Media Transmisi', slug: 'kelas-x/media-transmisi' },
-                      { label: 'Elektronika Dasar', slug: 'kelas-x/elektronika-dasar' },
+                      { label: 'Dasar Jaringan', slug: 'kelas-x/dasar-jaringan', icon: 'signal' },
+                      { label: 'Komputer Dasar', slug: 'kelas-x/komputer-dasar', icon: 'cpu' },
+                      { label: 'Media Transmisi', slug: 'kelas-x/media-transmisi', icon: 'seti:code' }, 
+                      { label: 'Elektronika Dasar', slug: 'kelas-x/elektronika-dasar', icon: 'seti:config' },
                   ],
               },
               {
                   label: 'Kelas XI (Server)',
                   items: [
-                      { label: 'Debian Server', slug: 'kelas-xi/debian-server' },
-                      { label: 'Cisco Packet Tracer', slug: 'kelas-xi/cisco-packet-tracer' },
-                      { label: 'Mikrotik', slug: 'kelas-xi/mikrotik' },
+                      { label: 'Debian Server', slug: 'kelas-xi/debian-server', icon: 'linux' },
+                      { label: 'Cisco Packet Tracer', slug: 'kelas-xi/cisco-packet-tracer', icon: 'seti:notebook' },
+                      { label: 'Mikrotik', slug: 'kelas-xi/mikrotik', icon: 'wifi' },
                   ],
               },
               {
                   label: 'Cheat Sheets',
                   items: [
-                      { label: 'Perintah Linux', slug: 'cheat-sheets/perintah-linux' },
-                      { label: 'Config Mikrotik', slug: 'cheat-sheets/config-mikrotik' },
-                      { label: 'Subnetting', slug: 'cheat-sheets/subnetting' },
+                      { label: 'Perintah Linux', slug: 'cheat-sheets/perintah-linux', icon: 'terminal' },
+                      { label: 'Config Mikrotik', slug: 'cheat-sheets/config-mikrotik', icon: 'setting' },
+                      { label: 'Subnetting', slug: 'cheat-sheets/subnetting', icon: 'puzzle' },
                   ],
               },
               {
                   label: 'Bank Laporan',
                   items: [
-                      { label: 'Arsip Laporan', slug: 'bank-laporan/arsip-laporan' },
+                      { label: 'Arsip Laporan', slug: 'bank-laporan/arsip-laporan', icon: 'document' },
                   ],
               },
           ],

@@ -5,7 +5,7 @@ description: Materi perakitan, instalasi OS, dan troubleshooting dasar komputer.
 
 Materi ini adalah "Kawah Candradimuka" anak TKJ. Sebelum bisa ngatur jaringan satu gedung, kamu harus bisa nyalain satu komputer dulu dengan benar.
 
-## 🖥️ Anatomi Komputer (Hardware)
+## Anatomi Komputer (Hardware)
 
 Komputer itu ibarat tubuh manusia. Ada otaknya, ada jantungnya, ada ingatannya.
 
@@ -17,7 +17,7 @@ Komputer itu ibarat tubuh manusia. Ada otaknya, ada jantungnya, ada ingatannya.
 | **Motherboard** | Tulang Belakang | Tempat semua komponen nempel. | Hati-hati sama pin processor (LGA) jangan sampai bengkok. |
 | **Power Supply (PSU)** | Jantung | Menyuplai listrik. | Jangan beli PSU abal-abal kalau sayang komponen lain. |
 
-## 💿 Instalasi Sistem Operasi
+## Instalasi Sistem Operasi
 
 Dua OS yang wajib kamu kuasai cara installnya:
 
@@ -30,7 +30,7 @@ Dua OS yang wajib kamu kuasai cara installnya:
 *   **Swap:** Memori cadangan di harddisk kalau RAM penuh. Biasanya 2x ukuran RAM.
 *   **CLI:** Biasakan install mode *Text* (CLI), bukan GUI. Server sejati gak butuh mouse!
 
-## 🔧 Troubleshooting Dasar (Diagnosa Dokter)
+## Troubleshooting Dasar (Diagnosa Dokter)
 
 Teknisi itu kerjanya mencari masalah (dan menyelesaikannya).
 
@@ -54,7 +54,7 @@ Saat komputer baru nyala, dia akan ngecek dirinya sendiri. Kalau ada yang salah,
 
 ---
 
-### 🧠 Tantangan Rakit PC
+### Tantangan Rakit PC
 Urutkan langkah merakit PC yang benar:
 1. Pasang Motherboard ke Casing
 2. Pasang Processor ke Motherboard
