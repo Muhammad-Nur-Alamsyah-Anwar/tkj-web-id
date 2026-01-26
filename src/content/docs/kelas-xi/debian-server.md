@@ -33,3 +33,34 @@ iface eth0 inet static
 systemctl restart networking
 ip addr show
 ```
+
+## DHCP Server (isc-dhcp-server)
+
+```bash
+# Instalasi
+apt install isc-dhcp-server -y
+
+# Konfigurasi
+nano /etc/dhcp/dhcpd.conf
+```
+
+```conf
+default-lease-time 86400;
+max-lease-time 172800;
+
+subnet 192.168.100.0 netmask 255.255.255.0 {
+    range 192.168.100.50 192.168.100.200;
+    option routers 192.168.100.1;
+    option domain-name-servers 192.168.100.10, 8.8.8.8;
+    option domain-name "tkj.local";
+}
+```
+
+```bash
+# Set interface
+nano /etc/default/isc-dhcp-server
+# INTERFACESv4="eth0"
+
+systemctl start isc-dhcp-server
+systemctl enable isc-dhcp-server
+```
