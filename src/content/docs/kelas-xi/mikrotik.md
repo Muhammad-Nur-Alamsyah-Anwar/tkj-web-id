@@ -432,4 +432,4 @@ PPTP (Point-to-Point Tunneling Protocol) adalah protokol VPN yang mudah dikonfig
 
 <!-- update: 2026-01-17 -->
 
-<!-- update: 2026-01-26 -->
+<!-- rev: jan26 -->
