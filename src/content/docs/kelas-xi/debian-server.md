@@ -64,3 +64,42 @@ nano /etc/default/isc-dhcp-server
 systemctl start isc-dhcp-server
 systemctl enable isc-dhcp-server
 ```
+
+## DNS Server (BIND9)
+
+```bash
+apt install bind9 bind9utils -y
+```
+
+### named.conf.local
+
+```conf
+zone "tkj.local" {
+    type master;
+    file "/etc/bind/db.tkj.local";
+};
+
+zone "100.168.192.in-addr.arpa" {
+    type master;
+    file "/etc/bind/db.192.168.100";
+};
+```
+
+### Forward Zone (db.tkj.local)
+
+```
+$TTL    604800
+@   IN  SOA ns1.tkj.local. root.tkj.local. (
+            2024010101 604800 86400 2419200 604800 )
+@   IN  NS  ns1.tkj.local.
+ns1     IN  A   192.168.100.10
+server  IN  A   192.168.100.10
+web     IN  A   192.168.100.10
+```
+
+```bash
+# Cek dan restart
+named-checkconf
+named-checkzone tkj.local /etc/bind/db.tkj.local
+systemctl restart bind9
+```
