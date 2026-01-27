@@ -63,9 +63,25 @@ Router(config-subif)# ip address 192.168.20.1 255.255.255.0
 Router(config-subif)# exit
 ```
 
-Jangan lupa aktifkan interface induknya:
+## Hapus VLAN dari switch
 
 ```
-Router(config)# interface fastEthernet 0/0
-Router(config-if)# no shutdown
+Switch(config)# no vlan 20
 ```
+
+Atau hapus assignment port dari VLAN:
+
+```
+Switch(config)# interface fastEthernet 0/2
+Switch(config-if)# no switchport access vlan
+```
+
+## Native VLAN
+
+Native VLAN dipakai untuk traffic untagged di trunk port. Default-nya VLAN 1, tapi sebaiknya diubah:
+
+```
+Switch(config-if)# switchport trunk native vlan 99
+```
+
+> Catatan: native VLAN di kedua ujung trunk harus sama, kalau beda bakal muncul CDP warning.
