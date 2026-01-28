@@ -103,3 +103,39 @@ named-checkconf
 named-checkzone tkj.local /etc/bind/db.tkj.local
 systemctl restart bind9
 ```
+
+## Web Server — Apache2
+
+```bash
+apt install apache2 -y
+systemctl start apache2
+systemctl enable apache2
+```
+
+### Virtual Host
+
+```bash
+nano /etc/apache2/sites-available/tkj.local.conf
+```
+
+```apache
+<VirtualHost *:80>
+    ServerName www.tkj.local
+    DocumentRoot /var/www/tkj
+    
+    <Directory /var/www/tkj>
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Require all granted
+    </Directory>
+</VirtualHost>
+```
+
+```bash
+mkdir -p /var/www/tkj
+echo "<h1>Server TKJ</h1>" > /var/www/tkj/index.html
+a2ensite tkj.local.conf
+a2dissite 000-default.conf
+apache2ctl configtest
+systemctl reload apache2
+```
