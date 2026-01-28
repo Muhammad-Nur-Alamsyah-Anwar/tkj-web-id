@@ -139,3 +139,29 @@ a2dissite 000-default.conf
 apache2ctl configtest
 systemctl reload apache2
 ```
+
+## Web Server — Nginx
+
+```bash
+apt install nginx -y
+```
+
+```nginx
+# /etc/nginx/sites-available/tkj.local
+server {
+    listen 80;
+    server_name www.tkj.local;
+    root /var/www/tkj;
+    index index.html;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}
+```
+
+```bash
+ln -s /etc/nginx/sites-available/tkj.local /etc/nginx/sites-enabled/
+nginx -t
+systemctl reload nginx
+```
