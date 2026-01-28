@@ -84,4 +84,17 @@ Native VLAN dipakai untuk traffic untagged di trunk port. Default-nya VLAN 1, ta
 Switch(config-if)# switchport trunk native vlan 99
 ```
 
-> Catatan: native VLAN di kedua ujung trunk harus sama, kalau beda bakal muncul CDP warning.
+## Troubleshooting VLAN
+
+Kalau dua host beda VLAN tidak bisa saling ping padahal sudah pakai router:
+
+1. Cek trunk port aktif: `show interfaces trunk`
+2. Pastikan VLAN allowed di trunk: `show interfaces fa0/24 trunk`
+3. Cek subinterface router sudah up: `show ip interface brief`
+4. Cek IP gateway client sudah benar
+
+Kalau dua host sesama VLAN tidak bisa ping:
+
+1. Cek port assignment: `show interfaces fa0/1 switchport`
+2. Cek kabel fisik
+3. Coba `ping` dari switch ke host, bukan antar host langsung
