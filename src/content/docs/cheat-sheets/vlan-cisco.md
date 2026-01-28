@@ -98,3 +98,29 @@ Kalau dua host sesama VLAN tidak bisa ping:
 1. Cek port assignment: `show interfaces fa0/1 switchport`
 2. Cek kabel fisik
 3. Coba `ping` dari switch ke host, bukan antar host langsung
+
+## VLAN di beberapa switch
+
+Kalau ada lebih dari satu switch, VLAN perlu dibuat di semua switch. VLAN tidak otomatis terbagi via trunk — harus dikonfigurasi manual di tiap switch.
+
+Atau pakai VTP (VLAN Trunking Protocol) untuk sinkronisasi otomatis:
+
+```
+! Mode server (satu switch utama)
+Switch1(config)# vtp mode server
+Switch1(config)# vtp domain TKJLAB
+Switch1(config)# vtp password tkj123
+
+! Mode client (switch lain)
+Switch2(config)# vtp mode client
+Switch2(config)# vtp domain TKJLAB
+Switch2(config)# vtp password tkj123
+```
+
+Cek status VTP:
+
+```
+Switch# show vtp status
+```
+
+> Catatan: VTP mode transparent tidak ikut sinkronisasi tapi mau forward VTP advertisement.
