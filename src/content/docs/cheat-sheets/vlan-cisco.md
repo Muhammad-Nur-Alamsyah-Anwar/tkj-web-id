@@ -84,7 +84,16 @@ Native VLAN dipakai untuk traffic untagged di trunk port. Default-nya VLAN 1, ta
 Switch(config-if)# switchport trunk native vlan 99
 ```
 
-## Troubleshooting VLAN
+## Rangkuman port mode
+
+| Mode | Keterangan |
+|------|------------|
+| `access` | Port hanya membawa satu VLAN, untuk end device |
+| `trunk` | Port membawa banyak VLAN sekaligus, untuk uplink ke switch/router |
+| `dynamic desirable` | Otomatis negosiasi mode dengan ujung lain |
+| `dynamic auto` | Pasif, jadi trunk kalau ujung lain request |
+
+Di praktek sekolah, lebih baik set mode eksplisit daripada andalkan auto-negotiation.
 
 Kalau dua host beda VLAN tidak bisa saling ping padahal sudah pakai router:
 
