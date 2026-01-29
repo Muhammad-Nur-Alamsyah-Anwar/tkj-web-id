@@ -165,3 +165,31 @@ ln -s /etc/nginx/sites-available/tkj.local /etc/nginx/sites-enabled/
 nginx -t
 systemctl reload nginx
 ```
+
+## FTP Server (vsftpd)
+
+```bash
+apt install vsftpd -y
+
+nano /etc/vsftpd.conf
+```
+
+```conf
+anonymous_enable=NO
+local_enable=YES
+write_enable=YES
+chroot_local_user=YES
+allow_writeable_chroot=YES
+pasv_enable=YES
+pasv_min_port=40000
+pasv_max_port=50000
+```
+
+```bash
+# Buat user FTP
+useradd -m ftpuser
+passwd ftpuser
+
+systemctl restart vsftpd
+systemctl enable vsftpd
+```
