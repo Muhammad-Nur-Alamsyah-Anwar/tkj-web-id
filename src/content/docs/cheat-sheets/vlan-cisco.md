@@ -95,6 +95,30 @@ Switch(config-if)# switchport trunk native vlan 99
 
 Di praktek sekolah, lebih baik set mode eksplisit daripada andalkan auto-negotiation.
 
+## Contoh konfigurasi lengkap (dua switch)
+
+Situasi: 2 switch, 2 VLAN (10 Guru, 20 Siswa), 1 trunk link antar switch.
+
+```
+! Switch 1
+SW1(config)# vlan 10
+SW1(config-vlan)# name Guru
+SW1(config-vlan)# vlan 20
+SW1(config-vlan)# name Siswa
+SW1(config-vlan)# exit
+
+SW1(config)# int range fa0/1-2
+SW1(config-if-range)# switchport mode access
+SW1(config-if-range)# switchport access vlan 10
+SW1(config-if-range)# exit
+
+SW1(config)# int fa0/24
+SW1(config-if)# switchport mode trunk
+SW1(config-if)# exit
+```
+
+Hal yang sama dilakukan di SW2 untuk VLAN 20.
+
 Kalau dua host beda VLAN tidak bisa saling ping padahal sudah pakai router:
 
 1. Cek trunk port aktif: `show interfaces trunk`
