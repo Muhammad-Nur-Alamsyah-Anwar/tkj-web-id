@@ -41,8 +41,35 @@ Login pakai user biasa, lalu `su -` atau `sudo` kalau butuh akses root.
 AllowUsers admin
 ```
 
-Atau kalau mau izinkan beberapa user:
+## Key-based authentication
+
+Lebih aman dari password. Generate key di client:
+
+```bash
+ssh-keygen -t ed25519 -C "admin@sekolah"
+```
+
+Copy public key ke server:
+
+```bash
+ssh-copy-id -p 2222 admin@192.168.1.10
+```
+
+Atau manual — copy isi `~/.ssh/id_ed25519.pub` ke server di `~/.ssh/authorized_keys`.
+
+Setelah key berjalan, nonaktifkan password auth:
 
 ```
-AllowUsers admin deploy backup
+PasswordAuthentication no
 ```
+
+## Timeout dan max percobaan login
+
+```
+LoginGraceTime 30
+MaxAuthTries 3
+ClientAliveInterval 300
+ClientAliveCountMax 2
+```
+
+`ClientAliveInterval 300` berarti koneksi idle lebih dari 5 menit akan di-disconnect.
