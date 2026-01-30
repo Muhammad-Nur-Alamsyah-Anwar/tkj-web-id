@@ -193,3 +193,32 @@ passwd ftpuser
 systemctl restart vsftpd
 systemctl enable vsftpd
 ```
+
+## SSH Server
+
+```bash
+apt install openssh-server -y
+
+nano /etc/ssh/sshd_config
+```
+
+```conf
+Port 22
+PermitRootLogin no
+PasswordAuthentication yes
+MaxAuthTries 3
+```
+
+```bash
+systemctl restart sshd
+```
+
+### SSH Key Auth
+
+```bash
+# Generate key di client
+ssh-keygen -t rsa -b 4096
+
+# Copy ke server
+ssh-copy-id user@192.168.100.10
+```
