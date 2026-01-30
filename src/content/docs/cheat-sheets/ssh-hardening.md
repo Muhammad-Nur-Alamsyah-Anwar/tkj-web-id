@@ -109,3 +109,23 @@ MaxAuthTries 3
 LoginGraceTime 30
 X11Forwarding no
 ```
+
+## Test konfigurasi
+
+Sebelum restart SSH, test dulu konfigurasinya:
+
+```bash
+sshd -t
+```
+
+Kalau tidak ada output = konfigurasi valid. Baru restart:
+
+```bash
+systemctl restart ssh
+```
+
+Jangan sampai restart SSH tanpa test — kalau ada syntax error kamu bisa terkunci dari server.
+
+## Jaga sesi SSH tetap terbuka
+
+Buka sesi SSH kedua sebelum logout dari sesi pertama. Ini jaga-jaga kalau konfigurasi baru menyebabkan masalah akses.
