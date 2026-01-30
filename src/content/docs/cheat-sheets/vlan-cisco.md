@@ -119,6 +119,13 @@ SW1(config-if)# exit
 
 Hal yang sama dilakukan di SW2 untuk VLAN 20.
 
+## VLAN Management (best practices)
+
+- Jangan pakai VLAN 1 untuk traffic user — VLAN 1 adalah native VLAN default dan bisa jadi risiko keamanan
+- Beri nama VLAN yang jelas, bukan hanya nomor
+- Dokumentasikan semua VLAN assignment, nanti nyari-nyari sendiri susah
+- Untuk lab sekolah: VLAN 10 Guru, VLAN 20 Siswa, VLAN 99 Management sudah cukup
+
 Kalau dua host beda VLAN tidak bisa saling ping padahal sudah pakai router:
 
 1. Cek trunk port aktif: `show interfaces trunk`
