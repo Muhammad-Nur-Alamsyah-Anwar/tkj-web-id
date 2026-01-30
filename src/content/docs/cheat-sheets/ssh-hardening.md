@@ -72,4 +72,40 @@ ClientAliveInterval 300
 ClientAliveCountMax 2
 ```
 
-`ClientAliveInterval 300` berarti koneksi idle lebih dari 5 menit akan di-disconnect.
+## Fail2ban
+
+Install fail2ban untuk blokir IP yang terlalu banyak gagal login:
+
+```bash
+apt install fail2ban
+```
+
+Konfigurasi di `/etc/fail2ban/jail.local`:
+
+```ini
+[sshd]
+enabled = true
+port = 2222
+maxretry = 5
+bantime = 3600
+findtime = 600
+```
+
+Cek status:
+
+```bash
+fail2ban-client status sshd
+fail2ban-client status sshd | grep "Banned IP"
+```
+
+## Ringkasan konfigurasi minimal
+
+```
+Port 2222
+PermitRootLogin no
+PasswordAuthentication no
+AllowUsers admin
+MaxAuthTries 3
+LoginGraceTime 30
+X11Forwarding no
+```
