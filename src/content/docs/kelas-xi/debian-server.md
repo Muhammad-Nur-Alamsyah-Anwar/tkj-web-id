@@ -222,3 +222,35 @@ ssh-keygen -t rsa -b 4096
 # Copy ke server
 ssh-copy-id user@192.168.100.10
 ```
+
+## Samba (File Sharing)
+
+```bash
+apt install samba -y
+
+nano /etc/samba/smb.conf
+```
+
+```ini
+[global]
+   workgroup = WORKGROUP
+
+[public]
+   path = /srv/samba/public
+   browsable = yes
+   writable = yes
+   guest ok = yes
+
+[data]
+   path = /srv/samba/data
+   valid users = @samba-users
+   writable = yes
+```
+
+```bash
+mkdir -p /srv/samba/public /srv/samba/data
+chmod 0777 /srv/samba/public
+smbpasswd -a sambauser
+systemctl restart smbd
+testparm
+```
