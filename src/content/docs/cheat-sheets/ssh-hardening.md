@@ -129,3 +129,27 @@ Jangan sampai restart SSH tanpa test — kalau ada syntax error kamu bisa terkun
 ## Jaga sesi SSH tetap terbuka
 
 Buka sesi SSH kedua sebelum logout dari sesi pertama. Ini jaga-jaga kalau konfigurasi baru menyebabkan masalah akses.
+
+## Copy file via SSH (SCP)
+
+```bash
+# Upload file ke server
+scp -P 2222 file.txt admin@192.168.1.10:/home/admin/
+
+# Download file dari server
+scp -P 2222 admin@192.168.1.10:/etc/nginx/nginx.conf ./
+
+# Upload direktori (rekursif)
+scp -rP 2222 ./myfolder admin@192.168.1.10:/home/admin/
+```
+
+## SSH tunneling
+
+Port forwarding via SSH, berguna untuk akses layanan di jaringan internal:
+
+```bash
+# Forward port lokal 8080 ke port 80 di server
+ssh -L 8080:localhost:80 -p 2222 admin@192.168.1.10
+
+# Sekarang bisa akses http://localhost:8080 di browser lokal
+```
