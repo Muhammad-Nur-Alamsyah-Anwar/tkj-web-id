@@ -153,3 +153,17 @@ ssh -L 8080:localhost:80 -p 2222 admin@192.168.1.10
 
 # Sekarang bisa akses http://localhost:8080 di browser lokal
 ```
+
+## Cek log akses SSH
+
+```bash
+# Lihat percobaan login
+grep "Accepted\|Failed" /var/log/auth.log
+
+# Lihat IP yang sering gagal login
+grep "Failed password" /var/log/auth.log | awk '{print $11}' | sort | uniq -c | sort -rn | head
+
+# Lihat siapa yang sedang login
+who
+w
+```
