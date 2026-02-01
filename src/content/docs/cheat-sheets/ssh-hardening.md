@@ -167,3 +167,9 @@ grep "Failed password" /var/log/auth.log | awk '{print $11}' | sort | uniq -c | 
 who
 w
 ```
+
+## Referensi
+
+- `man sshd_config` — manual page lengkap konfigurasi SSH
+- `man ssh` — opsi SSH client
+- Mozilla SSH hardening guide: https://infosec.mozilla.org/guidelines/openssh
