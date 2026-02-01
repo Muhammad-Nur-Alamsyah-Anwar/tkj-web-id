@@ -64,9 +64,8 @@ export default defineConfig({
               Footer: './src/components/CustomFooter.astro',
           },
       }),
-      		tailwind({
-      			// Disable base styles to prevent conflict with Starlight's styles
-      			applyBaseStyles: false,
-      		}),
-      	],  adapter: vercel(),
+      						tailwind({
+      							// Disable base styles to prevent conflict with Starlight's styles
+      							applyBaseStyles: false,
+      						}),      	],  adapter: vercel(),
 });
