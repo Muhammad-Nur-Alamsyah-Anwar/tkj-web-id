@@ -149,3 +149,17 @@ Kumpulan perintah CLI Mikrotik RouterOS yang sering dipakai di lapangan dan ujia
 # Resource router
 /system resource print
 ```
+
+## VPN L2TP/IPSec Server
+
+```bash
+# Aktifkan L2TP dengan IPSec
+/interface l2tp-server server set enabled=yes use-ipsec=yes ipsec-secret=rahasia123
+
+# Buat secret
+/ppp secret add name=l2tp-user password=l2tp456 service=l2tp local-address=10.1.0.1 remote-address=10.1.0.2
+
+# Lihat status
+/interface l2tp-server print
+/ppp active print
+```
