@@ -88,3 +88,23 @@ Switch# show spanning-tree | include mode
 - Port ke Root Bridge = Root Port
 - Satu Designated Port per segmen
 - Sisanya Blocking
+
+## Contoh perhitungan Root Bridge
+
+Misal ada 3 switch dengan priority sama (32768):
+
+| Switch | MAC Address |
+|--------|------------|
+| SW1 | 0001.0000.0001 |
+| SW2 | 0001.0000.0003 |
+| SW3 | 0001.0000.0002 |
+
+Root Bridge = SW1 karena MAC paling kecil.
+
+Kalau mau paksa SW2 jadi Root Bridge:
+
+```
+SW2(config)# spanning-tree vlan 1 priority 4096
+```
+
+Sekarang SW2 punya BID = 4096 + MAC, lebih kecil dari SW1 (32768 + MAC).
