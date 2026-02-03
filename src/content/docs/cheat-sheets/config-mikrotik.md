@@ -163,3 +163,19 @@ Kumpulan perintah CLI Mikrotik RouterOS yang sering dipakai di lapangan dan ujia
 /interface l2tp-server print
 /ppp active print
 ```
+
+## Address List dan Firewall Dinamis
+
+```bash
+# Buat address list
+/ip firewall address-list add list=blokir address=172.217.0.0/16 comment="Google IP"
+
+# Block berdasarkan address list
+/ip firewall filter add chain=forward dst-address-list=blokir action=drop
+
+# Address list dinamis dari firewall (tandai IP yang scan)
+/ip firewall filter add chain=input protocol=tcp psd=21,3s,3,1 action=add-src-to-address-list address-list=port-scanner address-list-timeout=1d
+
+# Block port scanner
+/ip firewall filter add chain=input src-address-list=port-scanner action=drop
+```
