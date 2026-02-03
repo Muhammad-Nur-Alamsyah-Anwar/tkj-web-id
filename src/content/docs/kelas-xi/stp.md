@@ -65,4 +65,26 @@ Switch(config-if)# spanning-tree portfast
 Switch(config-if)# spanning-tree bpduguard enable
 ```
 
-BPDU Guard akan matikan port kalau tiba-tiba menerima BPDU (misalnya ada switch tidak sah disambungkan ke port itu).
+## RSTP (Rapid STP)
+
+RSTP (802.1w) versi lebih cepat dari STP klasik. Convergence time turun dari ~50 detik ke beberapa detik.
+
+Di Cisco IOS modern RSTP sudah default (PVST+ atau Rapid-PVST+):
+
+```
+Switch(config)# spanning-tree mode rapid-pvst
+```
+
+Cek mode yang sedang berjalan:
+
+```
+Switch# show spanning-tree | include mode
+```
+
+## Tips ujian
+
+- Root Bridge = BID paling kecil = priority paling kecil (atau MAC terkecil kalau priority sama)
+- Default priority 32768 + VLAN ID
+- Port ke Root Bridge = Root Port
+- Satu Designated Port per segmen
+- Sisanya Blocking
