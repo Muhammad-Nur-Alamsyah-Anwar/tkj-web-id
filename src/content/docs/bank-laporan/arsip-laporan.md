@@ -442,3 +442,5 @@ bantuan Bapak/Ibu, kami mengucapkan terima kasih.
                               [Nama Kepala Sekolah]
                               NIP. [NIP]
 ```
+
+<!-- update: 2026-02-04 -->
