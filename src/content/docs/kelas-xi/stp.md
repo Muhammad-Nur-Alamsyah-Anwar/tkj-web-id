@@ -120,3 +120,19 @@ Sekarang SW2 punya BID = 4096 + MAC, lebih kecil dari SW1 (32768 + MAC).
 Total convergence STP klasik = 2 × Forward Delay = 30 detik (belum termasuk deteksi failure).
 
 Tidak disarankan mengubah timer ini kecuali kamu tahu apa yang dilakukan.
+
+## Troubleshooting STP
+
+Kalau jaringan tiba-tiba lambat atau broadcast storm:
+
+1. Cek apakah ada loop: `show spanning-tree` — lihat port mana yang Blocking
+2. Kalau ada port seharusnya Blocking tapi Forwarding, mungkin STP tidak jalan
+3. Aktifkan STP: `spanning-tree vlan 1` (seharusnya sudah default aktif)
+
+Kalau konvergensi terlalu lambat setelah topologi berubah:
+- Pertimbangkan RSTP: `spanning-tree mode rapid-pvst`
+- Aktifkan PortFast di port end device
+
+## Kenapa STP penting
+
+Di lab sering dikira tidak penting karena topologi sederhana. Tapi di jaringan nyata dengan banyak switch dan link redundan, tanpa STP satu kabel yang salah sambung bisa bikin seluruh jaringan down karena broadcast storm.
