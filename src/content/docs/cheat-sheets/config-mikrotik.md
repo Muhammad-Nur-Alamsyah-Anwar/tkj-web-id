@@ -179,3 +179,17 @@ Kumpulan perintah CLI Mikrotik RouterOS yang sering dipakai di lapangan dan ujia
 # Block port scanner
 /ip firewall filter add chain=input src-address-list=port-scanner action=drop
 ```
+
+## Mangle (Packet Marking)
+
+```bash
+# Tandai traffic download
+/ip firewall mangle add chain=forward src-address=0.0.0.0/0 dst-address=192.168.100.0/24 action=mark-packet new-packet-mark=download passthrough=no
+
+# Tandai traffic upload
+/ip firewall mangle add chain=forward src-address=192.168.100.0/24 dst-address=0.0.0.0/0 action=mark-packet new-packet-mark=upload passthrough=no
+
+# Tandai koneksi ke YouTube
+/ip firewall mangle add chain=prerouting dst-address-list=youtube action=mark-connection new-connection-mark=youtube-conn
+/ip firewall mangle add chain=prerouting connection-mark=youtube-conn action=mark-packet new-packet-mark=youtube-packet
+```
