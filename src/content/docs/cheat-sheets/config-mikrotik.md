@@ -193,3 +193,23 @@ Kumpulan perintah CLI Mikrotik RouterOS yang sering dipakai di lapangan dan ujia
 /ip firewall mangle add chain=prerouting dst-address-list=youtube action=mark-connection new-connection-mark=youtube-conn
 /ip firewall mangle add chain=prerouting connection-mark=youtube-conn action=mark-packet new-packet-mark=youtube-packet
 ```
+
+## Backup dan Restore
+
+```bash
+# Backup konfigurasi
+/system backup save name=backup-tkj
+
+# Export ke text
+/export file=config-tkj
+
+# Restore
+/system backup load name=backup-tkj
+
+# Import dari text
+/import file-name=config-tkj.rsc
+
+# Update RouterOS
+/system package update check-for-updates
+/system package update install
+```
