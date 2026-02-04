@@ -108,3 +108,15 @@ SW2(config)# spanning-tree vlan 1 priority 4096
 ```
 
 Sekarang SW2 punya BID = 4096 + MAC, lebih kecil dari SW1 (32768 + MAC).
+
+## STP timers
+
+| Timer | Default | Keterangan |
+|-------|---------|------------|
+| Hello Time | 2 detik | Interval pengiriman BPDU dari Root Bridge |
+| Forward Delay | 15 detik | Waktu di state Listening dan Learning |
+| Max Age | 20 detik | Berapa lama BPDU tersimpan sebelum dianggap stale |
+
+Total convergence STP klasik = 2 × Forward Delay = 30 detik (belum termasuk deteksi failure).
+
+Tidak disarankan mengubah timer ini kecuali kamu tahu apa yang dilakukan.
