@@ -1,0 +1,64 @@
+---
+title: ACL Cisco (Access Control List)
+description: Materi ACL kelas XI — filter traffic di router Cisco dengan ACL standard dan extended.
+---
+
+# ACL — Access Control List
+
+ACL dipakai untuk filter traffic yang masuk atau keluar dari interface router. Bisa blokir host tertentu, izinkan jaringan tertentu, atau batasi akses ke layanan.
+
+## Tipe ACL
+
+- **Standard ACL** — filter berdasarkan IP sumber saja. Nomor 1–99 dan 1300–1999.
+- **Extended ACL** — filter berdasarkan IP sumber, IP tujuan, protokol, dan port. Nomor 100–199 dan 2000–2699.
+
+## Standard ACL
+
+```
+Router(config)# access-list 10 permit 192.168.1.0 0.0.0.255
+Router(config)# access-list 10 deny any
+```
+
+Wildcard mask = kebalikan subnet mask. `/24` → `0.0.0.255`
+
+Terapkan ke interface (dekat tujuan):
+
+```
+Router(config)# interface fastEthernet 0/1
+Router(config-if)# ip access-group 10 out
+```
+
+## Extended ACL
+
+```
+Router(config)# access-list 110 permit tcp 192.168.1.0 0.0.0.255 any eq 80
+Router(config)# access-list 110 permit tcp 192.168.1.0 0.0.0.255 any eq 443
+Router(config)# access-list 110 deny ip any any
+```
+
+Artinya: izinkan HTTP dan HTTPS dari jaringan 192.168.1.0/24, blokir sisanya.
+
+```
+Router(config-if)# ip access-group 110 in
+```
+
+## Cek ACL
+
+```
+Router# show access-lists
+Router# show ip interface fastEthernet 0/1
+```
+
+## Named ACL
+
+```
+Router(config)# ip access-list extended BLOKIR-FTP
+Router(config-ext-nacl)# deny tcp any any eq 21
+Router(config-ext-nacl)# permit ip any any
+Router(config-ext-nacl)# exit
+
+Router(config)# interface fa0/0
+Router(config-if)# ip access-group BLOKIR-FTP in
+```
+
+Named ACL lebih mudah diedit — bisa hapus baris tertentu tanpa hapus semua.
