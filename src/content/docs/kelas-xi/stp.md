@@ -136,3 +136,12 @@ Kalau konvergensi terlalu lambat setelah topologi berubah:
 ## Kenapa STP penting
 
 Di lab sering dikira tidak penting karena topologi sederhana. Tapi di jaringan nyata dengan banyak switch dan link redundan, tanpa STP satu kabel yang salah sambung bisa bikin seluruh jaringan down karena broadcast storm.
+
+## Latihan soal
+
+1. Ada 3 switch dengan priority default. MAC address: SW1=0001, SW2=0003, SW3=0002. Switch mana yang jadi Root Bridge?
+2. Sebutkan 5 port state STP
+3. Apa bedanya PortFast dan BPDU Guard?
+4. Kenapa STP memakai Forward Delay 15 detik di dua state (Listening dan Learning)?
+
+Jawaban no 1: SW1 (MAC address paling kecil)
