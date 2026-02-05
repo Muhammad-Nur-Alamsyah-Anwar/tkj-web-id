@@ -157,3 +157,25 @@ PCQ membagi bandwidth merata untuk semua user.
 
 - [Dokumentasi resmi MikroTik](https://help.mikrotik.com)
 - [Forum MikroTik Indonesia](https://mikrotik.co.id/forum)
+
+## VLAN (Virtual LAN)
+
+VLAN memisahkan jaringan secara logis pada switch yang sama.
+
+```bash
+# Buat interface VLAN
+/interface vlan add name=vlan10 vlan-id=10 interface=ether2 comment="VLAN Guru"
+/interface vlan add name=vlan20 vlan-id=20 interface=ether2 comment="VLAN Siswa"
+
+# IP per VLAN
+/ip address add address=192.168.10.1/24 interface=vlan10
+/ip address add address=192.168.20.1/24 interface=vlan20
+
+# DHCP per VLAN
+/ip pool add name=pool-v10 ranges=192.168.10.10-192.168.10.100
+/ip dhcp-server add name=dhcp-v10 interface=vlan10 address-pool=pool-v10 disabled=no
+/ip dhcp-server network add address=192.168.10.0/24 gateway=192.168.10.1
+
+# Isolasi antar VLAN
+/ip firewall filter add chain=forward in-interface=vlan10 out-interface=vlan20 action=drop
+```
