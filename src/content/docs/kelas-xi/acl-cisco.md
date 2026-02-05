@@ -61,4 +61,22 @@ Router(config)# interface fa0/0
 Router(config-if)# ip access-group BLOKIR-FTP in
 ```
 
-Named ACL lebih mudah diedit — bisa hapus baris tertentu tanpa hapus semua.
+## Aturan penting ACL
+
+1. ACL diproses dari atas ke bawah — urutan baris penting
+2. Di akhir setiap ACL ada implicit `deny any` — kalau tidak ada permit sama sekali, semua diblokir
+3. Standard ACL ditaruh dekat tujuan, Extended ACL dekat sumber
+4. Satu interface bisa punya satu ACL per arah (in/out)
+
+## Hapus ACL
+
+```
+Router(config)# no access-list 10
+Router(config)# no ip access-list extended BLOKIR-FTP
+```
+
+Kalau sudah diterapkan ke interface, hapus dulu dari interface:
+
+```
+Router(config-if)# no ip access-group 10 out
+```
