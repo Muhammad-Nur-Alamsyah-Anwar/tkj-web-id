@@ -145,3 +145,9 @@ Di lab sering dikira tidak penting karena topologi sederhana. Tapi di jaringan n
 4. Kenapa STP memakai Forward Delay 15 detik di dua state (Listening dan Learning)?
 
 Jawaban no 1: SW1 (MAC address paling kecil)
+
+## Referensi
+
+- IEEE 802.1D (STP original)
+- IEEE 802.1w (RSTP)
+- Cisco Networking Academy: *Switching, Routing, and Wireless Essentials*
