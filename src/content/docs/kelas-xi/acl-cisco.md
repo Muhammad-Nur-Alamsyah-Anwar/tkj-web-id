@@ -78,5 +78,28 @@ Router(config)# no ip access-list extended BLOKIR-FTP
 Kalau sudah diterapkan ke interface, hapus dulu dari interface:
 
 ```
-Router(config-if)# no ip access-group 10 out
+## Contoh kasus
+
+### Skenario 1: Blokir satu host dari akses internet
+
+```
+Router(config)# access-list 101 deny ip host 192.168.1.100 any
+Router(config)# access-list 101 permit ip any any
+```
+
+`host 192.168.1.100` = wildcard `192.168.1.100 0.0.0.0`
+
+### Skenario 2: Izinkan hanya DNS dan HTTP ke server
+
+```
+Router(config)# access-list 102 permit udp any host 10.0.0.1 eq 53
+Router(config)# access-list 102 permit tcp any host 10.0.0.1 eq 80
+Router(config)# access-list 102 deny ip any any
+```
+
+### Skenario 3: Blokir ping (ICMP)
+
+```
+Router(config)# access-list 103 deny icmp any any
+Router(config)# access-list 103 permit ip any any
 ```
