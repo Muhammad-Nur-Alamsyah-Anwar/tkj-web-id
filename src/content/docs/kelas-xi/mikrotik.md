@@ -179,3 +179,20 @@ VLAN memisahkan jaringan secara logis pada switch yang sama.
 # Isolasi antar VLAN
 /ip firewall filter add chain=forward in-interface=vlan10 out-interface=vlan20 action=drop
 ```
+
+## Wireless (WiFi)
+
+```bash
+# Mode Access Point
+/interface wireless set wlan1 mode=ap-bridge ssid=TKJ-Network band=2ghz-b/g/n disabled=no
+
+# Security WPA2
+/interface wireless security-profiles add name=sec-tkj mode=dynamic-keys authentication-types=wpa2-psk wpa2-pre-shared-key=password123
+/interface wireless set wlan1 security-profile=sec-tkj
+
+# Lihat client terhubung
+/interface wireless registration-table print
+
+# Mode Station (koneksi ke AP)
+/interface wireless set wlan1 mode=station ssid=ISP-Wifi
+```
