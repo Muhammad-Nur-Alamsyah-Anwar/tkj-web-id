@@ -78,6 +78,9 @@ Router(config)# no ip access-list extended BLOKIR-FTP
 Kalau sudah diterapkan ke interface, hapus dulu dari interface:
 
 ```
+Router(config-if)# no ip access-group 10 out
+```
+
 ## Contoh kasus
 
 ### Skenario 1: Blokir satu host dari akses internet
