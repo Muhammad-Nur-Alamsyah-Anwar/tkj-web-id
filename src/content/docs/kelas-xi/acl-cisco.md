@@ -106,3 +106,10 @@ Router(config)# access-list 102 deny ip any any
 Router(config)# access-list 103 deny icmp any any
 Router(config)# access-list 103 permit ip any any
 ```
+
+## Tips dari praktek
+
+- Selalu tes konektivitas sebelum dan sesudah terapkan ACL
+- Pakai `show access-lists` untuk lihat counter berapa kali suatu rule cocok
+- Kalau stuck, `no ip access-group X in/out` di interface untuk nonaktifkan sementara
+- Extended ACL lebih fleksibel — lebih baik langsung pakai extended daripada standard kalau sudah tahu butuh filter port juga
