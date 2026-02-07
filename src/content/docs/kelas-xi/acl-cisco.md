@@ -113,3 +113,16 @@ Router(config)# access-list 103 permit ip any any
 - Pakai `show access-lists` untuk lihat counter berapa kali suatu rule cocok
 - Kalau stuck, `no ip access-group X in/out` di interface untuk nonaktifkan sementara
 - Extended ACL lebih fleksibel — lebih baik langsung pakai extended daripada standard kalau sudah tahu butuh filter port juga
+
+## ACL untuk VTY (proteksi akses SSH/Telnet)
+
+Ini berguna untuk batasi siapa yang boleh SSH ke router:
+
+```
+Router(config)# access-list 20 permit 192.168.1.0 0.0.0.255
+Router(config)# line vty 0 4
+Router(config-line)# access-class 20 in
+Router(config-line)# exit
+```
+
+Artinya: hanya host dari network 192.168.1.0/24 yang boleh remote ke router ini.
