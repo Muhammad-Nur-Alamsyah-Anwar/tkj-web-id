@@ -138,3 +138,19 @@ Router(config)# ip nat inside source list 1 interface fa0/1 overload
 ```
 
 Kalau kamu apply ACL yang sama ke interface juga, hasilnya bisa tidak terduga — buat ACL terpisah untuk NAT dan filtering.
+
+## Soal latihan
+
+1. Buat ACL yang izinkan hanya PC dengan IP 192.168.1.5 yang bisa SSH (port 22) ke server
+2. Buat ACL yang blokir semua traffic dari network 10.0.0.0/8 masuk ke interface fa0/1
+3. Buat named ACL yang izinkan DNS (port 53 UDP/TCP) dan blokir sisanya
+
+Jawaban soal 1:
+
+```
+Router(config)# access-list 101 permit tcp host 192.168.1.5 any eq 22
+Router(config)# access-list 101 deny ip any any
+
+Router(config)# interface fa0/0
+Router(config-if)# ip access-group 101 in
+```
