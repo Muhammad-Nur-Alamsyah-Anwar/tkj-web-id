@@ -3,6 +3,8 @@ title: Media Transmisi
 description: Panduan kabel UTP, Fiber Optic, dan kode warna wajib hafal.
 ---
 
+import ColorSwatch from '../../../components/ColorSwatch.astro';
+
 Selamat datang di **Layer 1 (Physical)**. Di sini tempatnya kuli kabel beraksi. Camkan ini baik-baik:
 > *"Kalau kabel jelek atau crimpingan ampas, config router se-dewa apapun percuma. Latency tinggi, packet loss, dimarahin klien."*
 
@@ -20,14 +22,14 @@ Jangan sampai tertukar antara standar A dan B. Indonesia mayoritas pakai **T568B
 
 | Pin | T568B (Standar Kita) | Visual |
 | :--- | :--- | :--- |
-| 1 | **Putih Orange** | <div class="w-8 h-4 bg-gradient-to-r from-white via-orange-500 to-white border border-gray-400"></div> |
-| 2 | **Orange** | <div class="w-8 h-4 bg-orange-500 border border-gray-400"></div> |
-| 3 | **Putih Hijau** | <div class="w-8 h-4 bg-gradient-to-r from-white via-green-600 to-white border border-gray-400"></div> |
-| 4 | **Biru** | <div class="w-8 h-4 bg-blue-600 border border-gray-400"></div> |
-| 5 | **Putih Biru** | <div class="w-8 h-4 bg-gradient-to-r from-white via-blue-600 to-white border border-gray-400"></div> |
-| 6 | **Hijau** | <div class="w-8 h-4 bg-green-600 border border-gray-400"></div> |
-| 7 | **Putih Coklat** | <div class="w-8 h-4 bg-gradient-to-r from-white via-amber-700 to-white border border-gray-400"></div> |
-| 8 | **Coklat** | <div class="w-8 h-4 bg-amber-700 border border-gray-400"></div> |
+| 1 | **Putih Orange** | <ColorSwatch class="w-8 h-4 bg-gradient-to-r from-white via-orange-500 to-white" /> |
+| 2 | **Orange** | <ColorSwatch class="w-8 h-4 bg-orange-500" /> |
+| 3 | **Putih Hijau** | <ColorSwatch class="w-8 h-4 bg-gradient-to-r from-white via-green-600 to-white" /> |
+| 4 | **Biru** | <ColorSwatch class="w-8 h-4 bg-blue-600" /> |
+| 5 | **Putih Biru** | <ColorSwatch class="w-8 h-4 bg-gradient-to-r from-white via-blue-600 to-white" /> |
+| 6 | **Hijau** | <ColorSwatch class="w-8 h-4 bg-green-600" /> |
+| 7 | **Putih Coklat** | <ColorSwatch class="w-8 h-4 bg-gradient-to-r from-white via-amber-700 to-white" /> |
+| 8 | **Coklat** | <ColorSwatch class="w-8 h-4 bg-amber-700" /> |
 
 :::tip[Tips Crimping Anti Gagal]
 Saat memasukkan kabel ke konektor RJ-45, pastikan **kulit kabel luar (jacket)** ikut masuk dan terjepit di dalam konektor.
@@ -76,18 +78,18 @@ Di lapangan, satu kabel FO besar (tube) isinya bisa banyak core. Biar gak bingun
 
 | No | Warna | Mnemonic | Visual |
 | :-- | :-- | :-- | :-- |
-| 1 | **Biru** | **B** | <div class="w-8 h-8 rounded-full bg-blue-600 border border-gray-300"></div> |
-| 2 | **Orange** | **O** | <div class="w-8 h-8 rounded-full bg-orange-500 border border-gray-300"></div> |
-| 3 | **Hijau** | **H** | <div class="w-8 h-8 rounded-full bg-green-600 border border-gray-300"></div> |
-| 4 | **Coklat** | **C** | <div class="w-8 h-8 rounded-full bg-amber-800 border border-gray-300"></div> |
-| 5 | **Abu-abu** | **A** | <div class="w-8 h-8 rounded-full bg-gray-500 border border-gray-300"></div> |
-| 6 | **Putih** | **P** | <div class="w-8 h-8 rounded-full bg-white border border-gray-300"></div> |
-| 7 | **Merah** | **Me** | <div class="w-8 h-8 rounded-full bg-red-600 border border-gray-300"></div> |
-| 8 | **Hitam** | **Hi** | <div class="w-8 h-8 rounded-full bg-black border border-gray-300"></div> |
-| 9 | **Kuning** | **Ku** | <div class="w-8 h-8 rounded-full bg-yellow-400 border border-gray-300"></div> |
-| 10 | **Ungu** | **U** | <div class="w-8 h-8 rounded-full bg-purple-600 border border-gray-300"></div> |
-| 11 | **Pink** | **Pi** | <div class="w-8 h-8 rounded-full bg-pink-400 border border-gray-300"></div> |
-| 12 | **Tosca** | **To** | <div class="w-8 h-8 rounded-full bg-teal-400 border border-gray-300"></div> |
+| 1 | **Biru** | **B** | <ColorSwatch class="w-8 h-8 rounded-full bg-blue-600" /> |
+| 2 | **Orange** | **O** | <ColorSwatch class="w-8 h-8 rounded-full bg-orange-500" /> |
+| 3 | **Hijau** | **H** | <ColorSwatch class="w-8 h-8 rounded-full bg-green-600" /> |
+| 4 | **Coklat** | **C** | <ColorSwatch class="w-8 h-8 rounded-full bg-amber-800" /> |
+| 5 | **Abu-abu** | **A** | <ColorSwatch class="w-8 h-8 rounded-full bg-gray-500" /> |
+| 6 | **Putih** | **P** | <ColorSwatch class="w-8 h-8 rounded-full bg-white" /> |
+| 7 | **Merah** | **Me** | <ColorSwatch class="w-8 h-8 rounded-full bg-red-600" /> |
+| 8 | **Hitam** | **Hi** | <ColorSwatch class="w-8 h-8 rounded-full bg-black" /> |
+| 9 | **Kuning** | **Ku** | <ColorSwatch class="w-8 h-8 rounded-full bg-yellow-400" /> |
+| 10 | **Ungu** | **U** | <ColorSwatch class="w-8 h-8 rounded-full bg-purple-600" /> |
+| 11 | **Pink** | **Pi** | <ColorSwatch class="w-8 h-8 rounded-full bg-pink-400" /> |
+| 12 | **Tosca** | **To** | <ColorSwatch class="w-8 h-8 rounded-full bg-teal-400" /> |
 
 :::note
 Urutan 1-12 ini berulang. Kalau ada core ke-13, warnanya balik ke **Biru** tapi biasanya ada tanda garis hitam.
