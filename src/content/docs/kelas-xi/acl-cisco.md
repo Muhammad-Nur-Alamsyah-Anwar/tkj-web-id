@@ -126,3 +126,15 @@ Router(config-line)# exit
 ```
 
 Artinya: hanya host dari network 192.168.1.0/24 yang boleh remote ke router ini.
+
+## ACL dan NAT
+
+ACL yang dipakai untuk NAT berbeda dengan ACL yang dipakai untuk filter traffic. Yang untuk NAT tidak perlu di-apply ke interface:
+
+```
+! ACL untuk NAT (tidak di-apply manual ke interface)
+Router(config)# access-list 1 permit 192.168.1.0 0.0.0.255
+Router(config)# ip nat inside source list 1 interface fa0/1 overload
+```
+
+Kalau kamu apply ACL yang sama ke interface juga, hasilnya bisa tidak terduga — buat ACL terpisah untuk NAT dan filtering.
