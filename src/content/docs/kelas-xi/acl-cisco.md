@@ -154,3 +154,7 @@ Router(config)# access-list 101 deny ip any any
 Router(config)# interface fa0/0
 Router(config-if)# ip access-group 101 in
 ```
+
+---
+
+*Materi ACL ini mencakup yang umumnya keluar di ujian praktek kelas XI dan CCNA level entry.*
