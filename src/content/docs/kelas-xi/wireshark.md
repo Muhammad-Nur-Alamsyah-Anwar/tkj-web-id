@@ -39,4 +39,31 @@ Logout dan login ulang biar group-nya aktif.
 2. Pilih interface (biasanya eth0 atau enp0s3 di VM)
 3. Klik tombol hiu biru (Start Capturing Packets)
 4. Lakukan aktivitas jaringan yang mau di-analisis
-5. Klik tombol merah (Stop) untuk berhenti
+## Display filters yang sering dipakai
+
+| Filter | Keterangan |
+|--------|------------|
+| `ip.addr == 192.168.1.1` | Traffic dari/ke IP tertentu |
+| `ip.src == 192.168.1.1` | Traffic dari IP tertentu |
+| `ip.dst == 192.168.1.1` | Traffic ke IP tertentu |
+| `tcp.port == 80` | Traffic HTTP |
+| `tcp.port == 443` | Traffic HTTPS |
+| `dns` | Semua traffic DNS |
+| `icmp` | Semua ping (ICMP) |
+| `dhcp` | Traffic DHCP |
+| `arp` | Traffic ARP |
+| `http` | Traffic HTTP (unencrypted) |
+
+Contoh kombinasi:
+
+```
+ip.addr == 192.168.1.100 && tcp.port == 80
+```
+
+## Follow TCP Stream
+
+Kalau mau lihat isi percakapan HTTP:
+
+1. Klik kanan paket HTTP
+2. Pilih **Follow → TCP Stream**
+3. Window baru akan muncul — bisa lihat request dan response dalam text
