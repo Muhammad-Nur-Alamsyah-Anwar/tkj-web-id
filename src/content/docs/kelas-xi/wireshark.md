@@ -97,3 +97,23 @@ Harusnya ada DNS Query diikuti DNS Response. Kalau tidak ada Response, DNS serve
 ### Diagnosa packet loss
 
 Pakai filter `tcp.analysis.flags` — ini akan tampilkan paket yang Wireshark deteksi ada masalah seperti retransmisi, out-of-order, dll.
+
+## Export hasil capture
+
+Simpan file capture untuk dianalisis nanti atau dikirim ke guru:
+
+```
+File → Save As → pilih format .pcapng
+```
+
+Atau export hanya paket yang sudah difilter:
+
+```
+File → Export Specified Packets → check "Displayed" → Save
+```
+
+## Tips
+
+- Wireshark menampilkan semua traffic di interface, termasuk yang tidak diminta. Pakai filter biar tidak pusing
+- Kalau mau capture di VM, pastikan interface VM dalam mode **Bridged** atau **Host-only** tergantung kebutuhan
+- Di Windows, Wireshark butuh **Npcap** untuk capture — biasanya sudah include di installer Wireshark
