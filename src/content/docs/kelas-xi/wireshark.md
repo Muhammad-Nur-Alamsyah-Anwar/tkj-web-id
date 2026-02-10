@@ -66,4 +66,34 @@ Kalau mau lihat isi percakapan HTTP:
 
 1. Klik kanan paket HTTP
 2. Pilih **Follow → TCP Stream**
-3. Window baru akan muncul — bisa lihat request dan response dalam text
+## Capture filters
+
+Berbeda dari display filter, capture filter dibuat sebelum mulai capture dan lebih efisien karena hanya menyimpan paket yang sesuai filter.
+
+Format pakai BPF syntax:
+
+```
+host 192.168.1.1           # hanya traffic ke/dari IP ini
+port 80                     # hanya port 80
+tcp                         # hanya TCP
+not arp                     # exclude ARP
+host 10.0.0.1 and port 22  # SSH ke server tertentu
+```
+
+## Skenario troubleshooting
+
+### Cek apakah DHCP bekerja
+
+Filter: `dhcp`
+
+Harusnya ada 4 paket: DHCP Discover → Offer → Request → ACK. Kalau Offer tidak muncul, DHCP server tidak merespons.
+
+### Cek koneksi DNS
+
+Filter: `dns`
+
+Harusnya ada DNS Query diikuti DNS Response. Kalau tidak ada Response, DNS server tidak bisa dijangkau.
+
+### Diagnosa packet loss
+
+Pakai filter `tcp.analysis.flags` — ini akan tampilkan paket yang Wireshark deteksi ada masalah seperti retransmisi, out-of-order, dll.
