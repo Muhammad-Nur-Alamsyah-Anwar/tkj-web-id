@@ -34,3 +34,28 @@ Switch(config-if)# exit
 Switch(config)# end
 Switch# write memory
 ```
+
+## Konfigurasi Router-on-a-Stick (Inter-VLAN Routing)
+
+```
+Router> enable
+Router# configure terminal
+
+! Subinterface untuk VLAN 10
+Router(config)# interface fastEthernet 0/0.10
+Router(config-subif)# encapsulation dot1Q 10
+Router(config-subif)# ip address 192.168.10.1 255.255.255.0
+Router(config-subif)# exit
+
+! Subinterface untuk VLAN 20
+Router(config)# interface fastEthernet 0/0.20
+Router(config-subif)# encapsulation dot1Q 20
+Router(config-subif)# ip address 192.168.20.1 255.255.255.0
+Router(config-subif)# exit
+
+! Aktifkan interface utama
+Router(config)# interface fastEthernet 0/0
+Router(config-if)# no shutdown
+Router(config-if)# end
+Router# write memory
+```
