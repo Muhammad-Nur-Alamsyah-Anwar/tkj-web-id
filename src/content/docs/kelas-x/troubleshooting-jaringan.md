@@ -40,4 +40,43 @@ arping -I eth0 192.168.1.100
 
 Kalau ada 2 reply dari MAC address berbeda, berarti ada IP conflict.
 
-Solusi: ubah IP salah satu device ke IP yang belum dipakai.
+## Tidak bisa ping antar PC di lab
+
+Kemungkinan:
+
+1. **IP berbeda network** — cek apakah kedua PC di subnet yang sama
+2. **Firewall aktif** — Windows Firewall sering blokir ICMP. Coba ping dari PC Linux ke PC Linux dulu
+3. **Kabel straight/crossover salah** — PC ke switch pakai straight, PC ke PC langsung pakai crossover (kalau tidak ada auto-MDI)
+4. **Switch VLAN** — kalau pakai managed switch, cek apakah port masuk VLAN yang sama
+
+Cara cek IP cepat:
+
+```
+# Windows
+ipconfig
+
+# Linux
+ip a
+```
+
+## Service tidak bisa diakses dari client
+
+Contoh: web server Apache sudah install tapi tidak bisa dibuka dari browser client.
+
+Cek urutan ini:
+
+1. Apakah service running? `systemctl status apache2`
+2. Apakah listening di port yang benar? `ss -tlnp | grep :80`
+3. Apakah firewall blokir? `iptables -L` atau cek ufw
+4. Apakah bisa diakses dari server sendiri? `curl localhost`
+5. Baru cek dari client
+
+## Urutan troubleshooting umum (OSI bottom-up)
+
+| Layer | Cek |
+|-------|-----|
+| Physical (L1) | Kabel, lampu NIC/switch |
+| Data Link (L2) | MAC address, ARP table |
+| Network (L3) | IP, subnet, routing |
+| Transport (L4) | Port, TCP/UDP, firewall |
+| Application (L7) | Config service, log error |
