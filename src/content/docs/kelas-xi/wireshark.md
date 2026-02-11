@@ -117,3 +117,11 @@ File → Export Specified Packets → check "Displayed" → Save
 - Wireshark menampilkan semua traffic di interface, termasuk yang tidak diminta. Pakai filter biar tidak pusing
 - Kalau mau capture di VM, pastikan interface VM dalam mode **Bridged** atau **Host-only** tergantung kebutuhan
 - Di Windows, Wireshark butuh **Npcap** untuk capture — biasanya sudah include di installer Wireshark
+
+## Statistics
+
+Wireshark punya menu Statistics yang berguna:
+
+- **Statistics → Conversations** — lihat siapa ngobrol sama siapa, berapa bytes yang dikirim
+- **Statistics → Protocol Hierarchy** — distribusi protokol dalam capture, berguna buat lihat anomali (misal banyak banget ARP)
+- **Statistics → IO Graph** — grafik throughput vs waktu
