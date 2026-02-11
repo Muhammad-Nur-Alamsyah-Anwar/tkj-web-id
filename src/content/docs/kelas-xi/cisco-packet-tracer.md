@@ -76,3 +76,19 @@ Router(dhcp-config)# exit
 Router# show ip dhcp binding
 Router# show ip dhcp pool
 ```
+
+## Static Routing
+
+```
+! Lihat routing table
+Router# show ip route
+
+! Tambah static route
+Router(config)# ip route 192.168.2.0 255.255.255.0 192.168.1.254
+
+! Default route
+Router(config)# ip route 0.0.0.0 0.0.0.0 10.0.0.1
+
+! Hapus static route
+Router(config)# no ip route 192.168.2.0 255.255.255.0 192.168.1.254
+```
