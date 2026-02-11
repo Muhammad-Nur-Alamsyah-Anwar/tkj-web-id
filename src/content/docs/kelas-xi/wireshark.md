@@ -125,3 +125,25 @@ Wireshark punya menu Statistics yang berguna:
 - **Statistics → Conversations** — lihat siapa ngobrol sama siapa, berapa bytes yang dikirim
 - **Statistics → Protocol Hierarchy** — distribusi protokol dalam capture, berguna buat lihat anomali (misal banyak banget ARP)
 - **Statistics → IO Graph** — grafik throughput vs waktu
+
+## tshark — Wireshark versi CLI
+
+Untuk server yang tidak punya GUI, pakai tshark:
+
+```bash
+# Install
+apt install tshark
+
+# Capture di interface eth0, tampilkan live
+tshark -i eth0
+
+# Capture dengan filter
+tshark -i eth0 -f "port 80"
+
+# Simpan ke file
+tshark -i eth0 -w output.pcap
+
+# Baca file pcap
+tshark -r output.pcap
+tshark -r output.pcap -Y "dns"   # dengan display filter
+```
