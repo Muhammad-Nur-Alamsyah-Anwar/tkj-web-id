@@ -59,3 +59,20 @@ Router(config-if)# no shutdown
 Router(config-if)# end
 Router# write memory
 ```
+
+## DHCP di Cisco Router
+
+```
+Router(config)# ip dhcp excluded-address 192.168.1.1 192.168.1.9
+
+Router(config)# ip dhcp pool LAN-POOL
+Router(dhcp-config)# network 192.168.1.0 255.255.255.0
+Router(dhcp-config)# default-router 192.168.1.1
+Router(dhcp-config)# dns-server 8.8.8.8
+Router(dhcp-config)# lease 7
+Router(dhcp-config)# exit
+
+! Cek DHCP lease
+Router# show ip dhcp binding
+Router# show ip dhcp pool
+```
