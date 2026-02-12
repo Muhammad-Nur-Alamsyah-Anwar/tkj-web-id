@@ -159,3 +159,13 @@ Cara lihat di Wireshark:
 3. Kalau cuma ada SYN tanpa dibalas → port tertutup atau firewall blokir
 
 Connection termination: FIN → FIN-ACK → ACK (atau RST untuk terminasi mendadak).
+
+## Colorisasi paket
+
+Wireshark memberi warna berbeda untuk protokol berbeda secara default:
+- **Hijau muda** — HTTP traffic
+- **Biru muda** — DNS
+- **Kuning** — ARP
+- **Merah gelap** — error atau retransmisi TCP
+
+Bisa kustomisasi di **View → Coloring Rules**.
