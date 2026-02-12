@@ -147,3 +147,15 @@ tshark -i eth0 -w output.pcap
 tshark -r output.pcap
 tshark -r output.pcap -Y "dns"   # dengan display filter
 ```
+
+## Analisis handshake TCP
+
+TCP connection dimulai dengan 3-way handshake: SYN → SYN-ACK → ACK.
+
+Cara lihat di Wireshark:
+
+1. Filter: `tcp.flags.syn == 1`
+2. Lihat sequence: ada paket SYN (flag S), dibalas SYN-ACK (flag SA), lalu ACK (flag A)
+3. Kalau cuma ada SYN tanpa dibalas → port tertutup atau firewall blokir
+
+Connection termination: FIN → FIN-ACK → ACK (atau RST untuk terminasi mendadak).
