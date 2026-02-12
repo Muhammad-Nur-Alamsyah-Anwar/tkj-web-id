@@ -79,4 +79,36 @@ Cek urutan ini:
 | Data Link (L2) | MAC address, ARP table |
 | Network (L3) | IP, subnet, routing |
 | Transport (L4) | Port, TCP/UDP, firewall |
-| Application (L7) | Config service, log error |
+## Perintah troubleshooting cepat
+
+```bash
+# Cek IP dan interface
+ip a
+ip link show
+
+# Cek routing
+ip route show
+
+# Ping dengan limit 4 paket
+ping -c 4 8.8.8.8
+
+# Traceroute — lihat jalur paket ke tujuan
+traceroute google.com     # Linux
+tracert google.com        # Windows
+
+# Cek DNS
+nslookup google.com
+dig google.com
+
+# Cek port terbuka
+ss -tlnp
+nmap -p 80,443 192.168.1.1
+
+# Cek log sistem
+journalctl -xe
+tail -f /var/log/syslog
+```
+
+## Catatan
+
+Troubleshooting itu prosesnya sistematis dari bawah ke atas. Jangan langsung lompat ke konfigurasi aplikasi kalau kabel belum dicek.
