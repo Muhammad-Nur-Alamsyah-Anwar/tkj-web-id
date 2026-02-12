@@ -112,3 +112,13 @@ tail -f /var/log/syslog
 ## Catatan
 
 Troubleshooting itu prosesnya sistematis dari bawah ke atas. Jangan langsung lompat ke konfigurasi aplikasi kalau kabel belum dicek.
+
+## VLAN troubleshooting di switch
+
+Kalau dua PC di network yang sama tidak bisa ping:
+
+1. Cek port assignment: `show interfaces fa0/1 switchport`
+2. Kalau port masuk VLAN yang berbeda, itu masalahnya
+3. Pindahkan ke VLAN yang sama: `switchport access vlan 10`
+
+Kalau pakai managed switch dan tidak punya akses CLI, cek di GUI switch-nya apakah port config sudah benar.
