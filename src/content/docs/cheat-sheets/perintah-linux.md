@@ -63,3 +63,29 @@ Penting untuk keamanan dan hak akses server.
 | `reboot` | Restart komputer. | `reboot` |
 | `poweroff` | Mematikan komputer. | `poweroff` |
 | `history` | Melihat riwayat perintah yang diketik. | `history` |
+## Perintah Jaringan Lanjutan
+
+```bash
+# Cek semua interface dan IP
+ip addr show
+ip -br addr
+
+# Tambah IP sementara
+ip addr add 192.168.1.100/24 dev eth0
+
+# Hapus IP
+ip addr del 192.168.1.100/24 dev eth0
+
+# Tambah route
+ip route add 10.0.0.0/8 via 192.168.1.1
+
+# Lihat routing table
+ip route show
+
+# Monitor koneksi aktif
+ss -tulnp
+netstat -tulnp
+
+# Cek port terbuka
+nmap -sV localhost
+```
