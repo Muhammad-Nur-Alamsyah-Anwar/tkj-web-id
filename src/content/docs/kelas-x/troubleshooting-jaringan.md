@@ -137,3 +137,13 @@ Beberapa perbedaan yang sering membingungkan:
 | Flush DNS cache | `ipconfig /flushdns` | `systemd-resolve --flush-caches` |
 
 Di Windows, default `ping` jalan terus sampai di-stop (Ctrl+C). Di Linux, default hanya 4x.
+
+## Masalah umum di lab dan solusinya
+
+| Masalah | Kemungkinan Sebab | Solusi Cepat |
+|---------|------------------|--------------|
+| Tidak bisa ping gateway | IP salah / interface down | Cek `ip a`, pastikan IP di network yang sama |
+| Ping gateway OK tapi tidak bisa internet | DNS salah / routing kurang | Test `ping 8.8.8.8` dulu, baru `ping google.com` |
+| SSH ditolak | Service tidak jalan / port salah | `systemctl status ssh`, cek port di sshd_config |
+| Website tidak bisa dibuka | Apache tidak jalan / firewall | `systemctl status apache2`, `iptables -L` |
+| DHCP tidak dapat IP | Service DHCP mati / range habis | Restart isc-dhcp-server, cek log |
