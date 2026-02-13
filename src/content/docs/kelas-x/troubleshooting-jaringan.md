@@ -122,3 +122,18 @@ Kalau dua PC di network yang sama tidak bisa ping:
 3. Pindahkan ke VLAN yang sama: `switchport access vlan 10`
 
 Kalau pakai managed switch dan tidak punya akses CLI, cek di GUI switch-nya apakah port config sudah benar.
+
+## Windows vs Linux troubleshooting
+
+Beberapa perbedaan yang sering membingungkan:
+
+| Aspek | Windows | Linux |
+|-------|---------|-------|
+| Cek IP | `ipconfig` | `ip a` |
+| Cek routing | `route print` | `ip route show` |
+| Ping | `ping 8.8.8.8` (terus) | `ping -c 4 8.8.8.8` (4x) |
+| Traceroute | `tracert` | `traceroute` |
+| Cek port | `netstat -an` | `ss -tlnp` |
+| Flush DNS cache | `ipconfig /flushdns` | `systemd-resolve --flush-caches` |
+
+Di Windows, default `ping` jalan terus sampai di-stop (Ctrl+C). Di Linux, default hanya 4x.
