@@ -169,3 +169,8 @@ Wireshark memberi warna berbeda untuk protokol berbeda secara default:
 - **Merah gelap** — error atau retransmisi TCP
 
 Bisa kustomisasi di **View → Coloring Rules**.
+
+## Referensi
+
+- Wireshark documentation: https://www.wireshark.org/docs/
+- Wireshark Display Filter Reference: https://www.wireshark.org/docs/dfref/
