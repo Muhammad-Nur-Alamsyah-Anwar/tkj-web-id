@@ -89,3 +89,29 @@ netstat -tulnp
 # Cek port terbuka
 nmap -sV localhost
 ```
+
+## Manajemen Service (systemd)
+
+```bash
+# Status service
+systemctl status nginx
+
+# Start/stop/restart
+systemctl start apache2
+systemctl stop apache2
+systemctl restart apache2
+
+# Enable/disable (otomatis start)
+systemctl enable ssh
+systemctl disable telnet
+
+# Lihat semua service aktif
+systemctl list-units --type=service --state=running
+
+# Reload konfigurasi tanpa restart
+systemctl reload nginx
+
+# Log service
+journalctl -u nginx -f
+journalctl -u apache2 --since "1 hour ago"
+```
