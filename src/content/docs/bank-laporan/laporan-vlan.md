@@ -135,3 +135,22 @@ Pemisahan VLAN berhasil. PC di VLAN 10 tidak bisa berkomunikasi langsung dengan 
 ## BAB V — KESIMPULAN
 
 VLAN berhasil dikonfigurasi untuk memisahkan traffic guru dan siswa. Inter-VLAN routing via router-on-a-stick berfungsi baik. Teknik ini dapat diterapkan di jaringan sekolah nyata untuk meningkatkan keamanan dan manajemen bandwidth.
+
+---
+
+## Lampiran: Perintah verifikasi
+
+```
+! Di switch
+Switch# show vlan brief
+Switch# show interfaces trunk
+Switch# show mac address-table
+
+! Di router
+Router# show ip interface brief
+Router# show running-config | section interface
+```
+
+## Catatan
+
+Template laporan ini menggunakan format standar yang umumnya diminta guru. Sesuaikan bagian topologi dan tabel IP dengan jaringan yang kamu kerjakan. Jangan copy-paste hasil begitu saja — minimal ubah nama device dan IP-nya.
