@@ -93,4 +93,45 @@ VLAN (Virtual Local Area Network) adalah teknologi yang memungkinkan pembuatan j
 
 Trunk port digunakan untuk membawa traffic dari beberapa VLAN sekaligus antara dua perangkat, menggunakan encapsulation 802.1Q untuk menandai paket dengan VLAN ID.
 
-Inter-VLAN routing dilakukan oleh router menggunakan teknik router-on-a-stick: satu interface fisik router dibagi menjadi beberapa subinterface, masing-masing menangani satu VLAN.
+### 3.4 Konfigurasi Router
+
+```
+Router> enable
+Router# configure terminal
+
+Router(config)# interface fa0/0
+Router(config-if)# no shutdown
+Router(config-if)# exit
+
+Router(config)# interface fa0/0.10
+Router(config-subif)# encapsulation dot1Q 10
+Router(config-subif)# ip address 192.168.10.1 255.255.255.0
+Router(config-subif)# exit
+
+Router(config)# interface fa0/0.20
+Router(config-subif)# encapsulation dot1Q 20
+Router(config-subif)# ip address 192.168.20.1 255.255.255.0
+Router(config-subif)# exit
+```
+
+---
+
+## BAB IV — HASIL DAN ANALISIS
+
+### 4.1 Hasil pengujian
+
+| Pengujian | Sumber | Tujuan | Hasil |
+|-----------|--------|--------|-------|
+| Ping sesama VLAN 10 | 192.168.10.2 | 192.168.10.3 | Berhasil |
+| Ping sesama VLAN 20 | 192.168.20.2 | 192.168.20.3 | Berhasil |
+| Ping beda VLAN (via router) | 192.168.10.2 | 192.168.20.2 | Berhasil |
+
+### 4.2 Analisis
+
+Pemisahan VLAN berhasil. PC di VLAN 10 tidak bisa berkomunikasi langsung dengan VLAN 20 tanpa melalui router. Ini sesuai tujuan keamanan jaringan.
+
+---
+
+## BAB V — KESIMPULAN
+
+VLAN berhasil dikonfigurasi untuk memisahkan traffic guru dan siswa. Inter-VLAN routing via router-on-a-stick berfungsi baik. Teknik ini dapat diterapkan di jaringan sekolah nyata untuk meningkatkan keamanan dan manajemen bandwidth.
