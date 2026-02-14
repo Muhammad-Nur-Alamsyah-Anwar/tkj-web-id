@@ -147,3 +147,13 @@ Di Windows, default `ping` jalan terus sampai di-stop (Ctrl+C). Di Linux, defaul
 | SSH ditolak | Service tidak jalan / port salah | `systemctl status ssh`, cek port di sshd_config |
 | Website tidak bisa dibuka | Apache tidak jalan / firewall | `systemctl status apache2`, `iptables -L` |
 | DHCP tidak dapat IP | Service DHCP mati / range habis | Restart isc-dhcp-server, cek log |
+
+## Cara baca pesan error umum
+
+**"Network is unreachable"** — routing table tidak punya route ke tujuan, atau interface down
+
+**"Connection refused"** — host tujuan bisa dijangkau tapi port tertutup / service tidak jalan
+
+**"Connection timed out"** — host tujuan tidak merespons, kemungkinan firewall drop packet atau host mati
+
+**"Name or service not known"** — DNS gagal resolve nama host, cek `/etc/resolv.conf`
