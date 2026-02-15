@@ -10,9 +10,9 @@ import vercel from '@astrojs/vercel';
 export default defineConfig({
   site: 'https://tkj.web.id',
 
-  integrations: [
-      starlight({
-          title: 'TKJ Knowledge Hub',
+  	integrations: [
+  		mermaid(),
+  		starlight({          title: 'TKJ Knowledge Hub',
           social: [
               {
                   label: 'GitHub',
@@ -33,6 +33,8 @@ export default defineConfig({
                   items: [
                       { label: 'Dasar Jaringan', slug: 'kelas-x/dasar-jaringan' },
                       { label: 'Komputer Dasar', slug: 'kelas-x/komputer-dasar' },
+                      { label: 'Media Transmisi', slug: 'kelas-x/media-transmisi' },
+                      { label: 'Elektronika Dasar', slug: 'kelas-x/elektronika-dasar' },
                   ],
               },
               {
@@ -62,11 +64,9 @@ export default defineConfig({
               Footer: './src/components/CustomFooter.astro',
           },
       }),
-      tailwind({
-          // Disable base styles to prevent conflict with Starlight's styles
-          			applyBaseStyles: false,
-          		}),
-          		mermaid(),
-          	],
-  adapter: vercel(),
+      		tailwind({
+      			// Disable base styles to prevent conflict with Starlight's styles
+      			applyBaseStyles: false,
+      		}),
+      	],  adapter: vercel(),
 });
