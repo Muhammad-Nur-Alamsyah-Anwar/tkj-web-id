@@ -154,3 +154,11 @@ Router# show running-config | section interface
 ## Catatan
 
 Template laporan ini menggunakan format standar yang umumnya diminta guru. Sesuaikan bagian topologi dan tabel IP dengan jaringan yang kamu kerjakan. Jangan copy-paste hasil begitu saja — minimal ubah nama device dan IP-nya.
+
+## Daftar referensi (opsional)
+
+Kalau guru minta daftar referensi:
+
+1. Cisco Networking Academy. *Introduction to Networks*. Cisco Press.
+2. Odom, W. (2019). *CCNA 200-301 Official Cert Guide*. Cisco Press.
+3. Dokumentasi Cisco IOS: https://www.cisco.com/c/en/us/support/
