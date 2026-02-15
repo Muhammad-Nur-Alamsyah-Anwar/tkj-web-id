@@ -162,3 +162,7 @@ Kalau guru minta daftar referensi:
 1. Cisco Networking Academy. *Introduction to Networks*. Cisco Press.
 2. Odom, W. (2019). *CCNA 200-301 Official Cert Guide*. Cisco Press.
 3. Dokumentasi Cisco IOS: https://www.cisco.com/c/en/us/support/
+
+---
+
+*Format laporan ini disesuaikan dengan format umum laporan praktek SMK. Periksa lagi persyaratan format dari sekolah masing-masing, karena bisa berbeda.*
