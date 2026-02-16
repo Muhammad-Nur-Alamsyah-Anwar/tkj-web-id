@@ -61,6 +61,46 @@ R1(config-line)# exit
 R1(config)# interface fastEthernet 0/0
 R1(config-if)# ip address 192.168.1.1 255.255.255.0
 R1(config-if)# no shutdown
-R1(config-if)# description LAN-Interface
-R1(config-if)# exit
+## Routing
+
+```
+! Default route
+R1(config)# ip route 0.0.0.0 0.0.0.0 192.168.0.1
+
+! Static route
+R1(config)# ip route 10.0.0.0 255.0.0.0 192.168.1.2
+
+! Cek routing table
+R1# show ip route
+```
+
+## Show commands
+
+```
+R1# show running-config          ← konfigurasi aktif
+R1# show startup-config          ← konfigurasi tersimpan
+R1# show ip interface brief      ← ringkasan IP semua interface
+R1# show interfaces              ← detail semua interface
+R1# show ip route                ← routing table
+R1# show version                 ← info IOS dan hardware
+R1# show cdp neighbors           ← perangkat Cisco yang terhubung
+```
+
+## Save konfigurasi
+
+```
+R1# copy running-config startup-config
+```
+
+Atau shortcut:
+
+```
+R1# wr
+```
+
+## Hapus konfigurasi
+
+```
+R1# erase startup-config
+R1# reload
 ```
