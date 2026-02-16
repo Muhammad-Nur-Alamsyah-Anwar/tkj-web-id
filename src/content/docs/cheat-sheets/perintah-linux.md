@@ -115,3 +115,29 @@ systemctl reload nginx
 journalctl -u nginx -f
 journalctl -u apache2 --since "1 hour ago"
 ```
+
+## Manajemen File dan Direktori
+
+```bash
+# Navigasi
+ls -la          # list dengan permission
+cd /etc         # pindah direktori
+pwd             # lokasi sekarang
+
+# Buat/hapus
+mkdir -p /srv/data/tkj   # buat direktori
+rm -rf /tmp/old          # hapus direktori
+cp -r /src /dst          # copy rekursif
+mv file.txt /tmp/        # pindah file
+
+# Cari file
+find /etc -name "*.conf"
+find / -type f -name "sshd_config"
+locate nginx.conf
+
+# Lihat isi file
+cat /etc/hosts
+less /var/log/syslog
+head -20 /var/log/auth.log
+tail -f /var/log/syslog  # real-time
+```
