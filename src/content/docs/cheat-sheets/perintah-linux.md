@@ -141,3 +141,25 @@ less /var/log/syslog
 head -20 /var/log/auth.log
 tail -f /var/log/syslog  # real-time
 ```
+
+## Permission dan Ownership
+
+```bash
+# Lihat permission
+ls -la
+
+# Ubah permission (numeric)
+chmod 755 /var/www/html
+chmod 600 ~/.ssh/id_rsa
+chmod -R 644 /srv/samba/public
+
+# Ubah ownership
+chown www-data:www-data /var/www/html
+chown -R ftpuser:ftpuser /home/ftpuser
+
+# Mode permission:
+# r=4, w=2, x=1
+# 755 = rwxr-xr-x (owner: rwx, group: r-x, other: r-x)
+# 644 = rw-r--r-- (owner: rw-, group: r--, other: r--)
+# 600 = rw------- (owner: rw-)
+```
