@@ -139,3 +139,23 @@ Cisco IOS menerima perintah yang disingkat asalkan tidak ambigu:
 - `conf t` = `configure terminal`
 - `int fa0/0` = `interface fastEthernet 0/0`
 - `no sh` = `no shutdown`
+
+## Konfigurasi DHCP di Router Cisco
+
+```
+R1(config)# ip dhcp pool LAN
+R1(dhcp-config)# network 192.168.1.0 255.255.255.0
+R1(dhcp-config)# default-router 192.168.1.1
+R1(dhcp-config)# dns-server 8.8.8.8
+R1(dhcp-config)# exit
+
+! Exclude IP statis (jangan dibagikan ke client)
+R1(config)# ip dhcp excluded-address 192.168.1.1 192.168.1.10
+```
+
+Cek lease DHCP:
+
+```
+R1# show ip dhcp binding
+R1# show ip dhcp pool
+```
