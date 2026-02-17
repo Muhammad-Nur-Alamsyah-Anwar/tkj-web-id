@@ -101,6 +101,41 @@ R1# wr
 ## Hapus konfigurasi
 
 ```
-R1# erase startup-config
-R1# reload
+## SSH di Cisco
+
 ```
+! Generate RSA key (syarat SSH)
+R1(config)# crypto key generate rsa modulus 1024
+R1(config)# ip domain-name tkj.local
+R1(config)# username admin privilege 15 secret lab123
+
+R1(config)# line vty 0 4
+R1(config-line)# transport input ssh
+R1(config-line)# login local
+R1(config-line)# exit
+
+R1(config)# ip ssh version 2
+```
+
+## Troubleshooting cepat
+
+```
+! Cek interface down/up
+R1# show ip interface brief | include down
+
+! Cek apakah paket bisa lewat
+R1# ping 192.168.1.2
+R1# traceroute 8.8.8.8
+
+! Debug routing (hati-hati, heavy di produksi)
+R1# debug ip routing
+R1# undebug all
+```
+
+## Tips singkatan
+
+Cisco IOS menerima perintah yang disingkat asalkan tidak ambigu:
+- `sh ip int br` = `show ip interface brief`
+- `conf t` = `configure terminal`
+- `int fa0/0` = `interface fastEthernet 0/0`
+- `no sh` = `no shutdown`
