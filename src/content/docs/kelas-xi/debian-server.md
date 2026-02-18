@@ -254,3 +254,27 @@ smbpasswd -a sambauser
 systemctl restart smbd
 testparm
 ```
+
+## Firewall dengan UFW
+
+```bash
+apt install ufw -y
+ufw enable
+
+# Allow layanan
+ufw allow ssh
+ufw allow http
+ufw allow https
+ufw allow ftp
+ufw allow from 192.168.100.0/24 to any port 445  # Samba dari LAN
+
+# Blokir IP
+ufw deny from 10.0.0.100
+
+# Status
+ufw status verbose
+ufw status numbered
+
+# Hapus rule
+ufw delete deny from 10.0.0.100
+```
