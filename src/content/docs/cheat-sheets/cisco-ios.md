@@ -184,3 +184,19 @@ Cek NAT translation:
 R1# show ip nat translations
 R1# show ip nat statistics
 ```
+
+## Konfigurasi OSPF sederhana
+
+```
+R1(config)# router ospf 1
+R1(config-router)# network 192.168.1.0 0.0.0.255 area 0
+R1(config-router)# network 10.0.0.0 0.0.0.255 area 0
+R1(config-router)# exit
+```
+
+Cek OSPF:
+
+```
+R1# show ip ospf neighbor
+R1# show ip route ospf
+```
