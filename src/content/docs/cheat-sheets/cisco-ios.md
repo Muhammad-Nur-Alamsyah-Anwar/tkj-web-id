@@ -159,3 +159,28 @@ Cek lease DHCP:
 R1# show ip dhcp binding
 R1# show ip dhcp pool
 ```
+
+## NAT di Cisco
+
+```
+! Definisikan inside dan outside interface
+R1(config)# interface fa0/0
+R1(config-if)# ip nat inside
+R1(config-if)# exit
+R1(config)# interface fa0/1
+R1(config-if)# ip nat outside
+R1(config-if)# exit
+
+! Buat access-list untuk jaringan lokal
+R1(config)# access-list 1 permit 192.168.1.0 0.0.0.255
+
+! NAT overload (PAT) — banyak IP private ke satu IP public
+R1(config)# ip nat inside source list 1 interface fa0/1 overload
+```
+
+Cek NAT translation:
+
+```
+R1# show ip nat translations
+R1# show ip nat statistics
+```
