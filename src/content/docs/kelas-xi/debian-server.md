@@ -278,3 +278,26 @@ ufw status numbered
 # Hapus rule
 ufw delete deny from 10.0.0.100
 ```
+
+## Monitoring Server
+
+```bash
+# Cek resource
+htop          # CPU, RAM real-time
+df -h         # disk usage
+free -h       # RAM usage
+uptime        # load average
+
+# Cek service
+systemctl status apache2
+systemctl status bind9
+
+# Cek port
+ss -tulnp
+netstat -tulnp
+
+# Log
+tail -f /var/log/apache2/access.log
+tail -f /var/log/syslog
+journalctl -xe
+```
