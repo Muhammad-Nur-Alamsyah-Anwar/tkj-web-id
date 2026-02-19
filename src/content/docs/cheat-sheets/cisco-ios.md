@@ -219,3 +219,23 @@ SW1(config)# interface range fa0/10-24
 SW1(config-if-range)# shutdown
 SW1(config-if-range)# exit
 ```
+
+## Konfigurasi EtherChannel (Link Aggregation)
+
+Gabungkan beberapa link fisik jadi satu logical link:
+
+```
+SW1(config)# interface range fa0/1-2
+SW1(config-if-range)# channel-group 1 mode active
+SW1(config-if-range)# exit
+
+SW1(config)# interface port-channel 1
+SW1(config-if)# switchport mode trunk
+SW1(config-if)# exit
+```
+
+Cek:
+
+```
+SW1# show etherchannel summary
+```
