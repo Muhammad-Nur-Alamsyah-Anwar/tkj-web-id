@@ -200,3 +200,22 @@ Cek OSPF:
 R1# show ip ospf neighbor
 R1# show ip route ospf
 ```
+
+## Konfigurasi switch Cisco (mode L2)
+
+```
+! Konfigurasi hostname
+Switch(config)# hostname SW1
+
+! Konfigurasi IP management (untuk remote akses)
+SW1(config)# interface vlan 1
+SW1(config-if)# ip address 192.168.1.2 255.255.255.0
+SW1(config-if)# no shutdown
+SW1(config-if)# exit
+SW1(config)# ip default-gateway 192.168.1.1
+
+! Matikan port yang tidak dipakai
+SW1(config)# interface range fa0/10-24
+SW1(config-if-range)# shutdown
+SW1(config-if-range)# exit
+```
