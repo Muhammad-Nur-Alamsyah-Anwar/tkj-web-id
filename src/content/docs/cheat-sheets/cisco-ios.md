@@ -239,3 +239,15 @@ Cek:
 ```
 SW1# show etherchannel summary
 ```
+
+## Verifikasi konfigurasi sebelum save
+
+Selalu cek dulu dengan `show running-config` sebelum save ke startup-config. Kalau ada yang salah, jangan save — reboot saja untuk balik ke konfigurasi lama (yang tersimpan di startup-config).
+
+Untuk undo satu perintah spesifik, tambahkan `no` di depannya:
+
+```
+Router(config)# no access-list 10
+Router(config-if)# no ip access-group 10 out
+Router(config-if)# no shutdown  ← ini salah! gunakan "shutdown" untuk matikan port
+```
