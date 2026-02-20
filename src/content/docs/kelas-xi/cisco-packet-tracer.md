@@ -425,4 +425,4 @@ traceroute <ip> → traceroute
 
 <!-- rev: feb10 -->
 
-<!-- update: 2026-02-20 -->
+<!-- rev: feb20 -->
