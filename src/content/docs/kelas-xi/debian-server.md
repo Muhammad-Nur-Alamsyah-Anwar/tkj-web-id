@@ -301,3 +301,18 @@ tail -f /var/log/apache2/access.log
 tail -f /var/log/syslog
 journalctl -xe
 ```
+
+## Troubleshooting Umum
+
+| Masalah | Kemungkinan Penyebab | Solusi |
+|---------|---------------------|--------|
+| Web tidak bisa diakses | Apache/Nginx mati | `systemctl restart apache2` |
+| DNS tidak resolve | BIND9 error | `named-checkconf`, cek log |
+| DHCP tidak memberi IP | Interface salah | Cek `/etc/default/isc-dhcp-server` |
+| FTP gagal login | chroot permission | `allow_writeable_chroot=YES` |
+| SSH connection refused | sshd mati | `systemctl start sshd` |
+
+```bash
+# Cek semua service sekaligus
+systemctl status apache2 bind9 isc-dhcp-server vsftpd smbd sshd
+```
