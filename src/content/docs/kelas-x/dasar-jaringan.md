@@ -98,3 +98,16 @@ Setiap komputer terhubung ke semua komputer lain.
 2. Layer 2 (Data Link)
 3. Layer 1 (Physical)
 </details>
+## Model OSI
+
+| Layer | Nama | Protokol | PDU |
+|-------|------|----------|-----|
+| 7 | Application | HTTP, FTP, DNS, SMTP | Data |
+| 6 | Presentation | SSL/TLS, JPEG | Data |
+| 5 | Session | NetBIOS, RPC | Data |
+| 4 | Transport | TCP, UDP | Segment |
+| 3 | Network | IP, ICMP, OSPF | Packet |
+| 2 | Data Link | Ethernet, PPP | Frame |
+| 1 | Physical | Cable, WiFi | Bit |
+
+**Mnemonic:** "All People Seem To Need Data Processing"
