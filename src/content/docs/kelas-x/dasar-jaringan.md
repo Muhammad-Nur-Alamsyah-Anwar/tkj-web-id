@@ -111,3 +111,30 @@ Setiap komputer terhubung ke semua komputer lain.
 | 1 | Physical | Cable, WiFi | Bit |
 
 **Mnemonic:** "All People Seem To Need Data Processing"
+
+## TCP vs UDP
+
+| Fitur | TCP | UDP |
+|-------|-----|-----|
+| Koneksi | Connection-oriented | Connectionless |
+| Keandalan | Reliable (ACK) | Unreliable |
+| Urutan data | Terjamin | Tidak terjamin |
+| Kecepatan | Lebih lambat | Lebih cepat |
+| Penggunaan | HTTP, FTP, SSH, Email | DNS, Video streaming, VoIP |
+
+## Port Penting
+
+| Port | Protokol | Layanan |
+|------|----------|---------|
+| 20, 21 | TCP | FTP |
+| 22 | TCP | SSH |
+| 23 | TCP | Telnet |
+| 25 | TCP | SMTP |
+| 53 | TCP/UDP | DNS |
+| 67, 68 | UDP | DHCP |
+| 80 | TCP | HTTP |
+| 110 | TCP | POP3 |
+| 143 | TCP | IMAP |
+| 443 | TCP | HTTPS |
+| 445 | TCP | SMB/Samba |
+| 3306 | TCP | MySQL |
