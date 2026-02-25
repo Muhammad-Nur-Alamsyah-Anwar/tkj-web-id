@@ -73,3 +73,23 @@ Urutkan langkah merakit PC yang benar:
 
 *Memasang komponen kecil di luar casing jauh lebih mudah daripada tangan nyelip-nyelip di dalam casing sempit!*
 </details>
+## Komponen Motherboard
+
+| Komponen | Fungsi |
+|----------|--------|
+| CPU Socket | Tempat pasang prosesor |
+| RAM Slot | Tempat pasang memori |
+| PCIe Slot | Kartu grafis, NIC |
+| SATA Port | Koneksi HDD/SSD |
+| M.2 Slot | SSD NVMe |
+| USB Header | Port USB di casing |
+| Power Connector | 24-pin ATX + 8-pin CPU |
+| BIOS Chip | Firmware motherboard |
+
+## Jenis RAM
+
+| Tipe | Kecepatan | Slot |
+|------|-----------|------|
+| DDR3 | 1066-2133 MHz | 240-pin |
+| DDR4 | 2133-3200+ MHz | 288-pin |
+| DDR5 | 4800+ MHz | 288-pin |
