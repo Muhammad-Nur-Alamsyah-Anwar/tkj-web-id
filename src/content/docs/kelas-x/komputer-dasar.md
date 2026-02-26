@@ -93,3 +93,31 @@ Urutkan langkah merakit PC yang benar:
 | DDR3 | 1066-2133 MHz | 240-pin |
 | DDR4 | 2133-3200+ MHz | 288-pin |
 | DDR5 | 4800+ MHz | 288-pin |
+
+## Perintah CMD Windows untuk Jaringan
+
+```cmd
+REM Cek IP address
+ipconfig
+ipconfig /all
+
+REM Flush DNS cache
+ipconfig /flushdns
+
+REM Ping
+ping 8.8.8.8
+ping -t 192.168.1.1    # ping terus
+
+REM Traceroute
+tracert 8.8.8.8
+
+REM Cek port terbuka
+netstat -an
+netstat -b    # dengan nama program
+
+REM ARP table
+arp -a
+
+REM DNS lookup
+nslookup google.com
+```
