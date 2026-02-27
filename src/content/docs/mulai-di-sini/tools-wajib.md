@@ -63,3 +63,22 @@ Kecil tapi sangat membantu.
 4.  [ ] **VS Code**
 5.  [ ] **ISO Debian 12** (Bookworm)
 6.  [ ] **ISO Windows 10/11** LTSC (Biar ringan)
+## Software Simulasi Jaringan
+
+| Software | Fungsi | Lisensi |
+|----------|--------|---------|
+| Cisco Packet Tracer | Simulasi Cisco | Gratis (akun Netacad) |
+| GNS3 | Simulasi router nyata | Gratis |
+| EVE-NG | Lab virtual advanced | Gratis/Berbayar |
+| VirtualBox | VM server | Gratis |
+| VMware Workstation | VM server | Berbayar |
+
+## Tools Monitoring Jaringan
+
+| Tool | Fungsi |
+|------|--------|
+| Wireshark | Packet capture/analysis |
+| Angry IP Scanner | Scan IP jaringan |
+| Advanced IP Scanner | Scan jaringan (Windows) |
+| nmap | Port scanning |
+| NetFlow Analyzer | Analisis traffic |
