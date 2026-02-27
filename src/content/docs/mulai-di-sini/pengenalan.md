@@ -44,3 +44,29 @@ Silakan buat **Pull Request** di [Repository GitHub Kami](https://github.com/Muh
 > *"Jaringan komputer itu seperti sistem saraf digital dunia. Kitalah dokter bedahnya."*
 
 Selamat belajar dan happy config! 💻🔌 — **Alam (MNA)**, Maintainer.
+## Kurikulum TKJ
+
+### Kelas X
+- Dasar-Dasar Jaringan Komputer
+- Media Transmisi
+- Komputer dan Perangkat Keras
+- Elektronika Dasar
+
+### Kelas XI
+- Administrasi Sistem Jaringan (ASJ)
+- Teknologi Layanan Jaringan
+- Mikrotik RouterOS (MTCNA)
+
+### Kelas XII
+- Troubleshooting Jaringan
+- Keamanan Jaringan
+- Projek Akhir (PKL)
+
+## Sertifikasi yang Relevan
+
+| Sertifikasi | Vendor | Level |
+|-------------|--------|-------|
+| MTCNA | MikroTik | Pemula |
+| CCNA | Cisco | Menengah |
+| CompTIA Network+ | CompTIA | Menengah |
+| LPIC-1 | Linux Professional | Menengah |
