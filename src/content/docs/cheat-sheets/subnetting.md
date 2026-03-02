@@ -258,4 +258,4 @@ Sebuah SMK memiliki network 192.168.10.0/24. Bagi menjadi subnet untuk:
 
 <!-- rev: feb24 -->
 
-<!-- update: 2026-03-02 -->
+<!-- rev: mar2 -->
