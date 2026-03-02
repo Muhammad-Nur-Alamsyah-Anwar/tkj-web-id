@@ -92,3 +92,31 @@ Router(config)# ip route 0.0.0.0 0.0.0.0 10.0.0.1
 ! Hapus static route
 Router(config)# no ip route 192.168.2.0 255.255.255.0 192.168.1.254
 ```
+
+## STP (Spanning Tree Protocol)
+
+STP mencegah loop di jaringan dengan memilih satu jalur aktif.
+
+```
+! Lihat status STP
+Switch# show spanning-tree
+
+! Set root bridge
+Switch(config)# spanning-tree vlan 1 priority 4096
+
+! PortFast (untuk end device, bukan switch lain)
+Switch(config)# interface fa0/1
+Switch(config-if)# spanning-tree portfast
+```
+
+## EtherChannel (Link Aggregation)
+
+```
+! Gabungkan 2 port menjadi 1 logical link
+Switch(config)# interface range fa0/1-2
+Switch(config-if-range)# channel-group 1 mode active
+Switch(config-if-range)# exit
+
+Switch(config)# interface port-channel 1
+Switch(config-if)# switchport mode trunk
+```
