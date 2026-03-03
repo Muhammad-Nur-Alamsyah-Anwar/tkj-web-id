@@ -120,3 +120,22 @@ Switch(config-if-range)# exit
 Switch(config)# interface port-channel 1
 Switch(config-if)# switchport mode trunk
 ```
+
+## ACL (Access Control List)
+
+```
+! Standard ACL (berdasarkan source IP saja)
+Router(config)# access-list 10 permit 192.168.1.0 0.0.0.255
+Router(config)# access-list 10 deny any
+
+! Terapkan ke interface
+Router(config)# interface fa0/1
+Router(config-if)# ip access-group 10 in
+
+! Extended ACL (source, dest, port, protokol)
+Router(config)# access-list 100 deny tcp 192.168.1.0 0.0.0.255 any eq 80
+Router(config)# access-list 100 permit ip any any
+
+! Lihat ACL
+Router# show access-lists
+```
