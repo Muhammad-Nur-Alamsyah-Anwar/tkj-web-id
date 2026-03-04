@@ -163,3 +163,29 @@ Router(config-if)# ip nat inside
 ! Lihat tabel NAT
 Router# show ip nat translations
 ```
+
+## Troubleshooting di Cisco
+
+```
+! Ping dan traceroute
+Router# ping 8.8.8.8
+Router# traceroute 8.8.8.8
+
+! Cek interface
+Router# show interfaces
+Router# show ip interface brief
+
+! Cek routing
+Router# show ip route
+
+! Cek running config
+Router# show running-config
+
+! Debug (hati-hati di jaringan produksi)
+Router# debug ip icmp
+Router# no debug all    ! Matikan debug
+
+! Save config
+Router# write memory
+Router# copy running-config startup-config
+```
