@@ -139,3 +139,27 @@ Router(config)# access-list 100 permit ip any any
 ! Lihat ACL
 Router# show access-lists
 ```
+
+## NAT di Cisco Router
+
+```
+! Static NAT (1 IP private → 1 IP public)
+Router(config)# ip nat inside source static 192.168.1.100 203.0.113.10
+
+! Dynamic NAT dengan pool
+Router(config)# ip nat pool PUBLIC-POOL 203.0.113.1 203.0.113.10 netmask 255.255.255.0
+Router(config)# access-list 1 permit 192.168.1.0 0.0.0.255
+Router(config)# ip nat inside source list 1 pool PUBLIC-POOL
+
+! PAT/Masquerade (banyak IP → 1 IP public)
+Router(config)# ip nat inside source list 1 interface fa0/0 overload
+
+! Tandai interface inside/outside
+Router(config)# interface fa0/0
+Router(config-if)# ip nat outside
+Router(config)# interface fa0/1
+Router(config-if)# ip nat inside
+
+! Lihat tabel NAT
+Router# show ip nat translations
+```
