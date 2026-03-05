@@ -163,3 +163,24 @@ chown -R ftpuser:ftpuser /home/ftpuser
 # 644 = rw-r--r-- (owner: rw-, group: r--, other: r--)
 # 600 = rw------- (owner: rw-)
 ```
+
+## Text Processing
+
+```bash
+# grep — cari teks
+grep "error" /var/log/syslog
+grep -r "ServerName" /etc/apache2/
+grep -i "failed" /var/log/auth.log   # case insensitive
+grep -n "Port" /etc/ssh/sshd_config  # tampilkan nomor baris
+
+# sed — stream editor
+sed -i 's/old/new/g' file.txt        # replace teks
+sed -n '10,20p' file.txt             # print baris 10-20
+
+# awk
+awk '{print $1}' access.log          # print kolom pertama
+awk -F: '{print $1}' /etc/passwd     # print username
+
+# cut
+cut -d: -f1 /etc/passwd              # ambil field pertama
+```
