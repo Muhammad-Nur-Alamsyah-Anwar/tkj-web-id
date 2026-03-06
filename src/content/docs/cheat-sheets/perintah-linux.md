@@ -184,3 +184,23 @@ awk -F: '{print $1}' /etc/passwd     # print username
 # cut
 cut -d: -f1 /etc/passwd              # ambil field pertama
 ```
+
+## Package Management
+
+```bash
+# Debian/Ubuntu (apt)
+apt update                    # update daftar paket
+apt upgrade                   # upgrade semua paket
+apt install nginx             # install paket
+apt remove nginx              # hapus paket
+apt purge nginx               # hapus + konfigurasi
+apt autoremove                # hapus dependensi tidak terpakai
+apt search bind               # cari paket
+dpkg -l                       # list paket terinstall
+dpkg -i package.deb           # install dari file .deb
+
+# CentOS/RHEL (yum/dnf)
+yum install httpd
+dnf install nginx
+rpm -qa                       # list semua paket
+```
