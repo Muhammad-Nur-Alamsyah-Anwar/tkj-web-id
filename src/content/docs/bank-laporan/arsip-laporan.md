@@ -35,3 +35,38 @@ Kelas : XI TKJ [A/B/C]
 SMK [Nama Sekolah]
 Tahun Pelajaran 2025/2026
 ```
+
+## Contoh Laporan: Konfigurasi DHCP Server
+
+### Tujuan
+Setelah praktikum, siswa dapat:
+- Menginstall paket isc-dhcp-server di Debian
+- Mengkonfigurasi DHCP server untuk jaringan LAN
+- Memverifikasi pemberian IP ke client
+
+### Alat dan Bahan
+- PC/VM dengan Debian 12 sebagai server
+- PC/VM client (Windows atau Linux)
+- Switch/hub (atau virtual network)
+
+### Langkah Kerja
+
+1. Install paket DHCP:
+   ```bash
+   apt install isc-dhcp-server -y
+   ```
+
+2. Backup dan edit konfigurasi:
+   ```bash
+   cp /etc/dhcp/dhcpd.conf /etc/dhcp/dhcpd.conf.bak
+   nano /etc/dhcp/dhcpd.conf
+   ```
+
+3. Konfigurasi subnet:
+   ```conf
+   subnet 192.168.100.0 netmask 255.255.255.0 {
+       range 192.168.100.50 192.168.100.200;
+       option routers 192.168.100.1;
+       option domain-name-servers 8.8.8.8;
+   }
+   ```
