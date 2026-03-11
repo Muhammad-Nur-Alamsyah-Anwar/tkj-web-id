@@ -70,3 +70,33 @@ Setelah praktikum, siswa dapat:
        option domain-name-servers 8.8.8.8;
    }
    ```
+
+## Contoh Laporan: NAT Masquerade Mikrotik
+
+### Tujuan
+Siswa dapat mengkonfigurasi Mikrotik sebagai gateway internet sharing.
+
+### Topologi
+
+```
+Internet — [ether1] Mikrotik [ether2] — Switch — PC Client
+             WAN: 192.168.1.2        LAN: 192.168.100.1
+```
+
+### Langkah Kerja
+
+1. Set IP WAN dan LAN
+2. Tambah default route
+3. Set DNS
+4. Konfigurasi NAT masquerade
+5. Buat DHCP server untuk LAN
+6. Test koneksi dari client
+
+### Verifikasi
+
+```bash
+# Di client, pastikan dapat IP dari DHCP
+# Ping ke gateway: ping 192.168.100.1
+# Ping ke internet: ping 8.8.8.8
+# Buka browser, akses google.com
+```
