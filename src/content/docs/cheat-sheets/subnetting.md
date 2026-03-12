@@ -129,3 +129,26 @@ Contoh mask 255.255.255.192:
 4. /25(.0), /26(.128), /27(.192), /29(.224)
 
 </details>
+
+## IPv6 Dasar
+
+| Komponen | Keterangan |
+|----------|-----------|
+| Panjang | 128 bit (32 hex digit) |
+| Loopback | ::1 |
+| Link-local | fe80::/10 |
+| Global Unicast | 2000::/3 |
+| Prefix standar LAN | /64 |
+
+## Konversi Binary ↔ Decimal
+
+| Desimal | Binary |
+|---------|--------|
+| 128 | 10000000 |
+| 192 | 11000000 |
+| 224 | 11100000 |
+| 240 | 11110000 |
+| 248 | 11111000 |
+| 252 | 11111100 |
+| 254 | 11111110 |
+| 255 | 11111111 |
