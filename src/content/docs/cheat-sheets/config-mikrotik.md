@@ -213,3 +213,18 @@ Kumpulan perintah CLI Mikrotik RouterOS yang sering dipakai di lapangan dan ujia
 /system package update check-for-updates
 /system package update install
 ```
+
+## Layer7 Protocol (Blokir berdasarkan Konten)
+
+```bash
+# Buat L7 pattern
+/ip firewall layer7-protocol add name=youtube regexp="(youtube.com|googlevideo.com)"
+/ip firewall layer7-protocol add name=tiktok regexp="(tiktok.com|tiktokv.com)"
+/ip firewall layer7-protocol add name=facebook regexp="(facebook.com|fbcdn.net)"
+
+# Block berdasarkan L7
+/ip firewall filter add chain=forward layer7-protocol=youtube action=drop comment="Blokir YouTube"
+
+# Jadwal blokir (time-based)
+/ip firewall filter add chain=forward layer7-protocol=youtube action=drop time=8h-17h,mon,tue,wed,thu,fri comment="Blokir YT jam kerja"
+```
