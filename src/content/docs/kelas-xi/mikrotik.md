@@ -196,3 +196,24 @@ VLAN memisahkan jaringan secara logis pada switch yang sama.
 # Mode Station (koneksi ke AP)
 /interface wireless set wlan1 mode=station ssid=ISP-Wifi
 ```
+
+## Queue Tree Lanjutan
+
+Queue Tree lebih fleksibel dari Simple Queue untuk traffic shaping kompleks.
+
+```bash
+# Step 1: Mangle — tandai traffic per IP
+/ip firewall mangle add chain=prerouting src-address=192.168.100.0/24 action=mark-connection new-connection-mark=lan-up
+/ip firewall mangle add chain=prerouting connection-mark=lan-up action=mark-packet new-packet-mark=upload-lan
+
+/ip firewall mangle add chain=postrouting dst-address=192.168.100.0/24 action=mark-connection new-connection-mark=lan-down
+/ip firewall mangle add chain=postrouting connection-mark=lan-down action=mark-packet new-packet-mark=download-lan
+
+# Step 2: Queue Tree parent
+/queue tree add name=total-upload parent=ether1 max-limit=50M
+/queue tree add name=total-download parent=ether2 max-limit=100M
+
+# Step 3: Queue child
+/queue tree add name=lan-upload parent=total-upload packet-mark=upload-lan max-limit=50M
+/queue tree add name=lan-download parent=total-download packet-mark=download-lan max-limit=100M
+```
