@@ -431,4 +431,4 @@ traceroute <ip> → traceroute
 
 <!-- update: 2026-03-11 -->
 
-<!-- update: 2026-03-17 -->
+<!-- rev: mar17 -->
