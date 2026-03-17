@@ -217,3 +217,23 @@ Queue Tree lebih fleksibel dari Simple Queue untuk traffic shaping kompleks.
 /queue tree add name=lan-upload parent=total-upload packet-mark=upload-lan max-limit=50M
 /queue tree add name=lan-download parent=total-download packet-mark=download-lan max-limit=100M
 ```
+
+## Failover (Dual WAN)
+
+Konfigurasi 2 ISP dengan failover otomatis.
+
+```bash
+# Asumsi: ether1=ISP1 (utama), ether5=ISP2 (backup)
+
+# Netwatch untuk monitor ISP1
+/tool netwatch add host=8.8.8.8 interval=30s up-script="/ip route set [find comment=ISP1] disabled=no; /ip route set [find comment=ISP2] disabled=yes" down-script="/ip route set [find comment=ISP1] disabled=yes; /ip route set [find comment=ISP2] disabled=no"
+
+# Route ISP1 (priority lebih tinggi = distance kecil)
+/ip route add dst-address=0.0.0.0/0 gateway=192.168.1.1 distance=1 comment=ISP1
+
+# Route ISP2 (backup)
+/ip route add dst-address=0.0.0.0/0 gateway=10.0.0.1 distance=2 comment=ISP2
+
+# NAT untuk ISP2
+/ip firewall nat add chain=srcnat action=masquerade out-interface=ether5 comment="NAT ISP2"
+```
