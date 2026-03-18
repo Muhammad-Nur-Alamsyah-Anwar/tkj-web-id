@@ -316,3 +316,34 @@ journalctl -xe
 # Cek semua service sekaligus
 systemctl status apache2 bind9 isc-dhcp-server vsftpd smbd sshd
 ```
+
+## Reverse Proxy dengan Nginx
+
+```bash
+# Nginx sebagai reverse proxy ke Apache di port 8080
+nano /etc/nginx/sites-available/reverse-proxy
+```
+
+```nginx
+server {
+    listen 80;
+    server_name web.tkj.local;
+
+    location / {
+        proxy_pass http://127.0.0.1:8080;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+}
+```
+
+```bash
+# Ubah Apache ke port 8080
+nano /etc/apache2/ports.conf
+# Listen 8080
+
+ln -s /etc/nginx/sites-available/reverse-proxy /etc/nginx/sites-enabled/
+nginx -t
+systemctl reload nginx
+```
