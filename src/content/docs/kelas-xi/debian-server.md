@@ -347,3 +347,30 @@ ln -s /etc/nginx/sites-available/reverse-proxy /etc/nginx/sites-enabled/
 nginx -t
 systemctl reload nginx
 ```
+
+## NTP Server
+
+```bash
+apt install ntp -y
+
+nano /etc/ntp.conf
+```
+
+```conf
+# Server NTP Indonesia
+server 0.id.pool.ntp.org iburst
+server 1.id.pool.ntp.org iburst
+server time.google.com iburst
+
+# Izinkan client di LAN sinkronisasi
+restrict 192.168.100.0 mask 255.255.255.0 nomodify notrap
+```
+
+```bash
+systemctl restart ntp
+systemctl enable ntp
+
+# Cek status
+ntpq -p
+timedatectl status
+```
