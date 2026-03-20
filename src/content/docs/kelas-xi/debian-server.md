@@ -374,3 +374,27 @@ systemctl enable ntp
 ntpq -p
 timedatectl status
 ```
+
+## LDAP Server (OpenLDAP)
+
+```bash
+apt install slapd ldap-utils -y
+
+# Konfigurasi ulang slapd
+dpkg-reconfigure slapd
+```
+
+Isi saat konfigurasi:
+- Omit initial config: **No**
+- DNS domain: **tkj.local**
+- Organization: **TKJ School**
+- Admin password: (isi)
+- Remove database: **Yes** (jika reinstall)
+
+```bash
+# Test koneksi LDAP
+ldapsearch -x -H ldap://localhost -b "dc=tkj,dc=local"
+
+# Tambah user via LDIF
+ldapadd -x -D "cn=admin,dc=tkj,dc=local" -W -f user.ldif
+```
