@@ -204,3 +204,31 @@ yum install httpd
 dnf install nginx
 rpm -qa                       # list semua paket
 ```
+
+## User dan Group Management
+
+```bash
+# Tambah user
+useradd -m -s /bin/bash username
+passwd username
+
+# Tambah ke group
+usermod -aG sudo username
+usermod -aG www-data username
+
+# Hapus user
+userdel -r username    # -r hapus home dir
+
+# Info user
+id username
+groups username
+whoami
+
+# Ganti ke user lain
+su - username
+sudo -i    # ke root
+
+# Lihat semua user
+cat /etc/passwd
+getent passwd
+```
