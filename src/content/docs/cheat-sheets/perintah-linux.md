@@ -232,3 +232,27 @@ sudo -i    # ke root
 cat /etc/passwd
 getent passwd
 ```
+
+## Cron Job
+
+```bash
+# Edit crontab user
+crontab -e
+
+# Format: menit jam hari bulan hari-minggu perintah
+# Contoh:
+0 2 * * * /usr/bin/apt update           # Update apt jam 2 pagi setiap hari
+30 6 * * 1-5 /home/user/backup.sh       # Backup jam 6:30 Senin-Jumat
+*/15 * * * * /usr/local/bin/check.sh    # Setiap 15 menit
+0 0 1 * * /scripts/monthly.sh           # Tanggal 1 setiap bulan
+
+# Lihat crontab
+crontab -l
+
+# Hapus crontab
+crontab -r
+
+# System cron
+ls /etc/cron.d/
+ls /etc/cron.daily/
+```
