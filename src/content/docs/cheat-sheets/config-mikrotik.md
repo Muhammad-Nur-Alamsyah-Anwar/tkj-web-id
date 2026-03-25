@@ -247,3 +247,22 @@ Kumpulan perintah CLI Mikrotik RouterOS yang sering dipakai di lapangan dan ujia
 # Lihat semua scheduler
 /system scheduler print
 ```
+
+## Netwatch (Monitoring Otomatis)
+
+```bash
+# Monitor koneksi ke server
+/tool netwatch add host=8.8.8.8 interval=30s comment="Monitor Google DNS"
+
+# Dengan script saat down
+/tool netwatch add host=192.168.100.10 interval=1m \
+  down-script="/log error \"Server TKJ down!\"" \
+  up-script="/log info \"Server TKJ kembali online\""
+
+# Kirim email saat down (butuh email setting)
+/tool netwatch add host=192.168.1.1 interval=30s \
+  down-script="/tool e-mail send to=admin@tkj.local subject=\"ISP Down\" body=\"ISP tidak bisa dijangkau\""
+
+# Lihat status netwatch
+/tool netwatch print
+```
