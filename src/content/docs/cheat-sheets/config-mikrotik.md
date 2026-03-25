@@ -228,3 +228,22 @@ Kumpulan perintah CLI Mikrotik RouterOS yang sering dipakai di lapangan dan ujia
 # Jadwal blokir (time-based)
 /ip firewall filter add chain=forward layer7-protocol=youtube action=drop time=8h-17h,mon,tue,wed,thu,fri comment="Blokir YT jam kerja"
 ```
+
+## Scripts dan Scheduler
+
+```bash
+# Buat script di Mikrotik
+/system script add name=backup-config source="/system backup save name=auto-backup"
+
+# Jalankan script
+/system script run backup-config
+
+# Jadwalkan dengan scheduler
+/system scheduler add name=daily-backup interval=1d on-event=backup-config start-time=02:00:00
+
+# Script reboot tiap minggu
+/system scheduler add name=weekly-reboot interval=7d on-event="/system reboot" start-time=03:00:00
+
+# Lihat semua scheduler
+/system scheduler print
+```
