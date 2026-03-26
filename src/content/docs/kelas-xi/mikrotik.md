@@ -237,3 +237,28 @@ Konfigurasi 2 ISP dengan failover otomatis.
 # NAT untuk ISP2
 /ip firewall nat add chain=srcnat action=masquerade out-interface=ether5 comment="NAT ISP2"
 ```
+
+## CAPsMAN (Controller Access Point Manager)
+
+CAPsMAN memungkinkan satu router mengontrol banyak Access Point.
+
+```bash
+# Di Controller (router utama)
+/caps-man manager set enabled=yes
+
+# Buat datapath
+/caps-man datapath add name=dp-tkj bridge=bridge1 local-forwarding=yes
+
+# Buat channel
+/caps-man channel add name=ch-2g frequency=0 band=2ghz-b/g/n width=20/40mhz-Ce
+
+# Buat configuration profile
+/caps-man configuration add name=cfg-tkj ssid=TKJ-WiFi datapath=dp-tkj channel=ch-2g
+
+# Provisioning rule
+/caps-man provisioning add action=create-dynamic-enabled master-configuration=cfg-tkj
+
+# Lihat AP yang terhubung
+/caps-man remote-cap print
+/caps-man interface print
+```
