@@ -262,3 +262,33 @@ CAPsMAN memungkinkan satu router mengontrol banyak Access Point.
 /caps-man remote-cap print
 /caps-man interface print
 ```
+
+## Summary Materi MTCNA
+
+### Topik yang Diujikan
+
+| Topik | Bobot |
+|-------|-------|
+| Routing | 20% |
+| Firewall | 20% |
+| DHCP/DNS | 15% |
+| Wireless | 15% |
+| QoS/Queue | 10% |
+| VPN/Tunneling | 10% |
+| Tools/Monitoring | 10% |
+
+### Tips Lulus MTCNA
+
+1. Pelajari command RouterOS dengan praktek langsung (CHR/RouterBOARD)
+2. Pahami konsep networking dasar (IP, routing, firewall)
+3. Gunakan Winbox dan terminal secara bergantian
+4. Kerjakan lab di buku MikroTik Training
+5. Minimal score lulus: 50% (tapi target 75%+)
+6. Ujian: online, 25 soal, 1 jam
+
+### Sumber Belajar
+
+- [help.mikrotik.com](https://help.mikrotik.com) — Dokumentasi resmi
+- MikroTik Training materials (PDF gratis)
+- YouTube: NetworkChuck, MikroTik Official
+- Forum: forum.mikrotik.com
