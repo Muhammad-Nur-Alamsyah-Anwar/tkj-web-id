@@ -3,7 +3,7 @@ title: Tools Wajib
 description: Senjata tempur software yang harus ada di laptop anak TKJ.
 ---
 
-Seorang teknisi jaringan tanpa tools yang tepat bagaikan tentara tanpa senjata. Berikut adalah daftar software "Wajib Install" untuk bertahan hidup di jurusan TKJ, disesuaikan dengan standar industri tahun 2026.
+Software yang harus ada di laptop sebelum mulai praktek apapun.
 
 :::tip[Pro Tip]
 Idealnya gunakan laptop dengan RAM 8GB + SSD. Tapi kalau RAM cuma 4GB (**Kaum Kentang**), jangan panik!

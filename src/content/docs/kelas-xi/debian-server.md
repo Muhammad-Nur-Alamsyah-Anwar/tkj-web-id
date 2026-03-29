@@ -1,11 +1,11 @@
 ---
 title: Konfigurasi Debian Server Kelas XI
-description: Panduan lengkap instalasi dan konfigurasi server Debian untuk praktik TKJ kelas XI
+description: Instalasi dan konfigurasi layanan server Debian untuk praktek TKJ kelas XI.
 ---
 
 # Konfigurasi Server Debian — Kelas XI TKJ
 
-Panduan lengkap untuk menginstall dan mengkonfigurasi berbagai layanan server menggunakan Debian Linux.
+Ini materi praktek server Debian, dari instalasi sampai konfigurasi layanan yang sering keluar di ujian.
 
 ---
 
