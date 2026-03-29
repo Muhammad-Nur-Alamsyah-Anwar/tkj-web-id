@@ -1,50 +1,25 @@
 ---
 title: Pengenalan
-description: Tentang TKJ Knowledge Hub dan Misi Kami.
+description: Tentang website ini dan kenapa aku bikin.
 ---
 
-## 👋 Selamat Datang di Markas Besar TKJ
+## Ini apa?
 
-**TKJ Knowledge Hub** adalah proyek dokumentasi terbuka ("open-source") yang didedikasikan untuk seluruh siswa, guru, dan praktisi Teknik Komputer dan Jaringan (TKJ) di Indonesia.
+Ini catatan belajar anak TKJ — aku buat waktu kelas XI karena bosen nyari-nyari referensi yang berantakan di Google.
 
-Website ini lahir dari keresahan bersama: *Materi sekolah seringkali tertinggal dari industri, dan dokumentasi teknis bahasa Indonesia yang berkualitas sulit ditemukan.*
+Isinya materi dari kelas X sampai XI, cheat sheet perintah yang sering dipakai, sama contoh laporan. Semua pakai bahasa Indonesia biar mudah, campur sedikit istilah Inggris kalau memang istilah teknisnya dari sana.
 
-Kami hadir sebagai **Survival Guide**—buku saku digital yang bisa kamu andalkan saat buntu ngerjain tugas, pusing konfigurasi router, atau panik dikejar deadline laporan PKL.
+Kalau ketemu typo atau ada yang salah, silakan bikin pull request di [repository-nya](https://github.com/Muhammad-Nur-Alamsyah-Anwar/tkj-web-id).
 
-### 🚀 Apa yang Baru di Edisi 2026?
+## Isi website
 
-Dunia jaringan komputer bergerak sangat cepat. Di tahun 2026 ini, menjadi teknisi jaringan tidak cukup hanya bisa crimping kabel LAN. Kami memperbarui materi agar relevan dengan kebutuhan industri saat ini:
+- **Mulai Di Sini** — tools yang perlu di-install sebelum praktek apapun
+- **Kelas X** — dasar jaringan, media transmisi, komputer dasar
+- **Kelas XI** — Debian server, MikroTik, Cisco Packet Tracer
+- **Cheat Sheets** — perintah-perintah yang sering lupa, tinggal cari di sini
+- **Bank Laporan** — template dan referensi buat nulis laporan PKL
 
-*   **Network Automation:** Mulai meninggalkan konfigurasi manual satu-persatu. Kita belajar scripting tipis-tipis.
-*   **Cloud Native:** Pengenalan kontainerisasi dan virtualisasi modern.
-*   **Security First:** Pola pikir keamanan di setiap layer OSI.
-
-### 📚 Struktur Materi
-
-Website ini dibagi menjadi beberapa zona belajar:
-
-1.  **Mulai Di Sini**: Persiapan mental dan tools perang wajib install.
-2.  **Kelas X (Fundamental)**: Pondasi dasar. Jangan skip bagian ini kalau tidak mau roboh di tengah jalan.
-3.  **Kelas XI (Advanced & Server)**: Dagingnya ilmu TKJ. Server administrasi (Debian) dan routing (Cisco/Mikrotik).
-4.  **Cheat Sheets**: "Senjata Rahasia". Kumpulan perintah dan konfigurasi cepat untuk kebutuhan darurat.
-5.  **Bank Laporan**: Referensi penyusunan dokumen. **Ingat: Amati, Tiru, Modifikasi (ATM). Jangan cuma Copy-Paste!**
-
-### 🤝 Kontribusi (Open Source)
-
-Proyek ini bersifat **Open Source** dan dihosting di GitHub. Artinya, **kamu** bisa ikut berkontribusi!
-
-*   Menemukan typo?
-*   Punya cara konfigurasi yang lebih efisien?
-*   Ingin menambahkan materi baru?
-
-Silakan buat **Pull Request** di [Repository GitHub Kami](https://github.com/Muhammad-Nur-Alamsyah-Anwar/tkj-web-id). Mari kita bangun ekosistem belajar yang saling mendukung.
-
----
-
-> *"Jaringan komputer itu seperti sistem saraf digital dunia. Kitalah dokter bedahnya."*
-
-Selamat belajar dan happy config! 💻🔌 — **Alam (MNA)**, Maintainer.
-## Kurikulum TKJ
+## Kurikulum
 
 ### Kelas X
 - Dasar-Dasar Jaringan Komputer
@@ -55,14 +30,14 @@ Selamat belajar dan happy config! 💻🔌 — **Alam (MNA)**, Maintainer.
 ### Kelas XI
 - Administrasi Sistem Jaringan (ASJ)
 - Teknologi Layanan Jaringan
-- Mikrotik RouterOS (MTCNA)
+- MikroTik RouterOS (MTCNA)
 
 ### Kelas XII
 - Troubleshooting Jaringan
 - Keamanan Jaringan
-- Projek Akhir (PKL)
+- Projek Akhir / PKL
 
-## Sertifikasi yang Relevan
+## Sertifikasi yang relevan
 
 | Sertifikasi | Vendor | Level |
 |-------------|--------|-------|
@@ -70,3 +45,5 @@ Selamat belajar dan happy config! 💻🔌 — **Alam (MNA)**, Maintainer.
 | CCNA | Cisco | Menengah |
 | CompTIA Network+ | CompTIA | Menengah |
 | LPIC-1 | Linux Professional | Menengah |
+
+— **Alam (MNA)**
