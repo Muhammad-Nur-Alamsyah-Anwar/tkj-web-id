@@ -1,20 +1,19 @@
 ---
 title: Tutorial MikroTik MTCNA Kelas XI
-description: Panduan lengkap konfigurasi MikroTik RouterOS untuk siswa TKJ kelas XI - materi MTCNA
+description: Catatan praktek MikroTik RouterOS kelas XI, persiapan ujian MTCNA.
 ---
 
-# Tutorial MikroTik RouterOS — Materi MTCNA Kelas XI
+# Tutorial MikroTik RouterOS — Kelas XI
 
-Panduan lengkap untuk memahami dan mengkonfigurasi MikroTik RouterOS sesuai kurikulum TKJ kelas XI dan silabus MTCNA.
+Ini catatan praktek MikroTik dari materi kelas XI. Cocok buat yang lagi persiapan ujian MTCNA atau sekadar bingung pas praktek di lab.
 
 ---
 
 ## 1. Pengenalan RouterOS
 
-### Apa itu MikroTik?
-MikroTik adalah perusahaan dari Latvia yang memproduksi perangkat jaringan dan software RouterOS. RouterOS adalah sistem operasi berbasis Linux yang dirancang khusus untuk router.
+RouterOS itu OS-nya router MikroTik, berbasis Linux. Yang sering kita pakai di sekolah biasanya versi 6.x atau 7.x tergantung hardware yang ada di lab.
 
-### Fitur utama RouterOS:
+### Fitur yang perlu diketahui:
 - **Routing** — Static, OSPF, BGP, RIP
 - **Switching** — VLAN, STP, Bonding
 - **Wireless** — AP, Station, Bridge
