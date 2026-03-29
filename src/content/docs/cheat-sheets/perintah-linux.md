@@ -3,9 +3,7 @@ title: Perintah Dasar Linux (Debian)
 description: Cheat sheet perintah terminal Linux lengkap untuk ujian praktek TKJ.
 ---
 
-Berikut adalah kumpulan perintah dasar Linux (Debian) yang wajib dihapal diluar kepala untuk ujian kompetensi kejuruan (UKK) dan praktek sehari-hari.
-
-## 📂 Manajemen File (File Management)
+## Manajemen File
 
 | Perintah | Deskripsi | Contoh Penggunaan |
 | :--- | :--- | :--- |
@@ -20,9 +18,7 @@ Berikut adalah kumpulan perintah dasar Linux (Debian) yang wajib dihapal diluar 
 | `chmod` | Mengubah permission file. | `chmod 777 script.sh` |
 | `chown` | Mengubah kepemilikan (owner) file. | `chown www-data:www-data index.html` |
 
-## 🌐 Konfigurasi Jaringan (Network Config)
-
-Fokus pada konfigurasi IP Address dan troubleshooting jaringan.
+## Konfigurasi Jaringan
 
 | Perintah | Deskripsi | Contoh Penggunaan |
 | :--- | :--- | :--- |
@@ -35,9 +31,7 @@ Fokus pada konfigurasi IP Address dan troubleshooting jaringan.
 | `nslookup` | Cek DNS resolve (perlu install `dnsutils`). | `nslookup tkj.web.id` |
 | `resolv.conf` | File konfigurasi DNS Resolver. | `nano /etc/resolv.conf` |
 
-## 👤 Manajemen User (User Management)
-
-Penting untuk keamanan dan hak akses server.
+## Manajemen User
 
 | Perintah | Deskripsi | Contoh Penggunaan |
 | :--- | :--- | :--- |
@@ -49,7 +43,7 @@ Penting untuk keamanan dan hak akses server.
 | `whoami` | Cek user yang sedang aktif. | `whoami` |
 | `sudo` | Menjalankan perintah sebagai root. | `sudo apt update` |
 
-## ℹ️ Informasi Sistem & Paket (System Info)
+## Informasi Sistem & Paket
 
 | Perintah | Deskripsi | Contoh Penggunaan |
 | :--- | :--- | :--- |
